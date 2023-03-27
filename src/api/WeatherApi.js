@@ -8,7 +8,7 @@ function addQueryString(url, key, value) {
 // Get coordinates from geolocation
 // http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
 async function getGeoCoordinates(query) {
-    let url = "http://api.openweathermap.org/geo/1.0/direct?q=" + query;
+    let url = "https://api.openweathermap.org/geo/1.0/direct?q=" + query;
     url = addQueryString(url, "limit", 1);
     url = addQueryString(url, "appid", API_KEY);
     console.debug("Fetching: ", url);
