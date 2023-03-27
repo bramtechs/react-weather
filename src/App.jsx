@@ -7,26 +7,59 @@ class WeatherApp extends Component {
         weather: null,
     };
 
-    onLocationInput = (event) => {
+    onFormSubmit = (event) => {
+        event.preventDefault();
         this.setState({
-            query: event.target.value,
-            weather: null,
+            weather: {},
         });
+    };
+
+    onFormElemChange = (event) => {
+        // if input box is empty, clear current weather info
+        if (event.target.value.length === 0) {
+            this.setState({
+                weather: null,
+            });
+            console.log("Cleared weather");
+            return;
+        }
+
+        this.setState({
+            [event.target.id]: event.target.value,
+        });
+    };
+
+    requestGPS = (event) => {
+        console.log("TODO: add request for gps location");
+    };
+
+    WeatherInfo = () => {
+        return this.state.weather === null ? (
+            <p>...</p>
+        ) : (
+            <main>
+                <header>
+                    <h2>Showing weather info for {this.state.location}</h2>
+                </header>
+                <div className="today">
+                    <TodayHourTile />
+                </div>
+            </main>
+        );
     };
 
     render() {
         return (
             <div className="weather">
-                <form>
+                <form onSubmit={this.onFormSubmit}>
                     <label for="location">Weather location</label>
-                    <input onChange={this.onLocationInput} id="location"></input>
+                    <input onChange={this.onFormElemChange} id="location"></input>
+                    <button disabled onClick={this.requestGPS}>
+                        Use device location
+                    </button>
+                    <input type="submit" value="Submit"></input>
                 </form>
-                <header>
-                    <h2>Showing weather for {this.state.query}</h2>
-                </header>
-                <div class="today">
-                    <TodayHourTile />
-                </div>
+                <this.WeatherInfo />
             </div>
         );
     }
