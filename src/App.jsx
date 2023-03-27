@@ -12,6 +12,15 @@ class WeatherApp extends Component {
         this.setState({
             weather: {},
         });
+
+        getWeatherFromLocation(this.state.location)
+            .catch((err) => {
+                this.setState({
+                    error: err,
+                });
+                console.error("An error occured!", err);
+            })
+            .then((result) => this.setState({ weather: result }));
     };
 
     onFormElemChange = (event) => {
@@ -19,6 +28,7 @@ class WeatherApp extends Component {
         if (event.target.value.length === 0) {
             this.setState({
                 weather: null,
+                error: null,
             });
             console.log("Cleared weather");
             return;
@@ -41,8 +51,11 @@ class WeatherApp extends Component {
                 <header>
                     <h2>Showing weather info for {this.state.location}</h2>
                 </header>
+                <p style={{ color: "hotpink" }}>{this.state.error}</p>
                 <div className="today">
-                    <TodayHourTile />
+                    <p>Work in progress if you couldn't tell.</p>
+                    <p>{JSON.stringify(this.state.weather)}</p>
+                    <WeatherTile />
                 </div>
             </main>
         );
@@ -52,7 +65,7 @@ class WeatherApp extends Component {
         return (
             <div className="weather">
                 <form onSubmit={this.onFormSubmit}>
-                    <label for="location">Weather location</label>
+                    <label htmlFor="location">Weather location</label>
                     <input onChange={this.onFormElemChange} id="location"></input>
                     <button disabled onClick={this.requestGPS}>
                         Use device location
@@ -65,7 +78,7 @@ class WeatherApp extends Component {
     }
 }
 
-class TodayHourTile extends Component {
+class WeatherTile extends Component {
     constructor(props) {
         super(props);
     }

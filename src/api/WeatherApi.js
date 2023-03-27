@@ -11,6 +11,7 @@ async function getGeoCoordinates(query) {
     let url = "http://api.openweathermap.org/geo/1.0/direct?q=" + query;
     url = addQueryString(url, "limit", 1);
     url = addQueryString(url, "appid", API_KEY);
+    console.debug("Fetching: ", url);
 
     let json = undefined;
     let response = await fetch(url);
@@ -49,6 +50,7 @@ async function getWeatherFromCoords(coords) {
 // Get weather from location
 export default async function getWeatherFromLocation(location) {
     const coords = await getGeoCoordinates(location);
-    const info = getWeatherFromCoords(coords);
+    console.log(coords[0]);
+    const info = getWeatherFromCoords(coords[0]);
     return info;
 }
