@@ -1,7 +1,10 @@
 # React Weather
-## aka. forcing myself to learn and enjoy web development
+
+## Forcing myself to learn and enjoy web development
 
 My first project in React ever, a weather app!
+
+**Live Preview:** https://bramtechs.github.io/react-weather/
 
 ## References
 
