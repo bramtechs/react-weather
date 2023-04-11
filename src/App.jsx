@@ -2,42 +2,46 @@ import { Component } from "react";
 import getWeatherFromLocation from "./api/WeatherApi";
 import "./App.css";
 
-class WeatherApp extends Component {
-    constructor(props){
+class WeatherLoadingIcon extends Component {
+    constructor(props) {
         super(props);
-        this.searchWeather("Bruges");
+    }
+}
+
+class WeatherApp extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
     }
 
-    state = {
-        weather: null,
+    componentDidMount = () => {
+        this.clear();
+        this.searchWeather("Bruges");
     };
 
-    searchWeather = (location) => {
+    clear() {
         this.setState({
-            weather: null,
+            data: null,
         });
-
-        getWeatherFromLocation(location)
-            .catch((err) => {
-                this.setState({
-                    error: err,
-                });
-                console.error("An error occured!", err);
-            })
-            .then((result) => {
-                console.log(result);
-                this.setState({ weather: result });
-            });
+        console.debug("Cleared weather");
     };
 
-    onFormElemChange = (event) => {
+    setState(state) {
+        super.setState(state);
+        console.warn("Changed state to", state);
+    }
+
+    async searchWeather(location) {
+        const data = await getWeatherFromLocation(location);
+        this.setState({
+            data: data,
+        });
+    };
+
+    onFormElemChange(event) {
         // if input box is empty, clear current weather info
         if (event.target.value.length === 0) {
-            this.setState({
-                weather: null,
-                error: null,
-            });
-            console.log("Cleared weather");
+            this.clear();
             return;
         }
 
@@ -46,19 +50,18 @@ class WeatherApp extends Component {
         });
     };
 
-    requestGPS = (event) => {
+    requestGPS(event) {
         console.log("TODO: add request for gps location");
     };
 
-    WeatherInfo = () => {
-        return     };
-
-    onFormSubmit = (event) => {
+    onFormSubmit(event) {
         event.preventDefault();
         this.searchWeather(this.state.location);
-    }
+    };
 
     render() {
+        const weather = this.state.data ? this.state.data.weather : null;
+        const error = this.state.data ? this.state.data.error : null;
         return (
             <div className="weather">
                 <form onSubmit={this.onFormSubmit}>
@@ -69,19 +72,25 @@ class WeatherApp extends Component {
                     </button>
                     <input type="submit" value="Submit"></input>
                 </form>
-                { this.state.weather === null ? (
-                    <p>...</p>
+                {error ? (
+                    <div>
+                        <p style={{ color: "hotpink" }}>{error}</p>
+                    </div>
                 ) : (
+                    <div></div>
+                )}
+                {weather ? (
                     <main>
                         <header>
-                            <h2>Showing weather info for {this.state.location}</h2>
+                            <h2>Showing weather info for {weather.name}</h2>
                         </header>
-                        <p style={{ color: "hotpink" }}>{this.state.error}</p>
                         <div className="today">
                             <p>Work in progress if you couldn't tell.</p>
-                            <p>{this.state.weather.main.temp}</p>
+                            <p>{weather.main.temp}</p>
                         </div>
                     </main>
+                ) : (
+                    <p>...</p>
                 )}
             </div>
         );

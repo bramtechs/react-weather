@@ -46,10 +46,70 @@ async function getWeatherFromCoords(coords) {
     return json;
 }
 
+const _testData = {
+    coord: {
+        lon: 3.2268,
+        lat: 51.2086,
+    },
+    weather: [
+        {
+            id: 500,
+            main: "Rain",
+            description: "light rain",
+            icon: "10n",
+        },
+    ],
+    base: "stations",
+    main: {
+        temp: 8.13,
+        feels_like: 4.25,
+        temp_min: 7.28,
+        temp_max: 8.99,
+        pressure: 1008,
+        humidity: 85,
+        sea_level: 1008,
+        grnd_level: 1007,
+    },
+    visibility: 10000,
+    wind: {
+        speed: 7.98,
+        deg: 189,
+        gust: 12.93,
+    },
+    rain: {
+        "1h": 0.84,
+    },
+    clouds: {
+        all: 100,
+    },
+    dt: 1681244758,
+    sys: {
+        type: 2,
+        id: 2006961,
+        country: "BE",
+        sunrise: 1681189275,
+        sunset: 1681238087,
+    },
+    timezone: 7200,
+    id: 2800931,
+    name: "Bruges",
+    cod: 200,
+};
+
 // Get weather from location
 export default async function getWeatherFromLocation(location) {
-    const coords = await getGeoCoordinates(location);
-    console.log(coords[0]);
-    const info = getWeatherFromCoords(coords[0]);
-    return info;
+    try {
+        // throw new Error("an error");
+        return {
+            weather: _testData,
+        };
+        const coords = await getGeoCoordinates(location);
+        console.log(coords[0]);
+        const info = getWeatherFromCoords(coords[0]);
+        return info;
+    } catch (e) {
+        return {
+            error: e.toString(),
+        };
+    }
 }
