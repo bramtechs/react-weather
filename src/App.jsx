@@ -3,24 +3,31 @@ import getWeatherFromLocation from "./api/WeatherApi";
 import "./App.css";
 
 class WeatherApp extends Component {
+    constructor(props){
+        super(props);
+        this.searchWeather("Bruges");
+    }
+
     state = {
         weather: null,
     };
 
-    onFormSubmit = (event) => {
-        event.preventDefault();
+    searchWeather = (location) => {
         this.setState({
-            weather: {},
+            weather: null,
         });
 
-        getWeatherFromLocation(this.state.location)
+        getWeatherFromLocation(location)
             .catch((err) => {
                 this.setState({
                     error: err,
                 });
                 console.error("An error occured!", err);
             })
-            .then((result) => this.setState({ weather: result }));
+            .then((result) => {
+                console.log(result);
+                this.setState({ weather: result });
+            });
     };
 
     onFormElemChange = (event) => {
@@ -44,22 +51,12 @@ class WeatherApp extends Component {
     };
 
     WeatherInfo = () => {
-        return this.state.weather === null ? (
-            <p>...</p>
-        ) : (
-            <main>
-                <header>
-                    <h2>Showing weather info for {this.state.location}</h2>
-                </header>
-                <p style={{ color: "hotpink" }}>{this.state.error}</p>
-                <div className="today">
-                    <p>Work in progress if you couldn't tell.</p>
-                    <p>{JSON.stringify(this.state.weather)}</p>
-                    <WeatherTile />
-                </div>
-            </main>
-        );
-    };
+        return     };
+
+    onFormSubmit = (event) => {
+        event.preventDefault();
+        this.searchWeather(this.state.location);
+    }
 
     render() {
         return (
@@ -72,7 +69,40 @@ class WeatherApp extends Component {
                     </button>
                     <input type="submit" value="Submit"></input>
                 </form>
-                <this.WeatherInfo />
+                { this.state.weather === null ? (
+                    <p>...</p>
+                ) : (
+                    <main>
+                        <header>
+                            <h2>Showing weather info for {this.state.location}</h2>
+                        </header>
+                        <p style={{ color: "hotpink" }}>{this.state.error}</p>
+                        <div className="today">
+                            <p>Work in progress if you couldn't tell.</p>
+                            <p>{this.state.weather.main.temp}</p>
+                        </div>
+                    </main>
+                )}
+            </div>
+        );
+    }
+}
+
+class LiveWeatherInfo extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        console.log("w", this.props.info);
+        const info = this.props.info;
+        console.log(info);
+        return info === null ? (
+            <div></div>
+        ) : (
+            <div className="wlive">
+                <h2>Live weather info</h2>
+                <p>{info.main.temp}</p>
             </div>
         );
     }

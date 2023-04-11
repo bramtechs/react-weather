@@ -36,7 +36,6 @@ async function getWeatherFromCoords(coords) {
     url = addQueryString(url, "appid", API_KEY);
 
     let json = undefined;
-
     let response = await fetch(url);
     if (response.ok) {
         json = await response.json();
