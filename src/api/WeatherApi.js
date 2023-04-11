@@ -1,3 +1,5 @@
+import { _config } from "../Config";
+
 // FIXME: Don't include directly in here!
 const API_KEY = "db6b3fff5256fe57907e84c800f2d027";
 
@@ -99,14 +101,16 @@ const _testData = {
 // Get weather from location
 export default async function getWeatherFromLocation(location) {
     try {
-        // throw new Error("an error");
-        return {
-            weather: _testData,
-        };
-        const coords = await getGeoCoordinates(location);
-        console.log(coords[0]);
-        const info = getWeatherFromCoords(coords[0]);
-        return info;
+        if (_config.testMode) {
+            return {
+                weather: _testData,
+            };
+        } else {
+            const coords = await getGeoCoordinates(location);
+            return {
+                weather: await getWeatherFromCoords(coords[0]),
+            };
+        }
     } catch (e) {
         return {
             error: e.toString(),

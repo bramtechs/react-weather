@@ -2,9 +2,33 @@ import { Component } from "react";
 import getWeatherFromLocation from "./api/WeatherApi";
 import "./App.css";
 
-class WeatherLoadingIcon extends Component {
+class WeatherForm extends Component {
     constructor(props) {
         super(props);
+    }
+
+    onElemChange = (event) => {
+        this.setState({
+            [event.target.id]: event.target.value,
+        });
+    }
+
+    render() {
+        return (
+            <form
+                onSubmit={(event) => {
+                    event.preventDefault();
+                    this.props.onFormSubmit(this.state);
+                }}
+            >
+                <label htmlFor="location">Weather location</label>
+                <input onChange={this.onElemChange} id="location"></input>
+                <button disabled onClick={this.requestGPS}>
+                    Use device location
+                </button>
+                <input type="submit" value="Submit"></input>
+            </form>
+        );
     }
 }
 
@@ -24,11 +48,6 @@ class WeatherApp extends Component {
             data: null,
         });
         console.debug("Cleared weather");
-    };
-
-    setState(state) {
-        super.setState(state);
-        console.warn("Changed state to", state);
     }
 
     async searchWeather(location) {
@@ -36,42 +55,24 @@ class WeatherApp extends Component {
         this.setState({
             data: data,
         });
-    };
-
-    onFormElemChange(event) {
-        // if input box is empty, clear current weather info
-        if (event.target.value.length === 0) {
-            this.clear();
-            return;
-        }
-
-        this.setState({
-            [event.target.id]: event.target.value,
-        });
-    };
+    }
 
     requestGPS(event) {
         console.log("TODO: add request for gps location");
-    };
+    }
 
     onFormSubmit(event) {
         event.preventDefault();
         this.searchWeather(this.state.location);
-    };
+    }
 
     render() {
-        const weather = this.state.data ? this.state.data.weather : null;
+        const weather = this.state.data ? this.state.data.weather: null;
         const error = this.state.data ? this.state.data.error : null;
+        console.log(weather);
         return (
             <div className="weather">
-                <form onSubmit={this.onFormSubmit}>
-                    <label htmlFor="location">Weather location</label>
-                    <input onChange={this.onFormElemChange} id="location"></input>
-                    <button disabled onClick={this.requestGPS}>
-                        Use device location
-                    </button>
-                    <input type="submit" value="Submit"></input>
-                </form>
+                <WeatherForm onFormSubmit={(form) => this.searchWeather(form.location)}></WeatherForm>
                 {error ? (
                     <div>
                         <p style={{ color: "hotpink" }}>{error}</p>
