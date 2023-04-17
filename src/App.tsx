@@ -3,36 +3,9 @@ import { Component, useEffect, useState } from "react";
 import { EmptyQuery, searchWeather, WeatherQuery, WeatherResponse } from "./api/WeatherApi";
 
 import "./App.css";
+import {WeatherForm} from "./WeatherForm";
 
 // TODO: Implement settings menu
-
-const WeatherForm = (props: { onFormSubmit: (query?: WeatherQuery) => void }) => {
-    function getQuery(): WeatherQuery {
-        if (!query) {
-            query = EmptyQuery;
-        }
-        return query;
-    }
-
-    function requestGPS() {}
-
-    let [query] = useState<WeatherQuery>();
-    return (
-        <form
-            onSubmit={(event) => {
-                event.preventDefault();
-                props.onFormSubmit(query);
-            }}
-        >
-            <label htmlFor="location">Weather location</label>
-            <input onChange={(e) => (getQuery().city = e.target.value)} id="location"></input>
-            <button disabled onClick={() => requestGPS()}>
-                Use device location
-            </button>
-            <input type="submit" value="Submit"></input>
-        </form>
-    );
-};
 
 const WeatherApp = () => {
     const [response, setResponse] = useState<WeatherResponse>(WeatherResponse.Nothing);
@@ -75,23 +48,6 @@ const WeatherApp = () => {
                 ),
                 Nothing: () => <div></div>,
             })}
-        </div>
-    );
-};
-
-const LiveWeatherInfo = (props: { resp: CurrentResponse }) => {
-    return (
-        <div className="wlive">
-            <h2>Live weather info</h2>
-            <p>{props.resp.main.temp}</p>
-        </div>
-    );
-};
-
-const WeatherTile = () => {
-    return (
-        <div className="wtile">
-            <p>Put weather info here</p>
         </div>
     );
 };
