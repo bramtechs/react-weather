@@ -2,7 +2,7 @@ import { CurrentResponse } from "openweathermap-ts/dist/types";
 import { Component, useEffect, useState } from "react";
 import { EmptyQuery, searchWeather, WeatherQuery, WeatherResponse } from "./api/WeatherApi";
 
-import "./App.css";
+import "./WeatherApp.css";
 import {WeatherForm} from "./WeatherForm";
 
 // TODO: Implement settings menu

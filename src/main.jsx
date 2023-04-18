@@ -1,10 +1,15 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import WeatherApp from "./WeatherApp";
+import "./index.css";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+const $rootElem = document.getElementById("root");
+if ($rootElem) {
+    ReactDOM.createRoot($rootElem).render(
+        <React.StrictMode>
+            <WeatherApp />
+        </React.StrictMode>
+    );
+} else {
+    console.error("Root element not found!");
+}
