@@ -2,16 +2,10 @@ import {useState} from "react";
 import {EmptyQuery, WeatherQuery} from "./api/WeatherApi";
 
 export const WeatherForm = (props: { onFormSubmit: (query?: WeatherQuery) => void }) => {
-    function getQuery(): WeatherQuery {
-        if (!query) {
-            query = EmptyQuery;
-        }
-        return query;
-    }
+    const [query] = useState<WeatherQuery>(EmptyQuery);
 
     function requestGPS() {}
 
-    let [query] = useState<WeatherQuery>();
     return (
         <form
             onSubmit={(event) => {
@@ -20,7 +14,7 @@ export const WeatherForm = (props: { onFormSubmit: (query?: WeatherQuery) => voi
             }}
         >
             <label htmlFor="location">Weather location</label>
-            <input onChange={(e) => (getQuery().city = e.target.value)} id="location"></input>
+            <input onChange={(e) => (query.city = e.target.value)} id="location"></input>
             <button disabled onClick={() => requestGPS()}>
                 Use device location
             </button>

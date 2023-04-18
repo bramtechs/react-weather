@@ -4,6 +4,7 @@ import { EmptyQuery, searchWeather, WeatherQuery, WeatherResponse } from "./api/
 
 import "./WeatherApp.css";
 import { WeatherForm } from "./WeatherForm";
+import { WeatherSettings } from "./WeatherSettings";
 
 enum AppState {
     Main,
@@ -34,6 +35,7 @@ const WeatherApp = () => {
         case AppState.Main:
             return (
                 <div className="weather">
+                    <button onClick={() => setState(AppState.Settings)}>Settings</button>
                     <WeatherForm onFormSubmit={onFormReceived}></WeatherForm>
                     {response.match({
                         Info: (resp: CurrentResponse) => (
@@ -57,7 +59,7 @@ const WeatherApp = () => {
                 </div>
             );
         case AppState.Settings:
-            return <div>Settings</div>;
+            return <WeatherSettings></WeatherSettings>;
         default:
             throw new Error("Unknown AppState!");
     }
