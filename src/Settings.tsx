@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DefaultSettings, TempUnit, WeatherSettings } from "./WeatherAbstractor";
+import { changeSettings, DefaultSettings, TempUnit, WeatherSettings } from "./WeatherAbstractor";
 
 export const Settings = (props: { onFormSubmit: () => void }) => {
     const [settings] = useState<WeatherSettings>(DefaultSettings);
@@ -9,6 +9,9 @@ export const Settings = (props: { onFormSubmit: () => void }) => {
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
+                    if (settings) {
+                        changeSettings(settings);
+                    }
                     props.onFormSubmit();
                 }}
             >
