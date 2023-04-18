@@ -1,12 +1,13 @@
 import { _config } from "../Config";
 
 import OpenWeatherMap from "openweathermap-ts";
-import { CurrentResponse } from "openweathermap-ts/dist/types";
+import { CurrentResponse, Unit } from "openweathermap-ts/dist/types";
 import { makeTaggedUnion, MemberType, none } from "safety-match";
 
-const openWeather = new OpenWeatherMap({
+const _OpenWeather = new OpenWeatherMap({
     // FIXME: Don't include directly in here!
     apiKey: "db6b3fff5256fe57907e84c800f2d027",
+    units: "metric",
 });
 
 // NOTE: Rust-like enums
@@ -17,21 +18,13 @@ export const WeatherResponse = makeTaggedUnion({
 });
 export type WeatherResponse = MemberType<typeof WeatherResponse>;
 
-export type WeatherQuery = {
-    city: string;
-};
-
-export const EmptyQuery: WeatherQuery = {
-    city: "",
-};
-
-export async function searchWeather(query: WeatherQuery): Promise<WeatherResponse> {
-    if (query.city === _testData.name && _config.testMode) {
+export async function searchWeather(cityName: string): Promise<WeatherResponse> {
+    if (cityName === _testData.name && _config.testMode) {
         return WeatherResponse.Info(_testData);
     }
     try {
-        const result = await openWeather.getCurrentWeatherByCityName({
-            cityName: query.city,
+        const result = await _OpenWeather.getCurrentWeatherByCityName({
+            cityName: cityName,
         });
         return WeatherResponse.Info(result);
     } catch (exc: any) {
