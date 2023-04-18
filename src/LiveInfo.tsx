@@ -1,6 +1,5 @@
-import { CurrentResponse } from "openweathermap-ts/dist/types";
 import { useEffect, useState } from "react";
-import { LoadingIcon } from "./gfx/LoadingIcon";
+import LoadingIcons from "react-loading-icons";
 import { getCurrentTemperature } from "./WeatherAbstractor";
 
 type LiveInfo = {
@@ -29,7 +28,7 @@ export const LiveInfo = (props: { city: string }) => {
                     <p>{info.temp}</p>
                 </div>
             ) : (
-                <LoadingIcon></LoadingIcon>
+                <LoadingIcons.BallTriangle />
             )}
         </div>
     );

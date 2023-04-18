@@ -13,6 +13,7 @@
     "openweathermap-ts": "^1.2.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-loading-icons": "^1.1.0",
     "safety-match": "^0.4.4"
   },
   "devDependencies": {
