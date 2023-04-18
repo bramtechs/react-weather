@@ -20,7 +20,7 @@ const WeatherApp = () => {
                 <div className="weather">
                     <button onClick={() => setState(AppState.Settings)}>Settings</button>
                     <WeatherForm onFormSubmit={(q) => setCityName(q)}></WeatherForm>
-                    {cityName ? <LiveInfo key={cityName} city={cityName}></LiveInfo> : <p>Enter in a city name</p>}
+                    {cityName ? <LiveInfo city={cityName}></LiveInfo> : <p>Enter in a city name</p>}
                 </div>
             );
         case AppState.Settings:

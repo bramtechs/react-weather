@@ -3,7 +3,7 @@ import LoadingIcons from "react-loading-icons";
 import { getCurrentTemperature } from "./WeatherAbstractor";
 
 type LiveInfo = {
-    temp: number;
+    temp: string;
 };
 
 export const LiveInfo = (props: { city: string }) => {
@@ -24,7 +24,7 @@ export const LiveInfo = (props: { city: string }) => {
         <div className="wlive">
             {info ? (
                 <div>
-                    <h2>Live weather info</h2>
+                    <h2>Live weather info in {props.city}</h2>
                     <p>{info.temp}</p>
                 </div>
             ) : (

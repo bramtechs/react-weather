@@ -46,7 +46,7 @@ function convertCelciusToUnit(amount: number, unit: TempUnit) {
     }
 }
 
-function formatTemp(amount: number, unit: TempUnit) {
+function formatTemp(amount: any, unit: TempUnit) {
     switch (unit) {
         case "Celsius":
             return amount + " °C";
@@ -57,11 +57,11 @@ function formatTemp(amount: number, unit: TempUnit) {
     }
 }
 
-export async function getCurrentTemperature(cityName: string) {
+export async function getCurrentTemperature(cityName: string): Promise<string> {
     let resp = await fetchIfNeeded(cityName);
     if (resp) {
         const temp = convertCelciusToUnit(resp.main.temp, _WeatherSettings.unit);
         return formatTemp(Math.floor(temp), _WeatherSettings.unit);
     }
-    return -1;
+    return formatTemp("??", _WeatherSettings.unit);
 }
