@@ -1,8 +1,28 @@
-const WeatherTile = () => {
-    return (
-        <div className="wtile">
-            <p>Put weather info here</p>
-        </div>
-    );
+import { useEffect, useState } from "react";
+import LoadingIcons from "react-loading-icons";
+import { WeatherType } from "./WeatherAbstractor";
+
+export type TileInfo = {
+    temp: string;
+    weather: WeatherType;
 };
 
+export const WeatherTile = (props: { infoFunc: Promise<TileInfo> }) => {
+    const [info, setInfo] = useState<TileInfo | null>();
+
+    useEffect(() => {
+        async function fetchWeather() {
+            setInfo(await props.infoFunc);
+        }
+        fetchWeather();
+    }, [props.infoFunc]);
+
+    return info ? (
+        <div style={{ border: "medium solid red" }} className="wtile">
+            <span>{info.temp}</span>
+            <p>{info.weather}</p>
+        </div>
+    ) : (
+        <LoadingIcons.ThreeDots />
+    );
+};
