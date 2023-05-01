@@ -1,6 +1,6 @@
 import { CurrentResponse } from "openweathermap-ts/dist/types";
 import { searchWeather } from "./api/WeatherApi";
-import {TileInfo} from "./WeatherTile";
+import { TileInfo } from "./WeatherTile";
 
 export type TempUnit = "Celsius" | "Fahrenheit" | "Kelvin";
 
@@ -8,7 +8,11 @@ export type WeatherSettings = {
     unit: TempUnit;
 };
 
-export type WeatherType = String;
+export enum WeatherType {
+    Clouds,
+    Sunny,
+    Unknown,
+}
 
 export const DefaultSettings: WeatherSettings = {
     unit: "Celsius",

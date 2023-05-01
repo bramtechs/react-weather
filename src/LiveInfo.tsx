@@ -1,22 +1,22 @@
-import { ReactNode, useEffect, useState } from "react";
-import LoadingIcons from "react-loading-icons";
-import { BGColor, WeatherBackground } from "./gfx/TileBackground";
-import { getLiveWeather } from "./WeatherAbstractor";
+import { ReactNode } from "react";
+import { TileContainer } from "./TileContainer";
+import { getLiveWeather, WeatherType } from "./WeatherAbstractor";
 import { WeatherTile } from "./WeatherTile";
 
 export const LiveInfo = (props: { city: string }) => {
     return (
         <div className="wlive">
             <div>
-                <WeatherBackground
-                    color={BGColor.Yellow}
+                <TileContainer
+                    type={WeatherType.Sunny}
                     builderFunc={(): ReactNode => (
                         <div>
-                            <h2>Live weather info in {props.city}</h2>
+                            <h2>Live weather</h2>
+                            <h3>{props.city}</h3>
                             <WeatherTile infoFunc={getLiveWeather(props.city)}></WeatherTile>
                         </div>
                     )}
-                ></WeatherBackground>
+                ></TileContainer>
             </div>
         </div>
     );
