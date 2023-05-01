@@ -1,5 +1,6 @@
 import { CurrentResponse } from "openweathermap-ts/dist/types";
-import { TempUnit, UserSettings } from "../storage/SettingsAbstractor";
+import { UserSettings } from "../storage/SettingsAbstractor";
+import { convertCelciusToUnit, formatTemp, stringToWeatherType } from "./WeatherUtils";
 import { searchWeather } from "./WeatherApi";
 
 export type WeatherInfo = {
@@ -7,26 +8,15 @@ export type WeatherInfo = {
     weather: [WeatherType, string];
 };
 
+export type WeatherQuery = {
+    city: String;
+    coordinates: String;
+};
+
 export enum WeatherType {
     Unknown,
     Clouds,
     Sunny,
-}
-
-export function stringToWeatherType(type: string): WeatherType {
-    const weatherTypeKeys = Object.keys(WeatherType);
-    const weatherTypeKey = weatherTypeKeys.find((key) => key === type);
-    const literal = WeatherType[weatherTypeKey as keyof typeof WeatherType];
-    if (literal) {
-        return literal;
-    }
-    // edge cases
-    switch (type.toLowerCase()) {
-        case "clear":
-            return WeatherType.Sunny;
-        default:
-            return WeatherType.Unknown;
-    }
 }
 
 let _CachedResponse: CurrentResponse | undefined;
@@ -45,29 +35,6 @@ async function fetchIfNeeded(cityName: string): Promise<CurrentResponse | undefi
         });
     }
     return _CachedResponse;
-}
-
-// TODO: Move to WeatherUtils.ts
-function convertCelciusToUnit(amount: number, unit: TempUnit) {
-    switch (unit) {
-        case "Celsius":
-            return amount;
-        case "Fahrenheit":
-            return amount + 33.8;
-        case "Kelvin":
-            return amount + 274.15;
-    }
-}
-
-function formatTemp(amount: any, unit: TempUnit) {
-    switch (unit) {
-        case "Celsius":
-            return amount + " °C";
-        case "Fahrenheit":
-            return amount + " °F";
-        case "Kelvin":
-            return amount + " K";
-    }
 }
 
 export async function getLiveWeather(cityName: string): Promise<WeatherInfo> {

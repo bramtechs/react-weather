@@ -1,4 +1,5 @@
-import { stringToWeatherType, WeatherType } from "../../src/api/WeatherAbstractor";
+import { WeatherType } from "../../src/api/WeatherAbstractor";
+import { stringToWeatherType } from "../../src/api/WeatherUtils";
 
 describe("Test string to weather type", () => {
     test("Sunny weather type should be WeatherType.Sunny", () => {
