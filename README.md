@@ -1,5 +1,7 @@
 # React Weather
 
+_"Imagine looking out of your window to see if the sun is shining."_
+
 ## Forcing myself to learn and enjoy web development
 
 My first project in React ever, a weather app!
