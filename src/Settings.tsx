@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { changeSettings, DefaultSettings, TempUnit, WeatherSettings } from "./WeatherAbstractor";
+import { changeSettings, DefaultSettings, TempUnit, WeatherSettings } from "./api/WeatherAbstractor";
 
 export const Settings = (props: { onFormSubmit: () => void }) => {
     const [settings] = useState<WeatherSettings>(DefaultSettings);

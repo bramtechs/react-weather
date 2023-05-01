@@ -1,6 +1,5 @@
 import { CurrentResponse } from "openweathermap-ts/dist/types";
-import { searchWeather } from "./api/WeatherApi";
-import { TileInfo } from "./WeatherTile";
+import { searchWeather } from "./WeatherApi";
 
 export type TempUnit = "Celsius" | "Fahrenheit" | "Kelvin";
 
@@ -8,10 +7,31 @@ export type WeatherSettings = {
     unit: TempUnit;
 };
 
+export type WeatherInfo = {
+    temp: string;
+    weather: [WeatherType, string];
+};
+
 export enum WeatherType {
+    Unknown,
     Clouds,
     Sunny,
-    Unknown,
+}
+
+export function stringToWeatherType(type: string): WeatherType {
+    const weatherTypeKeys = Object.keys(WeatherType);
+    const weatherTypeKey = weatherTypeKeys.find((key) => key === type);
+    const literal = WeatherType[weatherTypeKey as keyof typeof WeatherType];
+    if (literal) {
+        return literal;
+    }
+    // edge cases
+    switch (type.toLowerCase()) {
+        case "clear":
+            return WeatherType.Sunny;
+        default:
+            return WeatherType.Unknown;
+    }
 }
 
 export const DefaultSettings: WeatherSettings = {
@@ -65,8 +85,8 @@ function formatTemp(amount: any, unit: TempUnit) {
     }
 }
 
-export async function getLiveWeather(cityName: string): Promise<TileInfo> {
-    let live: TileInfo = {
+export async function getLiveWeather(cityName: string): Promise<WeatherInfo> {
+    let live: WeatherInfo = {
         temp: await getCurrentTemperature(cityName),
         weather: await getCurrentWeatherType(cityName),
     };
@@ -82,10 +102,11 @@ async function getCurrentTemperature(cityName: string): Promise<string> {
     return formatTemp("??", _WeatherSettings.unit);
 }
 
-async function getCurrentWeatherType(cityName: string): Promise<WeatherType> {
+async function getCurrentWeatherType(cityName: string): Promise<[WeatherType, string]> {
     let resp = await fetchIfNeeded(cityName);
     if (resp) {
-        return resp.weather[0].main;
+        const type = resp.weather[0].main;
+        return [stringToWeatherType(type), type];
     }
-    return "Unknown";
+    return [WeatherType.Unknown, "Unknown"];
 }

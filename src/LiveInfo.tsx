@@ -1,19 +1,19 @@
 import { ReactNode } from "react";
 import { TileContainer } from "./TileContainer";
-import { getLiveWeather, WeatherType } from "./WeatherAbstractor";
-import { WeatherTile } from "./WeatherTile";
+import { getLiveWeather, WeatherInfo, WeatherType } from "./api/WeatherAbstractor";
 
 export const LiveInfo = (props: { city: string }) => {
     return (
         <div className="wlive">
             <div>
                 <TileContainer
-                    type={WeatherType.Sunny}
-                    builderFunc={(): ReactNode => (
+                    retriever={getLiveWeather(props.city)}
+                    builder={(info: WeatherInfo): ReactNode => (
                         <div>
                             <h2>Live weather</h2>
                             <h3>{props.city}</h3>
-                            <WeatherTile infoFunc={getLiveWeather(props.city)}></WeatherTile>
+                            <span>{info.temp}</span>
+                            <p>{info.weather[1]}</p>
                         </div>
                     )}
                 ></TileContainer>
