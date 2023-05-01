@@ -18,7 +18,7 @@ export const WeatherTile = (props: { infoFunc: Promise<TileInfo> }) => {
     }, [props.infoFunc]);
 
     return info ? (
-        <div style={{ border: "medium solid red" }} className="wtile">
+        <div className="wtile">
             <span>{info.temp}</span>
             <p>{info.weather}</p>
         </div>
