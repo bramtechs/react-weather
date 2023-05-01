@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { WeatherQuery } from "./api/WeatherAbstractor";
 
 // TODO: Put in a popup and switch to tile '+' button
-export const WeatherForm = (props: { onFormSubmit: (cityName: string | undefined) => void }) => {
-    const [cityName, setCityName] = useState<string>();
+export const WeatherForm = (props: { onFormSubmit: (query: WeatherQuery | undefined) => void }) => {
+    const [query, setQuery] = useState<WeatherQuery>();
 
     function requestGPS() {}
 
@@ -10,12 +11,12 @@ export const WeatherForm = (props: { onFormSubmit: (cityName: string | undefined
         <form
             onSubmit={(event) => {
                 event.preventDefault();
-                props.onFormSubmit(cityName);
-                console.log("Querying", cityName);
+                props.onFormSubmit(query);
+                console.log("Querying", query);
             }}
         >
             <label htmlFor="location">Weather location</label>
-            <input onChange={(e) => setCityName(e.target.value)} id="location"></input>
+            <input onChange={(e) => setQuery({ cityName: e.target.value })} id="location"></input>
             <button disabled onClick={() => requestGPS()}>
                 Use device location
             </button>

@@ -6,11 +6,15 @@ import { searchWeather } from "./WeatherApi";
 export type WeatherInfo = {
     temp: string;
     weather: [WeatherType, string];
+    city: string;
 };
 
 export type WeatherQuery = {
-    city: String;
-    coordinates: String;
+    cityName?: string;
+    coords?: {
+        lat: number;
+        lon: number;
+    };
 };
 
 export enum WeatherType {
@@ -21,9 +25,9 @@ export enum WeatherType {
 
 let _CachedResponse: CurrentResponse | undefined;
 // TODO: make it possible to search by coordinates as fallback
-async function fetchIfNeeded(cityName: string): Promise<CurrentResponse | undefined> {
-    if (!_CachedResponse || _CachedResponse.name !== cityName) {
-        let fetchResponse = await searchWeather(cityName);
+async function fetchIfNeeded(query: WeatherQuery): Promise<CurrentResponse | undefined> {
+    if (!_CachedResponse || _CachedResponse.name !== query.cityName) {
+        let fetchResponse = await searchWeather(query);
         return fetchResponse.match({
             Nothing: () => undefined,
             Error: () => undefined,
@@ -37,16 +41,17 @@ async function fetchIfNeeded(cityName: string): Promise<CurrentResponse | undefi
     return _CachedResponse;
 }
 
-export async function getLiveWeather(cityName: string): Promise<WeatherInfo> {
+export async function getLiveWeather(query: WeatherQuery): Promise<WeatherInfo> {
     let live: WeatherInfo = {
-        temp: await getCurrentTemperature(cityName),
-        weather: await getCurrentWeatherType(cityName),
+        temp: await getCurrentTemperature(query),
+        weather: await getCurrentWeatherType(query),
+        city: await getCurrentCityName(query),
     };
     return live;
 }
 
-async function getCurrentTemperature(cityName: string): Promise<string> {
-    let resp = await fetchIfNeeded(cityName);
+async function getCurrentTemperature(query: WeatherQuery): Promise<string> {
+    let resp = await fetchIfNeeded(query);
     if (resp) {
         const temp = convertCelciusToUnit(resp.main.temp, UserSettings().unit);
         return formatTemp(Math.floor(temp), UserSettings().unit);
@@ -54,11 +59,19 @@ async function getCurrentTemperature(cityName: string): Promise<string> {
     return formatTemp("??", UserSettings().unit);
 }
 
-async function getCurrentWeatherType(cityName: string): Promise<[WeatherType, string]> {
-    let resp = await fetchIfNeeded(cityName);
+async function getCurrentWeatherType(query: WeatherQuery): Promise<[WeatherType, string]> {
+    let resp = await fetchIfNeeded(query);
     if (resp) {
         const type = resp.weather[0].main;
         return [stringToWeatherType(type), type];
     }
     return [WeatherType.Unknown, "Unknown"];
+}
+
+async function getCurrentCityName(query: WeatherQuery): Promise<string> {
+    let resp = await fetchIfNeeded(query);
+    if (resp) {
+        return resp.name;
+    }
+    return query.cityName || "???";
 }

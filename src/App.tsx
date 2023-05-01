@@ -4,6 +4,7 @@ import "./App.css";
 import { WeatherForm } from "./WeatherForm";
 import { SettingsForm } from "./Settings";
 import { LiveInfo } from "./LiveInfo";
+import {WeatherQuery} from "./api/WeatherAbstractor";
 
 enum AppState {
     Main,
@@ -12,15 +13,15 @@ enum AppState {
 
 const WeatherApp = () => {
     const [state, setState] = useState<AppState>(AppState.Main);
-    const [cityName, setCityName] = useState<string>();
+    const [query, setSearchQuery] = useState<WeatherQuery>();
 
     switch (state) {
         case AppState.Main:
             return (
                 <div className="weather">
                     <button onClick={() => setState(AppState.Settings)}>Settings</button>
-                    <WeatherForm onFormSubmit={(q) => setCityName(q)}></WeatherForm>
-                    {cityName ? <LiveInfo city={cityName}></LiveInfo> : <p>Enter in a city name</p>}
+                    <WeatherForm onFormSubmit={(q) => setSearchQuery(q)}></WeatherForm>
+                    {query ? <LiveInfo query={query}></LiveInfo> : <p>Enter in a city name</p>}
                 </div>
             );
         case AppState.Settings:
