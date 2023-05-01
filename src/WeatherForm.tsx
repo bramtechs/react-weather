@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+// TODO: Put in a popup and switch to tile '+' button
 export const WeatherForm = (props: { onFormSubmit: (cityName: string | undefined) => void }) => {
     const [cityName, setCityName] = useState<string>();
 

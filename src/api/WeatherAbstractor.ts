@@ -1,11 +1,6 @@
 import { CurrentResponse } from "openweathermap-ts/dist/types";
+import { TempUnit, UserSettings } from "../storage/SettingsAbstractor";
 import { searchWeather } from "./WeatherApi";
-
-export type TempUnit = "Celsius" | "Fahrenheit" | "Kelvin";
-
-export type WeatherSettings = {
-    unit: TempUnit;
-};
 
 export type WeatherInfo = {
     temp: string;
@@ -34,13 +29,7 @@ export function stringToWeatherType(type: string): WeatherType {
     }
 }
 
-export const DefaultSettings: WeatherSettings = {
-    unit: "Celsius",
-};
-
 let _CachedResponse: CurrentResponse | undefined;
-let _WeatherSettings: WeatherSettings = DefaultSettings;
-
 // TODO: make it possible to search by coordinates as fallback
 async function fetchIfNeeded(cityName: string): Promise<CurrentResponse | undefined> {
     if (!_CachedResponse || _CachedResponse.name !== cityName) {
@@ -56,10 +45,6 @@ async function fetchIfNeeded(cityName: string): Promise<CurrentResponse | undefi
         });
     }
     return _CachedResponse;
-}
-
-export function changeSettings(settings: WeatherSettings) {
-    _WeatherSettings = settings;
 }
 
 // TODO: Move to WeatherUtils.ts
@@ -96,10 +81,10 @@ export async function getLiveWeather(cityName: string): Promise<WeatherInfo> {
 async function getCurrentTemperature(cityName: string): Promise<string> {
     let resp = await fetchIfNeeded(cityName);
     if (resp) {
-        const temp = convertCelciusToUnit(resp.main.temp, _WeatherSettings.unit);
-        return formatTemp(Math.floor(temp), _WeatherSettings.unit);
+        const temp = convertCelciusToUnit(resp.main.temp, UserSettings().unit);
+        return formatTemp(Math.floor(temp), UserSettings().unit);
     }
-    return formatTemp("??", _WeatherSettings.unit);
+    return formatTemp("??", UserSettings().unit);
 }
 
 async function getCurrentWeatherType(cityName: string): Promise<[WeatherType, string]> {

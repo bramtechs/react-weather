@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { changeSettings, DefaultSettings, TempUnit, WeatherSettings } from "./api/WeatherAbstractor";
+import { Settings, TempUnit, UserSettings } from "./storage/SettingsAbstractor";
 
-export const Settings = (props: { onFormSubmit: () => void }) => {
-    const [settings] = useState<WeatherSettings>(DefaultSettings);
+export const SettingsForm = (props: { onFormSubmit: () => void }) => {
+    const [settings] = useState<Settings>(UserSettings);
 
     return (
         <div>
@@ -10,7 +10,7 @@ export const Settings = (props: { onFormSubmit: () => void }) => {
                 onSubmit={(e) => {
                     e.preventDefault();
                     if (settings) {
-                        changeSettings(settings);
+                        UserSettings(settings);
                     }
                     props.onFormSubmit();
                 }}

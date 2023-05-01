@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import "./App.css";
 import { WeatherForm } from "./WeatherForm";
-import { Settings } from "./Settings";
+import { SettingsForm } from "./Settings";
 import { LiveInfo } from "./LiveInfo";
 
 enum AppState {
@@ -25,11 +25,11 @@ const WeatherApp = () => {
             );
         case AppState.Settings:
             return (
-                <Settings
+                <SettingsForm
                     onFormSubmit={() => {
                         setState(AppState.Main);
                     }}
-                ></Settings>
+                ></SettingsForm>
             );
         default:
             throw new Error("Unknown AppState!");
