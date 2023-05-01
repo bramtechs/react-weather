@@ -2,10 +2,10 @@ import { useState } from "react";
 
 import "./App.css";
 import { WeatherForm } from "./WeatherForm";
-import { SettingsForm } from "./Settings";
 import { LiveInfo } from "./LiveInfo";
 import { WeatherQuery } from "./api/WeatherAbstractor";
 import { toggleDarkMode } from "./gfx/GlobalStyler";
+import {SettingsPage} from "./SettingsPage";
 
 enum AppState {
     Main,
@@ -28,11 +28,11 @@ const App = () => {
             );
         case AppState.Settings:
             return (
-                <SettingsForm
+                <SettingsPage
                     onFormSubmit={() => {
                         setState(AppState.Main);
                     }}
-                ></SettingsForm>
+                ></SettingsPage>
             );
         default:
             throw new Error("Unknown AppState!");

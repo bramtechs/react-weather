@@ -1,11 +1,19 @@
 import { useState } from "react";
-import { Settings, TempUnit, UserSettings } from "./storage/SettingsAbstractor";
+import { DisplayedFields, SettingsForm } from "./comps/SettingsForm";
+import { DefaultSettings, Settings, TempUnit, UserSettings } from "./storage/SettingsAbstractor";
 
-export const SettingsForm = (props: { onFormSubmit: () => void }) => {
+export const SettingsPage = (props: { onFormSubmit: () => void }) => {
     const [settings] = useState<Settings>(UserSettings);
+
+    const fieldsToDisplay: DisplayedFields = {
+        unit: "Temperature unit",
+        favColor: "Favourite color (test value)",
+        favFood: "Favourite food (test value)",
+    };
 
     return (
         <div>
+            <SettingsForm target={UserSettings()} fields={fieldsToDisplay}></SettingsForm>
             <form
                 onSubmit={(e) => {
                     e.preventDefault();

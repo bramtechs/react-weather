@@ -2,10 +2,14 @@ export type TempUnit = "Celsius" | "Fahrenheit" | "Kelvin";
 
 export type Settings = {
     unit: TempUnit;
+    favColor: string,
+    favFood: string,
 };
 
 export const DefaultSettings: Settings = {
     unit: "Celsius",
+    favColor: "purple",
+    favFood: "spaghet"
 };
 
 function loadSettings(): Settings {
