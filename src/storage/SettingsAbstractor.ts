@@ -1,15 +1,19 @@
-export type TempUnit = "Celsius" | "Fahrenheit" | "Kelvin";
+export enum TempUnit {
+    "Celsius",
+    "Fahrenheit",
+    "Kelvin",
+}
 
 export type Settings = {
     unit: TempUnit;
-    favColor: string,
-    favFood: string,
+    favColor: string;
+    favFood: string;
 };
 
 export const DefaultSettings: Settings = {
-    unit: "Celsius",
+    unit: TempUnit.Celsius,
     favColor: "purple",
-    favFood: "spaghet"
+    favFood: "spaghet",
 };
 
 function loadSettings(): Settings {

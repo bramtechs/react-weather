@@ -29,7 +29,7 @@ export const SettingsForm = (props: { target: FormTarget; fields: DisplayedField
                     const value = state[key];
                     console.log(value);
                     return (
-                        <div key={key}>
+                        <div target={key}>
                             <label>
                                 {displayName}
                                 <input onChange={(e) => onInputChanged(key, e.target.value)} value={value} />
