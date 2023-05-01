@@ -13,7 +13,7 @@ export const FormDropdown = (props: { target: string; displayName?: string; opti
             {props.displayName || props.target}
             <select onChange={(e) => props.onChange({ key: props.target, value: e.target.value })}>
                 {getEnumKeys(props.options).map((o) => (
-                    <option>{o}</option>
+                    <option key={o}>{o}</option>
                 ))}
             </select>
         </label>
