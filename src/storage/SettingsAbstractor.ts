@@ -1,15 +1,12 @@
-export enum TempUnit {
-    "Celsius",
-    "Fahrenheit",
-    "Kelvin",
-}
+export type TempUnit = "Celsius" | "Fahrenheit" | "Kelvin";
+export const TempUnits: TempUnit[] = ["Celsius", "Fahrenheit", "Kelvin"];
 
 export type Settings = {
     unit: TempUnit;
 };
 
 export const DefaultSettings: Settings = {
-    unit: TempUnit.Celsius,
+    unit: "Celsius",
 };
 
 function loadSettings(): Settings {

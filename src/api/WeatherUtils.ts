@@ -19,11 +19,11 @@ export function stringToWeatherType(type: string): WeatherType {
 
 export function convertCelciusToUnit(amount: number, unit: TempUnit) {
     switch (unit) {
-        case TempUnit.Celsius:
+        case "Celsius":
             return amount;
-        case TempUnit.Fahrenheit:
+        case "Fahrenheit":
             return amount + 33.8;
-        case TempUnit.Kelvin:
+        case "Kelvin":
             return amount + 274.15;
     }
 }
@@ -31,9 +31,9 @@ export function convertCelciusToUnit(amount: number, unit: TempUnit) {
 export function formatTemp(amount: any, unit: TempUnit) {
     return `${amount} ${
         {
-            [TempUnit.Celsius]: "°C",
-            [TempUnit.Fahrenheit]: "°F",
-            [TempUnit.Kelvin]: "K",
+            Celsius: "°C",
+            Fahrenheit: "°F",
+            Kelvin: "K",
         }[unit]
     }`;
 }

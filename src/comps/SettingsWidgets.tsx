@@ -1,19 +1,18 @@
-export type DropdownChoice = {
-    key: string;
-    value: string;
-};
+import { useState } from "react";
 
-function getEnumKeys(en: any) {
-    return Object.keys(en).filter((item) => isNaN(Number(item)));
-}
-
-export const FormDropdown = (props: { target: string; displayName?: string; options: any; onChange: (choosen: DropdownChoice) => void }) => {
+export const FormDropdown = (props: { name: string; value: string; options: string[]; onChange: (choosen: string) => void }) => {
     return (
         <label>
-            {props.displayName || props.target}
-            <select onChange={(e) => props.onChange({ key: props.target, value: e.target.value })}>
-                {getEnumKeys(props.options).map((o) => (
-                    <option key={o}>{o}</option>
+            {props.name}
+            <select
+                onChange={(e) => {
+                    props.onChange(e.target.value);
+                }}
+            >
+                {props.options.map((o) => (
+                    <option key={o} selected={props.value === o}>
+                        {o}
+                    </option>
                 ))}
             </select>
         </label>
