@@ -4,14 +4,15 @@ import "./App.css";
 import { WeatherForm } from "./WeatherForm";
 import { SettingsForm } from "./Settings";
 import { LiveInfo } from "./LiveInfo";
-import {WeatherQuery} from "./api/WeatherAbstractor";
+import { WeatherQuery } from "./api/WeatherAbstractor";
+import { toggleDarkMode } from "./gfx/GlobalStyler";
 
 enum AppState {
     Main,
     Settings,
 }
 
-const WeatherApp = () => {
+const App = () => {
     const [state, setState] = useState<AppState>(AppState.Main);
     const [query, setSearchQuery] = useState<WeatherQuery>();
 
@@ -20,6 +21,7 @@ const WeatherApp = () => {
             return (
                 <div className="weather">
                     <button onClick={() => setState(AppState.Settings)}>Settings</button>
+                    <button onClick={toggleDarkMode}>Toggle dark mode</button>
                     <WeatherForm onFormSubmit={(q) => setSearchQuery(q)}></WeatherForm>
                     {query ? <LiveInfo query={query}></LiveInfo> : <p>Enter in a city name</p>}
                 </div>
@@ -35,14 +37,6 @@ const WeatherApp = () => {
         default:
             throw new Error("Unknown AppState!");
     }
-};
-
-const App = () => {
-    return (
-        <div className="App">
-            <WeatherApp />
-        </div>
-    );
 };
 
 export default App;

@@ -8,7 +8,7 @@ const Gradients = {
     [WeatherType.Unknown]: `rounded-2xl bg-gradient-to-t from-gray-300 to-gray-200`,
 };
 
-const _extra = "text-white font-bold";
+const _extra = "text-white dark:text-black font-bold";
 
 export const TileContainer = (props: { retriever: Promise<WeatherInfo>; builder: (info: WeatherInfo) => ReactNode }) => {
     const [info, setInfo] = useState<WeatherInfo | null>();
