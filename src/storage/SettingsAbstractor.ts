@@ -6,14 +6,10 @@ export enum TempUnit {
 
 export type Settings = {
     unit: TempUnit;
-    favColor: string;
-    favFood: string;
 };
 
 export const DefaultSettings: Settings = {
     unit: TempUnit.Celsius,
-    favColor: "purple",
-    favFood: "spaghet",
 };
 
 function loadSettings(): Settings {
