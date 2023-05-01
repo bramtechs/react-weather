@@ -1,13 +1,25 @@
 import { ReactNode } from "react";
 
-export enum BGColor { // yikes
-    Red = `bg-gradient-to-t from-red-200 to-red-50`,
-    Blue = "bg-gradient-to-t from-blue-200 to-blue-50",
-    Yellow = `bg-gradient-to-t from-yellow-200 to-yellow-50`,
-    Green = `bg-gradient-to-t from-green-200 to-green-50`,
-    Gray = `bg-gradient-to-t from-gray-200 to-gray-50`,
+export enum BGColor {
+    Red,
+    Blue,
+    Yellow,
+    Green,
+    Gray,
 }
 
+const softest = 100;
+const hardest = 300;
+
+const BGColorValues = { // yikes
+    [BGColor.Red]: `bg-gradient-to-t from-red-${hardest} to-red-${softest}`,
+    [BGColor.Blue]: `bg-gradient-to-t from-blue-${hardest} to-blue-${softest}`,
+    [BGColor.Yellow]: `bg-gradient-to-t from-yellow-${hardest} to-yellow-${softest}`,
+    [BGColor.Green]: `bg-gradient-to-t from-green-${hardest} to-green-${softest}`,
+    [BGColor.Gray]: `bg-gradient-to-t from-gray-${hardest} to-gray-${softest}`,
+};
+
 export const WeatherBackground = (props: { color?: BGColor; builderFunc: () => ReactNode }) => {
-    return <div className={props.color ? props.color : BGColor.Gray}>{props.builderFunc()}</div>;
+    const trueColor = props.color ? props.color : BGColor.Gray;
+    return <div className={BGColorValues[trueColor]}>{props.builderFunc()}</div>;
 };

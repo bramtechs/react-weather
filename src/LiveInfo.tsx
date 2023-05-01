@@ -9,7 +9,7 @@ export const LiveInfo = (props: { city: string }) => {
         <div className="wlive">
             <div>
                 <WeatherBackground
-                    color={BGColor.Red}
+                    color={BGColor.Yellow}
                     builderFunc={(): ReactNode => (
                         <div>
                             <h2>Live weather info in {props.city}</h2>
