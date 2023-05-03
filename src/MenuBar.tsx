@@ -12,20 +12,30 @@ const _icons: StateIcons = {
     Settings: <SettingsFilled />,
 };
 
-const MenuIcon = (props: { isOpen?: boolean; tooltip: string; icon: ReactElement<FluentIcon> }) => {
+type MenuIconProps = { isOpen?: boolean; tooltip: string; onClick: () => void; icon: ReactElement<FluentIcon> };
+
+const MenuIcon = (props: MenuIconProps) => {
     return (
-        <li className={props.isOpen ? "group menu-icon bg-blue-300":"group menu-icon"}>
+        <li onClick={props.onClick} className={props.isOpen ? "group menu-icon bg-blue-300" : "group menu-icon"}>
             <div className="mb-1 invert">{props.icon}</div>
             <span className="group-hover:scale-100 menu-tooltip">{props.tooltip}</span>
         </li>
     );
 };
 
-export const MenuBar = (props: { curState: AppState }) => {
+export const MenuBar = (props: { curState: AppState; onStateChange?: (state: AppState) => void }) => {
     return (
         <ul className="menu-bar">
             {AppStates.map((state) => (
-                <MenuIcon isOpen={state === props.curState} tooltip={state} key={state} icon={_icons[state]} />
+                <MenuIcon
+                    key={state}
+                    isOpen={state === props.curState}
+                    tooltip={state}
+                    onClick={() => {
+                        props.onStateChange && props.onStateChange(state);
+                    }}
+                    icon={_icons[state]}
+                />
             ))}
         </ul>
     );

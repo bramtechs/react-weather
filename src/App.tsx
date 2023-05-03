@@ -17,7 +17,7 @@ const App = () => {
 
     return (
         <main className="main-style">
-            <MenuBar curState={state}></MenuBar>
+            <MenuBar curState={state} onStateChange={setState}></MenuBar>
             {state === "Main" && (
                 <div>
                     <button onClick={() => setState("Settings")}>Settings</button>
