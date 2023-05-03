@@ -12,9 +12,9 @@ const _icons: StateIcons = {
     Settings: <SettingsFilled />,
 };
 
-const MenuIcon = (props: { tooltip: string; icon: ReactElement<FluentIcon> }) => {
+const MenuIcon = (props: { isOpen?: boolean; tooltip: string; icon: ReactElement<FluentIcon> }) => {
     return (
-        <li className="group menu-icon">
+        <li className={props.isOpen ? "group menu-icon bg-blue-300":"group menu-icon"}>
             <div className="mb-1 invert">{props.icon}</div>
             <span className="group-hover:scale-100 menu-tooltip">{props.tooltip}</span>
         </li>
@@ -25,7 +25,7 @@ export const MenuBar = (props: { curState: AppState }) => {
     return (
         <ul className="menu-bar">
             {AppStates.map((state) => (
-                <MenuIcon tooltip={state} key={state} icon={_icons[state]} />
+                <MenuIcon isOpen={state === props.curState} tooltip={state} key={state} icon={_icons[state]} />
             ))}
         </ul>
     );
