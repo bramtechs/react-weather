@@ -7,6 +7,7 @@ import { WeatherQuery } from "./api/WeatherAbstractor";
 import { toggleDarkMode } from "./gfx/GlobalStyler";
 import { SettingsState } from "./SettingsState";
 import { MenuBar } from "./MenuBar";
+import { Popup } from "./comps/Popup";
 
 export type AppState = "Main" | "Settings";
 export const AppStates: AppState[] = ["Main", "Settings"];
@@ -33,6 +34,7 @@ const App = () => {
                     }}
                 ></SettingsState>
             )}
+            <Popup title="Add a new location" content={<p>Hello world!</p>} confirmText="add"></Popup>
         </main>
     );
 };
