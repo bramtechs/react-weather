@@ -29,6 +29,14 @@
         @apply fixed flex flex-col justify-center left-0 top-0 w-full h-full bg-black/70 transition-all;
     }
     .popup {
-        @apply bg-gray-100 h-1/2 w-2/3 self-center transition-all;
+        @apply relative bg-gray-100 h-1/2 w-2/3 self-center transition-all;
+    }
+
+    .popup-button {
+        @apply absolute right-3 bottom-3;
+    }
+
+    .popup-cancel {
+        @apply absolute right-3 top-3;
     }
 }
