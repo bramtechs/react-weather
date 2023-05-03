@@ -1,4 +1,5 @@
 import { AppState, AppStates } from "./App";
+// TODO: only use fluentui
 import { StyledIcon } from "@styled-icons/styled-icon";
 import { ReactElement } from "react";
 import { StyledIconBase } from "@styled-icons/styled-icon";
@@ -21,11 +22,13 @@ const _icons: StateIcons = {
     Settings: <Settings />,
 };
 
+// TODO: Move tailwind css to index.css
+
 const MenuIcon = (props: { tooltip: string; icon: ReactElement<StyledIcon> }) => {
     return (
-        <li className="group relative m-1 bg-blue-500 rounded-xl hover:rounded shadow-md transition-all">
+        <li className="group menu-icon">
             <div className="m-1 invert">{props.icon}</div>
-            <span className="scale-0 group-hover:scale-100 absolute left-16 top-1 text-left bg-blue-900 text-white p-1 pl-2 pr-2 rounded-lg shadow-md transition-all">{props.tooltip}</span>
+            <span className="group-hover:scale-100 menu-tooltip">{props.tooltip}</span>
         </li>
     );
 };
