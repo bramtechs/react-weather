@@ -4,15 +4,15 @@ export const FormDropdown = (props: { name: string; value: string; options: stri
     return (
         <label className="block m-3">
             {props.name}
-            <select className="m-5"
+            <select
+                className="m-5"
+                defaultValue={props.value}
                 onChange={(e) => {
                     props.onChange(e.target.value);
                 }}
             >
                 {props.options.map((o) => (
-                    <option key={o} selected={props.value === o}>
-                        {o}
-                    </option>
+                    <option key={o}>{o}</option>
                 ))}
             </select>
         </label>

@@ -1,8 +1,5 @@
 let isDark = false;
 
-export const _defaultTextStyle = "text-2xl";
-export const _defaultButtonStyle = "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded";
-
 export function setDarkMode() {
     document.body.style.background = "darkgray";
     document.body.classList.add("dark");
