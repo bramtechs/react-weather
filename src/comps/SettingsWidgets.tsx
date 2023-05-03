@@ -2,9 +2,9 @@ import { useState } from "react";
 
 export const FormDropdown = (props: { name: string; value: string; options: string[]; onChange: (choosen: string) => void }) => {
     return (
-        <label>
+        <label className="block m-3">
             {props.name}
-            <select
+            <select className="m-5"
                 onChange={(e) => {
                     props.onChange(e.target.value);
                 }}
