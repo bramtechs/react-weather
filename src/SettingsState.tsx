@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FormDropdown } from "./comps/SettingsWidgets";
 import { TempUnit, TempUnits, UserSettings } from "./storage/SettingsAbstractor";
 
-export const SettingsPage = (props: { onFormSubmit: () => void }) => {
+export const SettingsState = (props: { onFormSubmit: () => void }) => {
     const [unit, setUnit] = useState<TempUnit>(UserSettings().unit);
 
     return (

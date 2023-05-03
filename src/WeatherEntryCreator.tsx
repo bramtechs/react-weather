@@ -2,7 +2,7 @@ import { useState } from "react";
 import { WeatherQuery } from "./api/WeatherAbstractor";
 
 // TODO: Put in a popup and switch to tile '+' button
-export const WeatherForm = (props: { onFormSubmit: (query: WeatherQuery | undefined) => void }) => {
+export const WeatherEntryCreator = (props: { onFormSubmit: (query: WeatherQuery | undefined) => void }) => {
     const [query, setQuery] = useState<WeatherQuery>();
 
     function requestGPS() {}

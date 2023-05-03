@@ -1,11 +1,11 @@
 import { useState } from "react";
 
 import "./App.css";
-import { WeatherForm } from "./WeatherForm";
+import { WeatherEntryCreator } from "./WeatherEntryCreator";
 import { LiveInfo } from "./LiveInfo";
 import { WeatherQuery } from "./api/WeatherAbstractor";
 import { toggleDarkMode } from "./gfx/GlobalStyler";
-import { SettingsPage } from "./SettingsPage";
+import { SettingsState } from "./SettingsState";
 import { MenuBar } from "./MenuBar";
 
 export type AppState = "Main" | "Settings";
@@ -22,16 +22,16 @@ const App = () => {
                 <div>
                     <button onClick={() => setState("Settings")}>Settings</button>
                     <button onClick={toggleDarkMode}>Toggle dark mode</button>
-                    <WeatherForm onFormSubmit={(q) => setSearchQuery(q)}></WeatherForm>
+                    <WeatherEntryCreator onFormSubmit={(q) => setSearchQuery(q)}></WeatherEntryCreator>
                     {query ? <LiveInfo query={query}></LiveInfo> : <p>Enter in a city name</p>}
                 </div>
             )}
             {state === "Settings" && (
-                <SettingsPage
+                <SettingsState
                     onFormSubmit={() => {
                         setState("Main");
                     }}
-                ></SettingsPage>
+                ></SettingsState>
             )}
         </main>
     );
