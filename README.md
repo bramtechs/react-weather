@@ -1,6 +1,6 @@
 # [React Weather](https://bramtechs.github.io/react-weather/)
 
-_"Imagine looking out of your window to see if the sun is shining."_
+_"Imagine still looking out of your window to see if the sun is shining."_
 
 ## Forcing myself to learn and enjoy web development
 
