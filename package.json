@@ -10,20 +10,18 @@
         "test": "tsc && vite build && jest"
     },
     "dependencies": {
+        "@fluentui/react-icons": "^2.0.201",
         "@types/node": "^18.15.11",
         "openweathermap-ts": "^1.2.10",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-loading-icons": "^1.1.0",
-        "safety-match": "^0.4.4",
-        "styled-components": "^5.3.10",
-        "styled-icons": "^10.47.0"
+        "safety-match": "^0.4.4"
     },
     "devDependencies": {
         "@types/jest": "^29.5.1",
         "@types/react": "^18.0.28",
         "@types/react-dom": "^18.0.11",
-        "@types/styled-components": "^5.1.26",
         "@vitejs/plugin-react": "^3.1.0",
         "@vitejs/plugin-react-swc": "^3.0.0",
         "autoprefixer": "^10.4.14",
