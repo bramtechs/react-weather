@@ -1,20 +1,32 @@
 import { QueryFunction, useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { WeatherQuery } from "../../api/WeatherTypes";
 
-export const InfoFetcher = (props: { queryKey: string, fetchCall: QueryFunction<unknown, string[]>, onLoadStart: (on: boolean) => void, onError: (e: unknown) => void, onData: (data: unknown) => void }) => {
+export type FetchResults = {
+    isLoading?: boolean,
+    error?: unknown,
+    data?: unknown,
+}
+
+export const InfoFetcher = (props: { queryKey: string, fetchCall: QueryFunction<unknown, string[]>, onStatusChanged: (status: FetchResults) => void }) => {
     const { isLoading, error, data } = useQuery({ queryKey: [props.queryKey], queryFn: props.fetchCall });
 
     useEffect(() => {
-        props.onLoadStart(true);
+        props.onStatusChanged({
+            isLoading: true
+        });
     }, [isLoading]);
 
     useEffect(() => {
-        props.onError(error);
+        props.onStatusChanged({
+            error: error
+        });
     }, [error]);
 
     useEffect(() => {
-        props.onData(data);
+        props.onStatusChanged({
+            data: data
+        });
     }, [data]);
 
     return (<template></template>)
