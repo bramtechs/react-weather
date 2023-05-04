@@ -2,18 +2,29 @@ import { useState } from "react";
 import { WeatherQuery } from "../api/WeatherTypes";
 import { LiveTile } from "../comps/tile/LiveTile";
 import { DynamicLiveTile } from "../comps/tile/DynamicLiveTile";
+import { generateKeyFromQuery } from "../comps/utils/InfoFetcher";
 
 export const MainState = () => {
-    const [queries, setQueries] = useState<WeatherQuery[]>([]);
+    const [queries, setQueries] = useState<(WeatherQuery|undefined)[]>([undefined]);
+
+    function handleTileConfigured(query: WeatherQuery, index: number){
+        const copy = [...queries];
+        copy[index] = query;
+
+        if (copy[copy.length-1]){
+            copy.push(undefined);
+        }
+
+        setQueries(copy);
+    }
 
     return (
         <div>
             <DynamicLiveTile/>
             {
-                queries.map((q) =>
-                    <LiveTile key={q.cityName} query={q}></LiveTile>
+                queries.map((query, index) =>
+                    <LiveTile key={(query && generateKeyFromQuery("live-info",query)) || "add"} query={query} onConfigured={(newQuery) => handleTileConfigured(newQuery, index)}></LiveTile>
                 )
             }
-            <LiveTile/>
         </div>);
 }

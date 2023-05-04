@@ -10,18 +10,18 @@ export const DynamicLiveTile = () => {
     const { coords, isGeolocationAvailable, isGeolocationEnabled } = useGeolocated({ positionOptions: { enableHighAccuracy: false }, userDecisionTimeout: 5000 });
 
     useEffect(() => {
-        if (coords) {
+        if (coords){
             setLiveQuery({
-                coords: {
-                    lat: coords.latitude,
-                    lon: coords.longitude,
-                }
+               coords: {
+                lat:coords.latitude,
+                lon:coords.longitude,
+               } 
             })
         }
     }, [coords])
 
     if (coords && liveQuery) {
-        return (<LiveTile query={liveQuery} />);
+        return (<LiveTile query={liveQuery} onConfigured={() => alert("Dynamic tile can't be modified!")}/>);
     }
 
     let inner;

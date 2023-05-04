@@ -8,14 +8,21 @@ import { ErrorCircleFilled } from "@fluentui/react-icons";
 import { searchWeather } from "../../api/WeatherApi";
 import { CurrentResponse } from "openweathermap-ts/dist/types";
 import { typeNameToTileBackground } from "../../api/WeatherUtils";
-import { FetchResults, InfoFetcher, generateKeyFromQuery } from "../utils/InfoFetcher";
+import { FetchResult, InfoFetcher, generateKeyFromQuery } from "../utils/InfoFetcher";
 
-export const LiveTile = (props: { query?: WeatherQuery }) => {
-    const [query, setQuery] = useState<WeatherQuery | undefined>(props.query);
-    const [results, setResults] = useState<FetchResults>({});
+export function isValidCurrentResponse(data: CurrentResponse | any): boolean {
+    if (data) {
+        const cur = (data as CurrentResponse)
+        return cur && cur.cod === 200;
+    }
+    return false;
+}
+
+export const LiveTile = (props: { query?: WeatherQuery, onConfigured: (query: WeatherQuery) => void }) => {
+    const [results, setResults] = useState<FetchResult>({});
 
     function getInnerContent() {
-        if (results.data && (results.data as CurrentResponse).cod === 200) {
+        if (isValidCurrentResponse(results.data)) {
             return (<LiveTileInfo info={results.data as CurrentResponse} />);
         }
         else if (results.isLoading) {
@@ -35,9 +42,9 @@ export const LiveTile = (props: { query?: WeatherQuery }) => {
 
     return (
         <div>
-            {query ? <InfoFetcher queryKey={generateKeyFromQuery("live-info", query)} fetchCall={() => searchWeather(query)} onStatusChanged={setResults} /> : <template></template>}
-            <TileContainer type={results.data ? typeNameToTileBackground((results.data as CurrentResponse).weather[0].main) : TileBackground.Unknown}>
-                {query ? getInnerContent() : <WeatherEntryCreator onFormSubmit={setQuery} />}
+            {props.query ? <InfoFetcher queryKey={generateKeyFromQuery("live-info", props.query)} fetchCall={() => searchWeather(props.query!)} onStatusChanged={setResults} /> : <template></template>}
+            <TileContainer type={isValidCurrentResponse(results.data) ? typeNameToTileBackground((results.data as CurrentResponse).weather[0].main) : TileBackground.Unknown}>
+                {props.query ? getInnerContent() : <WeatherEntryCreator onFormSubmit={props.onConfigured} />}
             </TileContainer>
         </div>
     );

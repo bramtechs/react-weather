@@ -12,12 +12,10 @@ const Gradients = {
     [TileBackground.Unknown]: `rounded-2xl bg-gradient-to-t from-gray-300 to-gray-200`,
 };
 
-const _extra = "text-white dark:text-black font-bold";
-
 // Background graphic to put weather info in
 export const TileContainer = (props: { children: ReactElement, type: TileBackground }) => {
     return (
-        <div className={_extra}>
+        <div className={"text-white dark:text-black font-bold transition-all"}>
             <div className={Gradients[props.type]}>
                 {props.children}
             </div>

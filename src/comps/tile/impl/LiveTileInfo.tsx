@@ -12,7 +12,6 @@ export const LiveTileInfo = (props: { info: CurrentResponse }) => {
 
     return (
         <div>
-            <h2>Live weather</h2>
             <h3>{cityName}</h3>
             <span>{temp}</span>
             <p>{capitalizeFirst(desc)}</p>
