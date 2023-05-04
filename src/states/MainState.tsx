@@ -3,9 +3,11 @@ import { WeatherQuery } from "../api/WeatherTypes";
 import { LiveTile } from "../comps/tile/LiveTile";
 import { DynamicLiveTile } from "../comps/tile/DynamicLiveTile";
 import { generateKeyFromQuery } from "../comps/utils/InfoFetcher";
+import { UserSettings } from "../storage/SettingsAbstractor";
 
 export const MainState = () => {
-    const [queries, setQueries] = useState<(WeatherQuery|undefined)[]>([undefined]);
+
+    const [queries, setQueries] = useState<(WeatherQuery|undefined)[]>([...UserSettings().tiles, undefined]);
 
     function handleTileConfigured(query: WeatherQuery, index: number){
         const copy = [...queries];
@@ -14,8 +16,9 @@ export const MainState = () => {
         if (copy[copy.length-1]){
             copy.push(undefined);
         }
-
         setQueries(copy);
+
+        UserSettings((data) => data.tiles = copy.filter(c => c) as WeatherQuery[]);
     }
 
     return (

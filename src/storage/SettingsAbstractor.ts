@@ -1,12 +1,16 @@
+import { WeatherQuery } from "../api/WeatherTypes";
+
 export type TempUnit = "Celsius" | "Fahrenheit" | "Kelvin";
 export const TempUnits: TempUnit[] = ["Celsius", "Fahrenheit", "Kelvin"];
 
 export type Settings = {
     unit: TempUnit;
+    tiles: WeatherQuery[];
 };
 
 export const DefaultSettings: Settings = {
     unit: "Celsius",
+    tiles: [],
 };
 
 function loadSettings(): Settings {
