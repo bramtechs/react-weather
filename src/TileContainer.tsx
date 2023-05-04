@@ -1,5 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
-import LoadingIcons from "react-loading-icons";
+import {ReactElement} from "react";
 import { WeatherType, WeatherInfo } from "./api/WeatherAbstractor";
 
 const Gradients = {
@@ -10,20 +9,13 @@ const Gradients = {
 
 const _extra = "text-white dark:text-black font-bold";
 
-export const TileContainer = (props: { retriever: Promise<WeatherInfo>; builder: (info: WeatherInfo) => ReactNode }) => {
-    const [info, setInfo] = useState<WeatherInfo | null>();
-
-    useEffect(() => {
-        async function fetchWeather() {
-            setInfo(await props.retriever);
-        }
-        fetchWeather();
-    }, [props.retriever]);
-
-    const type: [WeatherType, string] = info ? info.weather : [WeatherType.Unknown, "Unknown"];
+// Background graphic to put weather info in
+export const TileContainer = (props: { children: ReactElement, type: WeatherType }) => {
     return (
         <div className={_extra}>
-            <div className={Gradients[type[0]]}>{info ? props.builder(info) : <LoadingIcons.ThreeDots />}</div>
+            <div className={Gradients[props.type]}>
+                {props.children}
+            </div>
         </div>
     );
 };

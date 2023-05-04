@@ -1,4 +1,4 @@
-import { TempUnit } from "../storage/SettingsAbstractor";
+import { TempUnit, UserSettings } from "../storage/SettingsAbstractor";
 import { WeatherType } from "./WeatherAbstractor";
 
 export function stringToWeatherType(type: string): WeatherType {
@@ -28,12 +28,20 @@ export function convertCelciusToUnit(amount: number, unit: TempUnit) {
     }
 }
 
-export function formatTemp(amount: any, unit: TempUnit) {
-    return `${amount} ${
+export function formatTemp(amount: number, unit?: TempUnit) {
+    return `${amount.toFixed(0)} ${
         {
             Celsius: "°C",
             Fahrenheit: "°F",
             Kelvin: "K",
-        }[unit]
+        }[unit || UserSettings().unit]
     }`;
+}
+
+export function capitalizeFirst(text: string) {
+    if (text.length > 0) {
+        const first = text.charAt(0).toUpperCase();
+        return first + text.slice(1);
+    }
+    return text;
 }
