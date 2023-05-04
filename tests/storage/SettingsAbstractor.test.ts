@@ -7,6 +7,7 @@ describe("Test UserSettings abstraction", () => {
     test("Save settings into localstorage", () => {
         const settings: Settings = {
             unit: "Celsius",
+            tiles: []
         };
         UserSettings(settings);
         expect(UserSettings()).toStrictEqual(settings);
@@ -14,6 +15,7 @@ describe("Test UserSettings abstraction", () => {
     test("Update settings", () => {
         const settings: Settings = {
             unit: "Celsius",
+            tiles: []
         };
         UserSettings(settings);
         UserSettings((s) => {
@@ -23,6 +25,7 @@ describe("Test UserSettings abstraction", () => {
 
         const expected: Settings = {
             unit: "Fahrenheit",
+            tiles: []
         };
         expect(UserSettings()).toStrictEqual(expected);
     });
