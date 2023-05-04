@@ -7,7 +7,7 @@ import { ThreeDots } from "react-loading-icons";
 import { ErrorCircleFilled } from "@fluentui/react-icons";
 import { searchWeather } from "../../api/WeatherApi";
 import { CurrentResponse } from "openweathermap-ts/dist/types";
-import { stringToWeatherType } from "../../api/WeatherUtils";
+import { typeNameToTileBackground } from "../../api/WeatherUtils";
 import { FetchResults, InfoFetcher, generateKeyFromQuery } from "../utils/InfoFetcher";
 
 export const LiveTile = (props: { query?: WeatherQuery }) => {
@@ -36,7 +36,7 @@ export const LiveTile = (props: { query?: WeatherQuery }) => {
     return (
         <div>
             {query ? <InfoFetcher queryKey={generateKeyFromQuery("live-info", query)} fetchCall={() => searchWeather(query)} onStatusChanged={setResults} /> : <template></template>}
-            <TileContainer type={results.data ? stringToWeatherType((results.data as CurrentResponse).weather[0].main) : TileBackground.Unknown}>
+            <TileContainer type={results.data ? typeNameToTileBackground((results.data as CurrentResponse).weather[0].main) : TileBackground.Unknown}>
                 {query ? getInnerContent() : <WeatherEntryCreator onFormSubmit={setQuery} />}
             </TileContainer>
         </div>

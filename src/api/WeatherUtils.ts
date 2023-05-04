@@ -1,7 +1,7 @@
 import { TileBackground } from "../comps/tile/impl/TileContainer";
 import { TempUnit, UserSettings } from "../storage/SettingsAbstractor";
 
-export function stringToWeatherType(type: string): TileBackground {
+export function typeNameToTileBackground(type: string): TileBackground {
     const weatherTypeKeys = Object.keys(TileBackground);
     const weatherTypeKey = weatherTypeKeys.find((key) => key === type);
     const literal = TileBackground[weatherTypeKey as keyof typeof TileBackground];

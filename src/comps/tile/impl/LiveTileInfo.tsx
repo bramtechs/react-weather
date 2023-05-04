@@ -1,4 +1,4 @@
-import { capitalizeFirst, formatTemp, stringToWeatherType } from "../../../api/WeatherUtils";
+import { capitalizeFirst, formatTemp, typeNameToTileBackground } from "../../../api/WeatherUtils";
 import { CurrentResponse } from "openweathermap-ts/dist/types";
 
 export const LiveTileInfo = (props: { info: CurrentResponse }) => {
@@ -8,7 +8,7 @@ export const LiveTileInfo = (props: { info: CurrentResponse }) => {
     const desc = props.info.weather[0].description;
 
     // update parent tile background
-    const type = stringToWeatherType(props.info.weather[0].main);
+    const type = typeNameToTileBackground(props.info.weather[0].main);
 
     return (
         <div>
