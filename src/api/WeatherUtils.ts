@@ -28,13 +28,14 @@ export function convertCelciusToUnit(amount: number, unit: TempUnit) {
     }
 }
 
-export function formatTemp(amount: number, unit?: TempUnit) {
-    return `${amount.toFixed(0)} ${
+export function formatTemp(celcius: number, unit?: TempUnit) {
+    const unit2Use = unit || UserSettings().unit;
+    return `${convertCelciusToUnit(celcius, unit2Use).toFixed(0)} ${
         {
             Celsius: "°C",
             Fahrenheit: "°F",
             Kelvin: "K",
-        }[unit || UserSettings().unit]
+        }[unit2Use]
     }`;
 }
 
