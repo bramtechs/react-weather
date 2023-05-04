@@ -17,7 +17,7 @@ export const Popup = (props: PopupProps) => {
     }, [initialized]);
 
     return (
-        <div className="cover">
+        <div className="cover text-black">
             <div className={initialized ? "scale-100 popup" : "scale-0 popup"}>
                 <h3>{props.title}</h3>
                 {props.content}

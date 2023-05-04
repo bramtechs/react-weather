@@ -1,19 +1,19 @@
+import { TileBackground } from "../comps/tile/impl/TileContainer";
 import { TempUnit, UserSettings } from "../storage/SettingsAbstractor";
-import { WeatherType } from "./WeatherAbstractor";
 
-export function stringToWeatherType(type: string): WeatherType {
-    const weatherTypeKeys = Object.keys(WeatherType);
+export function stringToWeatherType(type: string): TileBackground {
+    const weatherTypeKeys = Object.keys(TileBackground);
     const weatherTypeKey = weatherTypeKeys.find((key) => key === type);
-    const literal = WeatherType[weatherTypeKey as keyof typeof WeatherType];
+    const literal = TileBackground[weatherTypeKey as keyof typeof TileBackground];
     if (literal) {
         return literal;
     }
     // edge cases
     switch (type.toLowerCase()) {
         case "clear":
-            return WeatherType.Sunny;
+            return TileBackground.Sunny;
         default:
-            return WeatherType.Unknown;
+            return TileBackground.Unknown;
     }
 }
 

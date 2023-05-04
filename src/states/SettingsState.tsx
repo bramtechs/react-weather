@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { FormDropdown } from "./comps/SettingsWidgets";
-import { TempUnit, TempUnits, UserSettings } from "./storage/SettingsAbstractor";
+import { FormDropdown } from "../comps/FormWidgets";
+import { TempUnit, TempUnits, UserSettings } from "../storage/SettingsAbstractor";
 
 export const SettingsState = (props: { onFormSubmit: () => void }) => {
     const [unit, setUnit] = useState<TempUnit>(UserSettings().unit);

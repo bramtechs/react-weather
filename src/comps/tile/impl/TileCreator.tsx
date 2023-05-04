@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { WeatherQuery } from "./api/WeatherAbstractor";
+import { WeatherQuery } from "../../../api/WeatherTypes";
 import { AddFilled } from "@fluentui/react-icons";
-import { Popup } from "./comps/Popup";
+import { Popup } from "../../Popup";
 
 // TODO: Put in a popup and switch to tile '+' button
 export const WeatherEntryCreator = (props: { onFormSubmit: (query: WeatherQuery) => void }) => {
