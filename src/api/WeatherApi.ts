@@ -1,5 +1,3 @@
-import { _config } from "../Config";
-
 import OpenWeatherMap from "openweathermap-ts";
 import { CurrentResponse } from "openweathermap-ts/dist/types";
 import { WeatherQuery } from "./WeatherAbstractor";
