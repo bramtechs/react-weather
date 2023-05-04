@@ -13,16 +13,25 @@ export const DefaultSettings: Settings = {
     tiles: [],
 };
 
+
+function validateUserSettings(object: any): boolean{
+    return Object.keys(DefaultSettings).find((k) => !Object.hasOwn(object,k)) === undefined;
+}
+
 function loadSettings(): Settings {
     if (!localStorage) {
         throw new Error("LocalStorage not supported!");
     }
 
-    let json = localStorage.getItem("userSettings");
+    const json = localStorage.getItem("userSettings");
     if (!json) {
         return DefaultSettings;
     }
-    return JSON.parse(json) as Settings;
+    const parsed = JSON.parse(json);
+    if (!validateUserSettings(parsed)){
+        return DefaultSettings;
+    }
+    return parsed as Settings;
 }
 
 function saveSettings(s: Settings) {
