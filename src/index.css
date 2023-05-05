@@ -25,6 +25,10 @@
         @apply h-2;
     }
 
+    .tile-background {
+        @apply absolute left-0 top-0 w-full h-full -z-10 rounded-2xl bg-slate-600 blur-sm
+    }
+
     /* menu bars */
     .menu-bar {
         @apply fixed top-0 left-0 h-screen w-16 flex flex-col bg-blue-900;
