@@ -1,28 +1,29 @@
-import { useState } from "react";
-import { FormDropdown } from "../comps/FormWidgets";
-import { TempUnit, TempUnits, UserSettings } from "../storage/SettingsAbstractor";
+import { useState } from 'react';
+import { FormDropdown } from '../comps/FormWidgets';
+import { TempUnit, TempUnits, UserSettings } from '../storage/SettingsAbstractor';
+import { StyledButton } from '../comps/StyledButton';
 
 export const SettingsState = (props: { onFormSubmit: () => void }) => {
     const [unit, setUnit] = useState<TempUnit>(UserSettings().unit);
 
-    function sendForm(){
+    function sendForm() {
         UserSettings((s) => {
             s.unit = unit;
         });
         props.onFormSubmit();
     }
 
-    function wipeTiles(){
-        UserSettings((data) => data.tiles = []);
-        console.warn("Wiped tile config");
+    function wipeTiles() {
+        UserSettings((data) => (data.tiles = []));
+        console.warn('Wiped tile config');
     }
 
     return (
         <div className="text-center">
             <FormDropdown name="Temperature Unit" value={unit} options={TempUnits} onChange={(u) => setUnit(u as TempUnit)}></FormDropdown>
             <div className="flex w-full flex-grow justify-evenly">
-                <button onClick={wipeTiles} className="styled-button bg-red-500 hover:bg-red-300">Reset tiles</button>
-                <button onClick={sendForm} className="styled-button">Confirm</button>
+                <StyledButton onClick={wipeTiles} theme='Red'>Reset tiles</StyledButton>
+                <StyledButton onClick={sendForm}>Confirm</StyledButton>
             </div>
         </div>
     );

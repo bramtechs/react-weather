@@ -22,7 +22,7 @@ export const MainState = () => {
     }
 
     return (
-        <div className="tiles-container">
+        <div className="flex flex-wrap justify-between">
             <DynamicLiveTile/>
             {
                 queries.map((query, index) =>
