@@ -11,7 +11,7 @@ export const LiveTileInfo = (props: { info: CurrentResponse }) => {
     const type = typeNameToTileBackground(props.info.weather[0].main);
 
     return (
-        <div>
+        <div className="h-full flex flex-col justify-center">
             <h3>{cityName}</h3>
             <span>{temp}</span>
             <p>{capitalizeFirst(desc)}</p>
