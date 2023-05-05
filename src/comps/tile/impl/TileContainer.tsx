@@ -9,20 +9,20 @@ export enum TileBackground {
 
 const Gradients = {
     [TileBackground.Sunny]: [
-        `tile-container scale-0 from-sky-400 to-sky-300`,
-        `tile-container scale-1 from-sky-400 to-sky-300`,
+        `tile-container scale-0 bg-[url('/tilesbg/sunshine.jpg')]`,
+        `tile-container scale-1 bg-[url('/tilesbg/sunshine.jpg')]`,
     ],
     [TileBackground.Clouds]: [
-        `tile-container scale-0 from-gray-400 to-gray-300`,
-        `tile-container scale-1 from-gray-400 to-gray-300`
+        `tile-container scale-0 bg-[url('/tilesbg/clouds.jpg')]`,
+        `tile-container scale-1 bg-[url('/tilesbg/clouds.jpg')]`
     ],
     [TileBackground.Rain]: [
-        `tile-container scale-0 from-gray-600 to-gray-300`,
-        `tile-container scale-1 from-gray-600 to-gray-300`
+        `tile-container scale-0 bg-[url('/tilesbg/rain.jpg')]`,
+        `tile-container scale-1 bg-[url('/tilesbg/rain.jpg')]`
     ],
     [TileBackground.Unknown]: [
-        `tile-container scale-0 from-gray-300 to-gray-200`,
-        `tile-container scale-1 from-gray-300 to-gray-200`
+        `tile-container scale-0 from-gray-700 to-gray-400`,
+        `tile-container scale-1 from-gray-700 to-gray-400`
     ],
 };
 
