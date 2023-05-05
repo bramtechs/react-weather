@@ -41,11 +41,9 @@ export const LiveTile = (props: { query?: WeatherQuery, onConfigured: (query: We
     }
 
     return (
-        <div>
+        <TileContainer type={isValidCurrentResponse(results.data) ? typeNameToTileBackground((results.data as CurrentResponse).weather[0].main) : TileBackground.Unknown}>
             {props.query ? <InfoFetcher queryKey={generateKeyFromQuery("live-info", props.query)} fetchCall={() => searchWeather(props.query!)} onStatusChanged={setResults} /> : <template></template>}
-            <TileContainer type={isValidCurrentResponse(results.data) ? typeNameToTileBackground((results.data as CurrentResponse).weather[0].main) : TileBackground.Unknown}>
-                {props.query ? getInnerContent() : <WeatherEntryCreator onFormSubmit={props.onConfigured} />}
-            </TileContainer>
-        </div>
+            {props.query ? getInnerContent() : <WeatherEntryCreator onFormSubmit={props.onConfigured} />}
+        </TileContainer>
     );
 };

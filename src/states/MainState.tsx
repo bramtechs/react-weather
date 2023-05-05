@@ -22,7 +22,7 @@ export const MainState = () => {
     }
 
     return (
-        <div>
+        <div className="tiles-container">
             <DynamicLiveTile/>
             {
                 queries.map((query, index) =>

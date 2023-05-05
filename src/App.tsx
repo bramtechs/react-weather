@@ -18,7 +18,7 @@ const App = () => {
 
     return (
         <QueryClientProvider client={queryClient}>
-            <main className="main-style">
+            <main className="main-content">
                 <MenuBar curState={state} onStateChange={setState}/>
                 {state === "Main" && (
                     <MainState/>
