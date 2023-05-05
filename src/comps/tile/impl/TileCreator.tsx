@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { WeatherQuery } from "../../../api/WeatherTypes";
-import { AddFilled } from "@fluentui/react-icons";
-import { Popup } from "../../Popup";
+import { useEffect, useState } from 'react';
+import { WeatherQuery } from '../../../api/WeatherTypes';
+import { AddFilled } from '@fluentui/react-icons';
+import { Popup } from '../../Popup';
 
 // TODO: Put in a popup and switch to tile '+' button
 export const WeatherEntryCreator = (props: { onFormSubmit: (query: WeatherQuery) => void }) => {
@@ -28,7 +28,14 @@ const WeatherEntryPopup = (props: { onQuerySubmit: (query?: WeatherQuery) => voi
         props.onQuerySubmit(undefined);
     }
 
-    return <Popup title="Add a new location" content={<WeatherEntryForm onQueryUpdate={setQuery} />} onConfirm={handleConfirmation} onCancel={handleCancellation} />;
+    return (
+        <Popup
+            title="Add a new location"
+            content={<WeatherEntryForm onQueryUpdate={setQuery} />}
+            onConfirm={handleConfirmation}
+            onCancel={handleCancellation}
+        />
+    );
 };
 
 const WeatherEntryForm = (props: { onQueryUpdate: (query: WeatherQuery) => void }) => {
@@ -38,15 +45,14 @@ const WeatherEntryForm = (props: { onQueryUpdate: (query: WeatherQuery) => void 
         query && props.onQueryUpdate(query);
     }, [query]);
 
-    function requestGPS() {}
-
     return (
-        <form>
-            <label htmlFor="location">Weather location</label>
-            <input onChange={(e) => setQuery({ cityName: e.target.value })} id="location"></input>
-            <button disabled onClick={() => requestGPS()}>
-                Use device location
-            </button>
-        </form>
+        <table className="m-3">
+            <th>
+                <label htmlFor="location">Location</label>
+            </th>
+            <td>
+                <input onChange={(e) => setQuery({ cityName: e.target.value })} id="location"></input>
+            </td>
+        </table>
     );
 };
