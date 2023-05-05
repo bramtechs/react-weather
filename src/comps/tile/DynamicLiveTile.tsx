@@ -7,7 +7,7 @@ import ThreeDots from "react-loading-icons/dist/esm/components/three-dots";
 
 export const DynamicLiveTile = () => {
     const [liveQuery, setLiveQuery] = useState<WeatherQuery>();
-    const { coords, isGeolocationAvailable, isGeolocationEnabled } = useGeolocated({ positionOptions: { enableHighAccuracy: false }, userDecisionTimeout: 5000 });
+    const { coords, isGeolocationAvailable, isGeolocationEnabled } = useGeolocated({ positionOptions: { enableHighAccuracy: false }, userDecisionTimeout: 30000 });
 
     useEffect(() => {
         if (coords){

@@ -4,6 +4,7 @@ export enum TileBackground {
     Unknown,
     Clouds,
     Sunny,
+    Rain,
 }
 
 const Gradients = {
@@ -15,6 +16,10 @@ const Gradients = {
         `tile-container scale-0 from-gray-400 to-gray-300`,
         `tile-container scale-1 from-gray-400 to-gray-300`
     ],
+    [TileBackground.Rain]: [
+        `tile-container scale-0 from-gray-600 to-gray-300`,
+        `tile-container scale-1 from-gray-600 to-gray-300`
+    ],
     [TileBackground.Unknown]: [
         `tile-container scale-0 from-gray-300 to-gray-200`,
         `tile-container scale-1 from-gray-300 to-gray-200`
@@ -22,7 +27,7 @@ const Gradients = {
 };
 
 // Background graphic to put weather info in
-export const TileContainer = (props: { children: ReactElement[], type: TileBackground}) => {
+export const TileContainer = (props: { children: ReactElement | ReactElement[], type: TileBackground}) => {
     const [started, setStarted] = useState<boolean>(false);
 
     useEffect(() => {
