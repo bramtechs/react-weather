@@ -18,10 +18,12 @@ export const SettingsState = (props: { onFormSubmit: () => void }) => {
     }
 
     return (
-        <div>
+        <div className="text-center">
             <FormDropdown name="Temperature Unit" value={unit} options={TempUnits} onChange={(u) => setUnit(u as TempUnit)}></FormDropdown>
-            <button onClick={wipeTiles} className="styled-button bg-red-500 hover:bg-red-300">Reset tiles</button>
-            <button onClick={sendForm} className="styled-button">Confirm</button>
+            <div className="flex w-full flex-grow justify-evenly">
+                <button onClick={wipeTiles} className="styled-button bg-red-500 hover:bg-red-300">Reset tiles</button>
+                <button onClick={sendForm} className="styled-button">Confirm</button>
+            </div>
         </div>
     );
 };

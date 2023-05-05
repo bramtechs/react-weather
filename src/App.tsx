@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-import "./App.css";
-import { WeatherQuery } from "./api/WeatherTypes";
 import { SettingsState } from "./states/SettingsState";
 import { MenuBar } from "./comps/MenuBar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
