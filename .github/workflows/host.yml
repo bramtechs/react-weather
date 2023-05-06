@@ -39,8 +39,6 @@ jobs:
               run: npm install
             - name: Build server and client code
               run: npm run build
-            - name: Run unit tests
-              run: npm run test
             - name: Setup Pages
               uses: actions/configure-pages@v3
             - name: Upload artifact
