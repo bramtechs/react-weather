@@ -1,4 +1,4 @@
-import {ReactElement, useEffect, useState} from "react";
+import { ReactElement, useEffect, useState } from 'react';
 
 export enum TileBackground {
     Unknown,
@@ -8,34 +8,23 @@ export enum TileBackground {
 }
 
 const Gradients = {
-    [TileBackground.Sunny]: [
-        `tile-container scale-0 from-sky-400 to-sky-300`,
-        `tile-container scale-1 from-sky-400 to-sky-300`,
-    ],
-    [TileBackground.Clouds]: [
-        `tile-container scale-0 from-gray-400 to-gray-300`,
-        `tile-container scale-1 from-gray-400 to-gray-300`
-    ],
-    [TileBackground.Rain]: [
-        `tile-container scale-0 from-gray-600 to-gray-300`,
-        `tile-container scale-1 from-gray-600 to-gray-300`
-    ],
-    [TileBackground.Unknown]: [
-        `tile-container scale-0 from-gray-300 to-gray-200`,
-        `tile-container scale-1 from-gray-300 to-gray-200`
-    ],
+    [TileBackground.Sunny]: `absolute left-0 top-0 w-full h-full -z-10 rounded-2xl bg-slate-600 blur-sm bg-[url('/tilesbg/sunshine.jpg')]`,
+    [TileBackground.Clouds]: `absolute left-0 top-0 w-full h-full -z-10 rounded-2xl bg-slate-600 blur-sm bg-[url('/tilesbg/clouds.jpg')]`,
+    [TileBackground.Rain]: `absolute left-0 top-0 w-full h-full -z-10 rounded-2xl bg-slate-600 blur-sm bg-[url('/tilesbg/rain.jpg')]`,
+    [TileBackground.Unknown]: `absolute left-0 top-0 w-full h-full -z-10 rounded-2xl bg-slate-600 blur-sm from-gray-700 to-gray-400`,
 };
 
 // Background graphic to put weather info in
-export const TileContainer = (props: { children: ReactElement | ReactElement[], type: TileBackground}) => {
+export const TileContainer = (props: { children: ReactElement | ReactElement[]; type: TileBackground }) => {
     const [started, setStarted] = useState<boolean>(false);
 
     useEffect(() => {
         setStarted(true);
-    },[])
+    }, []);
 
     return (
-        <div className={Gradients[props.type][started?1:0]}>
+        <div className={started ? 'relative flex justify-center items-center flex-grow m-2 min-w-[40%] h-[20rem] text-center rounded-2xl bg-gradient-to-t text-white dark:text-black font-bold transition-all scale-1' : 'flex justify-center items-center flex-grow m-2 min-w-[40%] h-[20rem] text-center rounded-2xl bg-gradient-to-t text-white dark:text-black font-bold transition-all scale-0'}>
+            <div className={Gradients[props.type]}></div>
             {props.children}
         </div>
     );
