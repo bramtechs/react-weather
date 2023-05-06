@@ -3,7 +3,7 @@ import { CurrentResponse } from "openweathermap-ts/dist/types";
 import { WeatherQuery } from "./WeatherTypes";
 
 const _OpenWeather = new OpenWeatherMap({
-    apiKey: process.env.REACT_APP_OPENWEATHER_KEY,
+    apiKey: process.env.REACT_APP_OPENWEATHER_KEY!,
     units: "metric",
 });
 
