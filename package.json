@@ -11,19 +11,22 @@
     },
     "dependencies": {
         "@fluentui/react-icons": "^2.0.201",
+        "@reduxjs/toolkit": "^1.9.5",
         "@tanstack/react-query": "^4.29.5",
+        "@types/react-redux": "^7.1.25",
         "openweathermap-ts": "^1.2.10",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-geolocated": "^4.0.3",
-        "react-loading-icons": "^1.1.0"
+        "react-loading-icons": "^1.1.0",
+        "react-redux": "^8.0.5"
     },
     "devDependencies": {
+        "@tanstack/react-query-devtools": "^4.29.6",
         "@types/jest": "^29.5.1",
         "@types/node": "^18.15.11",
         "@types/react": "^18.2.5",
         "@types/react-dom": "^18.2.3",
-        "@tanstack/react-query-devtools": "^4.29.6",
         "@vitejs/plugin-react": "^4.0.0",
         "@vitejs/plugin-react-swc": "^3.0.0",
         "autoprefixer": "^10.4.14",
