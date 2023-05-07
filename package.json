@@ -12,9 +12,7 @@
     },
     "dependencies": {
         "@fluentui/react-icons": "^2.0.201",
-        "@reduxjs/toolkit": "^1.9.5",
         "@tanstack/react-query": "^4.29.5",
-        "@types/react-redux": "^7.1.25",
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
         "nodemon": "^2.0.22",
@@ -23,7 +21,6 @@
         "react-dom": "^18.2.0",
         "react-geolocated": "^4.0.3",
         "react-loading-icons": "^1.1.0",
-        "react-redux": "^8.0.5"
     },
     "devDependencies": {
         "@tanstack/react-query-devtools": "^4.29.6",
