@@ -11,8 +11,6 @@
         "host": "tsc -p tsconfig.server.json && node ./dist/server/index.js"
     },
     "dependencies": {
-        "@fluentui/react-icons": "^2.0.201",
-        "@tanstack/react-query": "^4.29.5",
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
         "nodemon": "^2.0.22",
@@ -20,21 +18,25 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-geolocated": "^4.0.3",
-        "react-loading-icons": "^1.1.0"
+        "react-loading-icons": "^1.1.0",
+        "@fluentui/react-icons": "^2.0.201",
+        "@tanstack/react-query": "^4.29.5"
     },
     "devDependencies": {
         "@tanstack/react-query-devtools": "^4.29.6",
         "@types/jest": "^29.5.1",
-        "@types/dotenv": "^8.2.0",
         "@types/express": "^4.17.17",
         "@types/node": "^20.1.0",
-        "@types/react": "^18.2.5",
-        "@types/react-dom": "^18.2.4",
-        "@vitejs/plugin-react": "^4.0.0",
+        "@types/react": "^18.0.28",
+        "@types/react-dom": "^18.0.11",
         "@vitejs/plugin-react-swc": "^3.0.0",
+        "@vitejs/plugin-react": "^4.0.0",
+        "eslint": "^8.38.0",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "eslint-plugin-react-refresh": "^0.3.4",
         "autoprefixer": "^10.4.14",
         "tailwindcss": "^3.3.2",
-        "typescript": "^5.0.4",
-        "vite": "^4.3.5"
+        "typescript": "^5.0.2",
+        "vite": "^4.3.2"
     }
 }
