@@ -1,11 +1,10 @@
-import OpenWeatherMap from "openweathermap-ts";
-import { CurrentResponse } from "openweathermap-ts/dist/types";
-import { WeatherQuery } from "./WeatherTypes";
+import OpenWeatherMap from 'openweathermap-ts';
+import { CurrentResponse } from 'openweathermap-ts/dist/types';
+import { WeatherQuery } from './WeatherTypes';
 
 const _OpenWeather = new OpenWeatherMap({
-    // FIXME: Don't include directly in here!
     apiKey: "db6b3fff5256fe57907e84c800f2d027",
-    units: "metric",
+    units: 'metric',
 });
 
 export function searchWeather(query: WeatherQuery): Promise<CurrentResponse> {
@@ -16,6 +15,6 @@ export function searchWeather(query: WeatherQuery): Promise<CurrentResponse> {
     } else if (query.coords) {
         return _OpenWeather.getCurrentWeatherByGeoCoordinates(query.coords.lat, query.coords.lon);
     } else {
-        throw new Error("No valid search query given");
+        throw new Error('No valid search query given');
     }
 }
