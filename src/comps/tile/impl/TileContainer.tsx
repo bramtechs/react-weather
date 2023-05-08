@@ -1,3 +1,4 @@
+import React from 'react';
 import { ReactElement, useEffect, useState } from 'react';
 
 export enum TileBackground {

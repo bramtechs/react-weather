@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { WeatherQuery } from "../../api/WeatherTypes";
 import { TileBackground, TileContainer } from "./impl/TileContainer";
