@@ -7,4 +7,5 @@ export default defineConfig({
     build: {
         outDir: './dist',
     },
+    base: 'https://bramtechs.github.io/react-weather/',
 });
