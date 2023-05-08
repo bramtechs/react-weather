@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState } from 'react';
-
 import { SettingsState } from './states/SettingsState';
 import { MenuBar } from './comps/MenuBar';
 import { MainState } from './states/MainState';
@@ -8,7 +7,7 @@ import { MainState } from './states/MainState';
 export type AppState = 'Main' | 'Settings';
 export const AppStates: AppState[] = ['Main', 'Settings'];
 
-const App = () => {
+function App() {
     const [state, setState] = useState<AppState>('Main');
 
     return (
@@ -19,11 +18,11 @@ const App = () => {
                 <SettingsState
                     onFormSubmit={() => {
                         setState('Main');
-                    }}
+                    } }
                 ></SettingsState>
             )}
         </main>
     );
-};
+}
 
 export default App;
