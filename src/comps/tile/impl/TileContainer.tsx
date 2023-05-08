@@ -23,13 +23,15 @@ export const TileContainer = (props: { children: ReactElement | ReactElement[]; 
         setStarted(true);
     }, []);
 
-    return started ? <div
-        className='relative flex justify-center items-center flex-grow m-2 min-w-[40%] h-[20rem] text-center rounded-2xl bg-gradient-to-t text-white dark:text-black font-bold transition-all scale-1'>
-        <div className={Gradients[props.type]}></div>
-        {props.children}
-    </div> : <div
-        className='relative flex justify-center items-center flex-grow m-2 min-w-[40%] h-[20rem] text-center rounded-2xl bg-gradient-to-t text-white dark:text-black font-bold transition-all scale-0'>
-        <div className={Gradients[props.type]}></div>
-        {props.children}
-    </div>;
+    const startedCss =
+        'relative flex justify-center border-slate-500/80 border-4 border-solid items-center flex-grow m-2 min-w-[40%] h-[20rem] text-center rounded-2xl bg-gradient-to-t text-white dark:text-black font-bold transition-all scale-1';
+    const stoppedCss =
+        'relative flex justify-center border-slate-500/0 border-4 border-solid items-center flex-grow m-2 min-w-[40%] h-[20rem] text-center rounded-2xl bg-gradient-to-t text-white dark:text-black font-bold transition-all scale-0';
+
+    return (
+        <div className={started ? startedCss : stoppedCss}>
+            <div className={Gradients[props.type]}></div>
+            {props.children}
+        </div>
+    );
 };
