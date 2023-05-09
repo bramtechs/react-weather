@@ -1,34 +1,39 @@
-import { WeatherQuery } from "../api/WeatherTypes";
+import { WeatherQuery } from '../api/WeatherTypes';
 
-export type TempUnit = "Celsius" | "Fahrenheit" | "Kelvin";
-export const TempUnits: TempUnit[] = ["Celsius", "Fahrenheit", "Kelvin"];
+export type TempUnit = 'Celsius' | 'Fahrenheit' | 'Kelvin';
+export const TempUnits: TempUnit[] = ['Celsius', 'Fahrenheit', 'Kelvin'];
+
+export interface Coordinate {
+    lat: number;
+    lon: number;
+}
 
 export type Settings = {
     unit: TempUnit;
     tiles: WeatherQuery[];
+    lastLocation?: Coordinate;
 };
 
 export const DefaultSettings: Settings = {
-    unit: "Celsius",
+    unit: 'Celsius',
     tiles: [],
 };
 
-
-function validateUserSettings(object: any): boolean{
-    return Object.keys(DefaultSettings).find((k) => !Object.hasOwn(object,k)) === undefined;
+function validateUserSettings(object: any): boolean {
+    return Object.keys(DefaultSettings).find((k) => !(k in object)) === undefined;
 }
 
 function loadSettings(): Settings {
     if (!localStorage) {
-        throw new Error("LocalStorage not supported!");
+        throw new Error('LocalStorage not supported!');
     }
 
-    const json = localStorage.getItem("userSettings");
+    const json = localStorage.getItem('userSettings');
     if (!json) {
         return DefaultSettings;
     }
     const parsed = JSON.parse(json);
-    if (!validateUserSettings(parsed)){
+    if (!validateUserSettings(parsed)) {
         return DefaultSettings;
     }
     return parsed as Settings;
@@ -36,12 +41,12 @@ function loadSettings(): Settings {
 
 function saveSettings(s: Settings) {
     if (!localStorage) {
-        throw new Error("LocalStorage not supported!");
+        throw new Error('LocalStorage not supported!');
     }
 
     let json = JSON.stringify(s);
-    localStorage.setItem("userSettings", json);
-    console.debug("Updated user setttings");
+    localStorage.setItem('userSettings', json);
+    console.debug('Updated user setttings');
 }
 
 function isSettings(s: any) {
