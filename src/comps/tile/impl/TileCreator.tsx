@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { WeatherQuery } from '../../../api/WeatherTypes';
 import { AddFilled } from '@fluentui/react-icons';
 import { Popup } from '../../Popup';
+import React from 'react';
 
-// TODO: Put in a popup and switch to tile '+' button
 export const WeatherEntryCreator = (props: { onFormSubmit: (query: WeatherQuery) => void }) => {
     const [prompting, setPrompting] = useState<boolean>(false);
 
@@ -14,7 +14,14 @@ export const WeatherEntryCreator = (props: { onFormSubmit: (query: WeatherQuery)
         setPrompting(false);
     }
 
-    return prompting ? <WeatherEntryPopup onQuerySubmit={handleQueryUpdate} /> : <AddFilled onClick={() => setPrompting(true)} />;
+    return (
+        <>
+            <div className="flex flex-col items-center justify-center w-full h-full" onClick={() => setPrompting(true)}>
+                <AddFilled />
+            </div>
+            {prompting ? <WeatherEntryPopup onQuerySubmit={handleQueryUpdate} /> : <></>}
+        </>
+    );
 };
 
 const WeatherEntryPopup = (props: { onQuerySubmit: (query?: WeatherQuery) => void }) => {
@@ -25,7 +32,7 @@ const WeatherEntryPopup = (props: { onQuerySubmit: (query?: WeatherQuery) => voi
     }
 
     function handleCancellation() {
-        props.onQuerySubmit(undefined);
+        props.onQuerySubmit();
     }
 
     return (
@@ -47,12 +54,20 @@ const WeatherEntryForm = (props: { onQueryUpdate: (query: WeatherQuery) => void 
 
     return (
         <table className="m-3">
-            <th>
-                <label htmlFor="location">Location</label>
-            </th>
-            <td>
-                <input onChange={(e) => setQuery({ cityName: e.target.value })} id="location"></input>
-            </td>
+            <thead>
+                <tr>
+                    <th>
+                        <label htmlFor="location">Location</label>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input onChange={(e) => setQuery({ cityName: e.target.value })} id="location"></input>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     );
 };
