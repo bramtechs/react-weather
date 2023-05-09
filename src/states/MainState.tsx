@@ -4,6 +4,7 @@ import { LiveTile } from "../comps/tile/LiveTile";
 import { DynamicLiveTile } from "../comps/tile/DynamicLiveTile";
 import { generateKeyFromQuery } from "../comps/utils/InfoFetcher";
 import { UserSettings } from "../storage/SettingsAbstractor";
+import React from "react";
 
 export const MainState = () => {
 
@@ -22,7 +23,7 @@ export const MainState = () => {
     }
 
     return (
-        <div className="flex flex-wrap justify-between">
+        <div className="flex flex-wrap justify-center">
             <DynamicLiveTile/>
             {
                 queries.map((query, index) =>
