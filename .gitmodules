@@ -1,0 +1,3 @@
+[submodule "server/restcountries"]
+	path = server/restcountries
+	url = https://gitlab.com/restcountries/restcountries
