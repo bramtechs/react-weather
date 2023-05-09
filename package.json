@@ -8,7 +8,8 @@
         "build": "tsc -p ./tsconfig.server.json && vite build",
         "preview": "vite preview",
         "serverdev": "nodemon",
-        "host": "tsc -p tsconfig.server.json && node ./dist-server/index.js"
+        "host": "tsc -p tsconfig.server.json && node ./dist-server/index.js",
+        "countries": "cd ./server; docker-compose up"
     },
     "dependencies": {
         "dotenv": "^16.0.3",
