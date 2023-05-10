@@ -1,4 +1,4 @@
-import { WeatherQuery } from '../api/WeatherTypes';
+import { WeatherQueries } from '../api/WeatherTypes';
 
 export type TempUnit = 'Celsius' | 'Fahrenheit' | 'Kelvin';
 export const TempUnits: TempUnit[] = ['Celsius', 'Fahrenheit', 'Kelvin'];
@@ -10,13 +10,13 @@ export interface Coordinate {
 
 export type Settings = {
     unit: TempUnit;
-    tiles: WeatherQuery[];
+    tiles: WeatherQueries;
     lastLocation?: Coordinate;
 };
 
 export const DefaultSettings: Settings = {
     unit: 'Celsius',
-    tiles: [],
+    tiles: {},
 };
 
 function validateUserSettings(object: any): boolean {
