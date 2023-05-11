@@ -10,6 +10,7 @@ import { searchWeather } from '../../api/WeatherApi';
 import { CurrentResponse } from 'openweathermap-ts/dist/types';
 import { typeNameToTileBackground } from '../../api/WeatherUtils';
 import { FetchResult, InfoFetcher } from '../utils/InfoFetcher';
+import { TileButtons } from './impl/TileButtons';
 
 export function isValidCurrentResponse(data: CurrentResponse | any): boolean {
     if (data) {
@@ -22,9 +23,22 @@ export function isValidCurrentResponse(data: CurrentResponse | any): boolean {
 export const LiveTile = (props: { query: WeatherQuery; onConfigured: (query: WeatherQuery) => void }) => {
     const [results, setResults] = useState<FetchResult>({});
 
+    function handleTileEdit() {
+        console.log("edit");
+    }
+
+    function handleTileDelete() {
+        console.log("delete");
+    }
+
     function getInnerContent() {
         if (isValidCurrentResponse(results.data)) {
-            return <LiveTileInfo info={results.data as CurrentResponse} />;
+            return (
+                <>
+                    <TileButtons className="scale-0 group-hover:scale-100 transition-all" onEdit={handleTileEdit} onRemove={handleTileDelete} />
+                    <LiveTileInfo info={results.data as CurrentResponse} />
+                </>
+            );
         } else if (results.isLoading) {
             return <ThreeDots />;
         } else {

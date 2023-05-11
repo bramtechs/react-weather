@@ -2,6 +2,7 @@ import { AppState, AppStates } from '../App';
 import { ReactElement } from 'react';
 import { HomeFilled, SettingsFilled } from '@fluentui/react-icons';
 import { FluentIcon } from '@fluentui/react-icons/lib/utils/createFluentIcon';
+import React from 'react';
 
 type StateIcons = {
     [key in AppState]: ReactElement<FluentIcon>;
