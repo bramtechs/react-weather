@@ -20,22 +20,29 @@ export function isValidCurrentResponse(data: CurrentResponse | any): boolean {
     return false;
 }
 
-export const LiveTile = (props: { query: WeatherQuery; onConfigured: (query: WeatherQuery) => void }) => {
+export interface LiveTileProps {
+    query: WeatherQuery;
+    onConfigured: (query: WeatherQuery) => void;
+    requestEdit?: (query: WeatherQuery) => void;
+    requestRemove?: (query: WeatherQuery) => void;
+}
+
+export const LiveTile = (props: LiveTileProps) => {
     const [results, setResults] = useState<FetchResult>({});
-
-    function handleTileEdit() {
-        console.log("edit");
-    }
-
-    function handleTileDelete() {
-        console.log("delete");
-    }
 
     function getInnerContent() {
         if (isValidCurrentResponse(results.data)) {
             return (
                 <>
-                    <TileButtons className="scale-0 group-hover:scale-100 transition-all" onEdit={handleTileEdit} onRemove={handleTileDelete} />
+                    {props.requestEdit || props.requestRemove ? (
+                        <TileButtons
+                            className="scale-0 group-hover:scale-100 transition-all"
+                            onEdit={() => props.requestEdit && props.requestEdit(props.query)}
+                            onRemove={() => props.requestRemove && props.requestRemove(props.query)}
+                        />
+                    ) : (
+                        <></>
+                    )}
                     <LiveTileInfo info={results.data as CurrentResponse} />
                 </>
             );
@@ -46,7 +53,7 @@ export const LiveTile = (props: { query: WeatherQuery; onConfigured: (query: Wea
                 <div>
                     <ErrorCircleFilled />
                     <p>{'Could not load weather info!'}</p>
-                    {results.error ? <p>JSON.stringify(status.error)</p> : <div></div>}
+                    {results.error ? <p>JSON.stringify(status.error)</p> : <></>}
                 </div>
             );
         }
