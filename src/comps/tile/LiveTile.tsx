@@ -32,20 +32,7 @@ export const LiveTile = (props: LiveTileProps) => {
 
     function getInnerContent() {
         if (isValidCurrentResponse(results.data)) {
-            return (
-                <>
-                    {props.requestEdit || props.requestRemove ? (
-                        <TileButtons
-                            className="scale-0 group-hover:scale-100 transition-all"
-                            onEdit={() => props.requestEdit && props.requestEdit(props.query)}
-                            onRemove={() => props.requestRemove && props.requestRemove(props.query)}
-                        />
-                    ) : (
-                        <></>
-                    )}
-                    <LiveTileInfo info={results.data as CurrentResponse} />
-                </>
-            );
+            return <LiveTileInfo info={results.data as CurrentResponse} />;
         } else if (results.isLoading) {
             return <ThreeDots />;
         } else {
@@ -67,6 +54,15 @@ export const LiveTile = (props: LiveTileProps) => {
                     : TileBackground.Unknown
             }
         >
+            {props.requestEdit || props.requestRemove ? (
+                <TileButtons
+                    className="scale-0 group-hover:scale-100 transition-all"
+                    onEdit={() => props.requestEdit && props.requestEdit(props.query)}
+                    onRemove={() => props.requestRemove && props.requestRemove(props.query)}
+                />
+            ) : (
+                <></>
+            )}
             {isQueryValid(props.query) ? (
                 <InfoFetcher
                     queryKey={'live-info' + getQueryKey(props.query)}
