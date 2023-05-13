@@ -1,3 +1,5 @@
+import React from "react";
+
 export type ButtonColor = 'Red' | 'Blue';
 
 function getStyle(col: ButtonColor) {

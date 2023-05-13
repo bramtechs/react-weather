@@ -1,6 +1,6 @@
 import { QueryFunction, useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import { WeatherQuery } from "../../api/WeatherTypes";
+import { useEffect } from "react";
+import React from "react";
 
 export type FetchResult = {
     isLoading?: boolean,
@@ -29,16 +29,5 @@ export const InfoFetcher = (props: { queryKey: string, fetchCall: QueryFunction<
         });
     }, [data]);
 
-    return (<template></template>)
-}
-
-export function generateKeyFromQuery(prefix: string, query: WeatherQuery) {
-    if (query.cityName) {
-        return `${prefix}-${query.cityName}`;
-    }
-    else if (query.coords) {
-        return `${prefix}-${query.coords.lat}-${query.coords.lon}`;
-    } else {
-        return `${prefix}-???`;
-    }
+    return (<></>)
 }

@@ -55,4 +55,3 @@ export const DynamicLiveTile = () => {
 
     return <TileContainer type={TileBackground.Unknown}>{inner}</TileContainer>;
 };
-
