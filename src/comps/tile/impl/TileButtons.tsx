@@ -11,9 +11,9 @@ export function TileButtons(props: { className: string; behaviour?: ButtonBehavi
     return (
         <div className="absolute top-5 right-5 scale-0 group-hover:scale-100">
             <div className={props.className}>
+                {props.behaviour?.onRefresh ? <ArrowSync24Filled onClick={props.behaviour.onRefresh} className="mr-2 scale-120" /> : <></>}
                 {props.behaviour?.onEdit ? <Edit32Regular onClick={props.behaviour.onEdit} className={'mr-2'} /> : <></>}
                 {props.behaviour?.onRemove ? <Delete32Regular onClick={props.behaviour.onRemove} style={{ color: 'tomato' }} /> : <></>}
-                {props.behaviour?.onRefresh ? <ArrowSync24Filled onClick={props.behaviour.onRefresh} className={'ml-2'} /> : <></>}
             </div>
         </div>
     );

@@ -74,9 +74,11 @@ export const LiveTile = (props: LiveTileProps) => {
 
     return (
         <TileContainer type={bgTheme}>
-            <TileButtons className="scale-0 group-hover:scale-100 transition-all" behaviour={behaviour} />
             {isQueryValid(props.query) ? (
-                <InfoFetcher queryKey={generateQueryKey()} fetchCall={() => searchWeather(props.query!)} onStatusChanged={setResults} />
+                <>
+                    <InfoFetcher queryKey={generateQueryKey()} fetchCall={() => searchWeather(props.query!)} onStatusChanged={setResults} />
+                    <TileButtons className="scale-0 group-hover:scale-100 transition-all" behaviour={behaviour} />
+                </>
             ) : (
                 <></>
             )}

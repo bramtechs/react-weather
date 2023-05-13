@@ -4,9 +4,9 @@ import { WeatherQuery } from '../../api/WeatherTypes';
 import { TileBackground, TileContainer } from './impl/TileContainer';
 import { useGeolocated } from 'react-geolocated';
 import ThreeDots from 'react-loading-icons/dist/esm/components/three-dots';
-import React from 'react';
 import { UserSettings } from '../../storage/SettingsAbstractor';
 import { ButtonBehaviour } from './impl/TileButtons';
+import React from 'react';
 
 // TODO: Abstract geolocation away into GeolocationAbstractor
 export function DynamicLiveTile() {
@@ -32,10 +32,15 @@ export function DynamicLiveTile() {
         return inner;
     }
 
+    function handleRefresh() {
+        UserSettings().lastLocation = undefined;
+    }
+
     const [liveQuery, setLiveQuery] = useState<WeatherQuery | undefined>(getInitialQuery);
     const { coords, isGeolocationAvailable, isGeolocationEnabled } = useGeolocated({
         positionOptions: { enableHighAccuracy: false },
         userDecisionTimeout: 30000,
+        watchPosition: true,
     });
 
     useEffect(() => {
@@ -53,10 +58,13 @@ export function DynamicLiveTile() {
     }, [coords]);
 
     if (liveQuery) {
-        const behaviour: ButtonBehaviour = {
-            onRefresh: () => alert('TODO'),
-        };
-        return <LiveTile query={liveQuery} onConfigured={() => alert("Dynamic tile can't be modified!")} buttonBehaviour={behaviour} />;
+        return (
+            <LiveTile
+                query={liveQuery}
+                onConfigured={() => alert("Dynamic tile can't be modified!")}
+                buttonBehaviour={{ onRefresh: handleRefresh }}
+            />
+        );
     } else {
         return <TileContainer type={TileBackground.Unknown}>{getStatusContent()}</TileContainer>;
     }
