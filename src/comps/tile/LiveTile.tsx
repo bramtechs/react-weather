@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { WeatherQuery, getQueryKey, isQueryValid } from '../../api/WeatherTypes';
 import { TileBackground, TileContainer } from './impl/TileContainer';
@@ -28,13 +28,29 @@ export interface LiveTileProps {
 
 export const LiveTile = (props: LiveTileProps) => {
     const [results, setResults] = useState<FetchResult>({});
+    const [iteration, setIteration] = useState(0);
+    const [bgTheme, setBgTheme] = useState<TileBackground>(TileBackground.Unknown);
+
+    useEffect(() => {
+        if (results.data) {
+            const bg = typeNameToTileBackground((results.data as CurrentResponse).weather[0].main);
+            setBgTheme(bg);
+        }
+    }, [results]);
+
+    function generateQueryKey() {
+        return `live-info${getQueryKey(props.query)}-${iteration}`;
+    }
+
+    function handleRefresh() {
+        setResults({ isLoading: true, error: undefined, data: undefined });
+        setIteration(iteration + 1);
+    }
 
     function getInnerContent() {
         if (isValidCurrentResponse(results.data)) {
             return <LiveTileInfo info={results.data as CurrentResponse} />;
-        } else if (results.isLoading) {
-            return <ThreeDots />;
-        } else {
+        } else if (results.error) {
             return (
                 <div>
                     <ErrorCircleFilled />
@@ -42,24 +58,25 @@ export const LiveTile = (props: LiveTileProps) => {
                     {results.error ? <p>JSON.stringify(status.error)</p> : <></>}
                 </div>
             );
+        } else {
+            return <ThreeDots />;
         }
     }
 
+    const behaviour: ButtonBehaviour = {
+        onRefresh: () => {
+            handleRefresh();
+            props.buttonBehaviour?.onRefresh?.();
+        },
+        onEdit: props.buttonBehaviour?.onEdit,
+        onRemove: props.buttonBehaviour?.onEdit,
+    };
+
     return (
-        <TileContainer
-            type={
-                isValidCurrentResponse(results.data)
-                    ? typeNameToTileBackground((results.data as CurrentResponse).weather[0].main)
-                    : TileBackground.Unknown
-            }
-        >
-            <TileButtons className="scale-0 group-hover:scale-100 transition-all" behaviour={props.buttonBehaviour} />
+        <TileContainer type={bgTheme}>
+            <TileButtons className="scale-0 group-hover:scale-100 transition-all" behaviour={behaviour} />
             {isQueryValid(props.query) ? (
-                <InfoFetcher
-                    queryKey={'live-info' + getQueryKey(props.query)}
-                    fetchCall={() => searchWeather(props.query!)}
-                    onStatusChanged={setResults}
-                />
+                <InfoFetcher queryKey={generateQueryKey()} fetchCall={() => searchWeather(props.query!)} onStatusChanged={setResults} />
             ) : (
                 <></>
             )}

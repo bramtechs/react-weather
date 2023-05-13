@@ -37,7 +37,6 @@ export const MainState = () => {
             {Object.entries(queries).map(([keyName, query]) => {
                 const behaviour: ButtonBehaviour = {
                     onRemove: () => handleTileRemoved(query),
-                    onRefresh: () => alert('TODO'),
                     onEdit: () => handleTileEdit(query),
                 };
                 return <LiveTile key={keyName} query={query} buttonBehaviour={behaviour} onConfigured={() => handleTileConfigured(query)} />;
