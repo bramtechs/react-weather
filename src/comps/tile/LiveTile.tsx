@@ -10,7 +10,7 @@ import { searchWeather } from '../../api/WeatherApi';
 import { CurrentResponse } from 'openweathermap-ts/dist/types';
 import { typeNameToTileBackground } from '../../api/WeatherUtils';
 import { FetchResult, InfoFetcher } from '../utils/InfoFetcher';
-import { TileButtons } from './impl/TileButtons';
+import { TileButtons, ButtonBehaviour } from './impl/TileButtons';
 
 export function isValidCurrentResponse(data: CurrentResponse | any): boolean {
     if (data) {
@@ -23,8 +23,7 @@ export function isValidCurrentResponse(data: CurrentResponse | any): boolean {
 export interface LiveTileProps {
     query: WeatherQuery;
     onConfigured: (query: WeatherQuery) => void;
-    requestEdit?: (query: WeatherQuery) => void;
-    requestRemove?: (query: WeatherQuery) => void;
+    buttonBehaviour?: ButtonBehaviour;
 }
 
 export const LiveTile = (props: LiveTileProps) => {
@@ -54,15 +53,7 @@ export const LiveTile = (props: LiveTileProps) => {
                     : TileBackground.Unknown
             }
         >
-            {props.requestEdit || props.requestRemove ? (
-                <TileButtons
-                    className="scale-0 group-hover:scale-100 transition-all"
-                    onEdit={() => props.requestEdit && props.requestEdit(props.query)}
-                    onRemove={() => props.requestRemove && props.requestRemove(props.query)}
-                />
-            ) : (
-                <></>
-            )}
+            <TileButtons className="scale-0 group-hover:scale-100 transition-all" behaviour={props.buttonBehaviour} />
             {isQueryValid(props.query) ? (
                 <InfoFetcher
                     queryKey={'live-info' + getQueryKey(props.query)}
