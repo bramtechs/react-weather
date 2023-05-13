@@ -3,6 +3,9 @@ import { WeatherQueries } from '../api/WeatherTypes';
 export type TempUnit = 'Celsius' | 'Fahrenheit' | 'Kelvin';
 export const TempUnits: TempUnit[] = ['Celsius', 'Fahrenheit', 'Kelvin'];
 
+// HACK: using sessionstorage for now because of the changing spec
+const localStorage = sessionStorage;
+
 export interface Coordinate {
     lat: number;
     lon: number;
