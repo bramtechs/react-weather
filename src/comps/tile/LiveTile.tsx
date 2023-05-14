@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { WeatherQuery, getQueryKey, isQueryValid } from '../../api/WeatherTypes';
 import { TileBackground, TileContainer } from './impl/TileContainer';
-import { TileCreator } from './impl/TileCreator';
 import { LiveTileInfo } from './impl/LiveTileInfo';
 import { ThreeDots } from 'react-loading-icons';
 import { ErrorCircleFilled } from '@fluentui/react-icons';
@@ -22,7 +21,6 @@ export function isValidCurrentResponse(data: CurrentResponse | any): boolean {
 
 export interface LiveTileProps {
     query: WeatherQuery;
-    onConfigured: (query: WeatherQuery) => void;
     buttonBehaviour?: ButtonBehaviour;
 }
 
@@ -69,20 +67,14 @@ export const LiveTile = (props: LiveTileProps) => {
             props.buttonBehaviour?.onRefresh?.();
         },
         onEdit: props.buttonBehaviour?.onEdit,
-        onRemove: props.buttonBehaviour?.onEdit,
+        onRemove: props.buttonBehaviour?.onRemove,
     };
 
     return (
         <TileContainer type={bgTheme}>
-            {isQueryValid(props.query) ? (
-                <>
-                    <InfoFetcher queryKey={generateQueryKey()} fetchCall={() => searchWeather(props.query!)} onStatusChanged={setResults} />
-                    <TileButtons className="scale-0 group-hover:scale-100 transition-all" behaviour={behaviour} />
-                </>
-            ) : (
-                <></>
-            )}
-            {isQueryValid(props.query) ? getInnerContent() : <TileCreator onFormSubmit={props.onConfigured} />}
+            <InfoFetcher queryKey={generateQueryKey()} fetchCall={() => searchWeather(props.query!)} onStatusChanged={setResults} />
+            <TileButtons className="scale-0 group-hover:scale-100 transition-all" behaviour={behaviour} />
+            {getInnerContent()}
         </TileContainer>
     );
 };
