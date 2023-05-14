@@ -3,8 +3,8 @@ import { WeatherQuery } from '../../../api/WeatherTypes';
 import { Popup } from '../../Popup';
 import React from 'react';
 
-export function WeatherEntryPopup(props: { onQuerySubmit: (query?: WeatherQuery) => void; }) {
-    const [query, setQuery] = useState<WeatherQuery>();
+export function TileConfigurator(props: { query?: WeatherQuery; onQuerySubmit: (query?: WeatherQuery) => void }) {
+    const [query, setQuery] = useState<WeatherQuery>(props.query || {});
 
     function handleConfirmation() {
         query && props.onQuerySubmit(query);

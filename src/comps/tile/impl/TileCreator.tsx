@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { WeatherQuery } from '../../../api/WeatherTypes';
 import { AddFilled } from '@fluentui/react-icons';
 import React from 'react';
-import { WeatherEntryPopup } from './TileConfigurator';
+import { TileConfigurator } from './TileConfigurator';
 
-export function TileCreator(props: { onFormSubmit: (query: WeatherQuery) => void }) {
-    const [prompting, setPrompting] = useState<boolean>(false);
+export function TileCreator(props: { query?: WeatherQuery; onFormSubmit: (query: WeatherQuery) => void; }) {
+    const [prompting, setPrompting] = useState<boolean>(props.query !== undefined);
 
     function handleQueryUpdate(query?: WeatherQuery) {
         if (query) {
@@ -19,7 +19,7 @@ export function TileCreator(props: { onFormSubmit: (query: WeatherQuery) => void
             <div className="flex flex-col items-center justify-center w-full h-full" onClick={() => setPrompting(true)}>
                 <AddFilled />
             </div>
-            {prompting ? <WeatherEntryPopup onQuerySubmit={handleQueryUpdate} /> : <></>}
+            {prompting ? <TileConfigurator query={props.query} onQuerySubmit={handleQueryUpdate} /> : <></>}
         </>
     );
 }
