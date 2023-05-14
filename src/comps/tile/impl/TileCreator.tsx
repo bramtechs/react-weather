@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { WeatherQuery } from '../../../api/WeatherTypes';
 import { AddFilled } from '@fluentui/react-icons';
-import { Popup } from '../../Popup';
+import { query } from 'express';
+import { TileConfigurator } from './TileConfigurator';
 import React from 'react';
 
-export const WeatherEntryCreator = (props: { onFormSubmit: (query: WeatherQuery) => void }) => {
-    const [prompting, setPrompting] = useState<boolean>(false);
+export function TileCreator(props: { query?: WeatherQuery; onFormSubmit: (query: WeatherQuery) => void; }) {
+    const [prompting, setPrompting] = useState<boolean>(query !== undefined);
 
     function handleQueryUpdate(query?: WeatherQuery) {
         if (query) {
@@ -19,55 +20,7 @@ export const WeatherEntryCreator = (props: { onFormSubmit: (query: WeatherQuery)
             <div className="flex flex-col items-center justify-center w-full h-full" onClick={() => setPrompting(true)}>
                 <AddFilled />
             </div>
-            {prompting ? <WeatherEntryPopup onQuerySubmit={handleQueryUpdate} /> : <></>}
+            {prompting ? <TileConfigurator query={props.query} onQuerySubmit={handleQueryUpdate} /> : <></>}
         </>
     );
-};
-
-const WeatherEntryPopup = (props: { onQuerySubmit: (query?: WeatherQuery) => void }) => {
-    const [query, setQuery] = useState<WeatherQuery>();
-
-    function handleConfirmation() {
-        query && props.onQuerySubmit(query);
-    }
-
-    function handleCancellation() {
-        props.onQuerySubmit();
-    }
-
-    return (
-        <Popup
-            title="Add a new location"
-            content={<WeatherEntryForm onQueryUpdate={setQuery} />}
-            onConfirm={handleConfirmation}
-            onCancel={handleCancellation}
-        />
-    );
-};
-
-const WeatherEntryForm = (props: { onQueryUpdate: (query: WeatherQuery) => void }) => {
-    const [query, setQuery] = useState<WeatherQuery>();
-
-    useEffect(() => {
-        query && props.onQueryUpdate(query);
-    }, [query]);
-
-    return (
-        <table className="m-3">
-            <thead>
-                <tr>
-                    <th>
-                        <label htmlFor="location">Location</label>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <input onChange={(e) => setQuery({ cityName: e.target.value })} id="location"></input>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    );
-};
+}

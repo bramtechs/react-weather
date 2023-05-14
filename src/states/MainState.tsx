@@ -3,13 +3,15 @@ import { WeatherQueries, WeatherQuery, getQueryKey } from '../api/WeatherTypes';
 import { LiveTile } from '../comps/tile/LiveTile';
 import { DynamicLiveTile } from '../comps/tile/DynamicLiveTile';
 import { UserSettings } from '../storage/SettingsAbstractor';
-import React from 'react';
 import { ButtonBehaviour } from '../comps/tile/impl/TileButtons';
+import { TileCreator } from '../comps/tile/impl/TileCreator';
+import React from 'react';
 
 export const MainState = () => {
     const [queries, setQueries] = useState<WeatherQueries>(UserSettings().tiles);
+    const [editing, setEditing] = useState<WeatherQuery | undefined>(undefined);
 
-    function handleTileConfigured(query: WeatherQuery) {
+    function addNewTile(query: WeatherQuery) {
         const copy = {};
         Object.assign(copy, queries);
         copy[getQueryKey(query)] = query;
@@ -18,7 +20,7 @@ export const MainState = () => {
         UserSettings((data) => (data.tiles = copy));
     }
 
-    function handleTileRemoved(query: WeatherQuery) {
+    function removeTile(query: WeatherQuery) {
         const copy = {};
         Object.assign(copy, queries);
         delete copy[getQueryKey(query)];
@@ -28,7 +30,13 @@ export const MainState = () => {
     }
 
     function handleTileEdit(query: WeatherQuery) {
-        handleTileRemoved(query);
+        removeTile(query);
+        setEditing(query);
+    }
+
+    function handleEditComplete(query: WeatherQuery) {
+        addNewTile(query);
+        setEditing(undefined);
     }
 
     return (
@@ -36,12 +44,13 @@ export const MainState = () => {
             <DynamicLiveTile />
             {Object.entries(queries).map(([keyName, query]) => {
                 const behaviour: ButtonBehaviour = {
-                    onRemove: () => handleTileRemoved(query),
+                    onRemove: () => removeTile(query),
                     onEdit: () => handleTileEdit(query),
                 };
-                return <LiveTile key={keyName} query={query} buttonBehaviour={behaviour} onConfigured={() => handleTileConfigured(query)} />;
+                return <LiveTile key={keyName} query={query} buttonBehaviour={behaviour} onConfigured={() => addNewTile(query)} />;
             })}
-            <LiveTile query={{}} onConfigured={handleTileConfigured} />
+            <LiveTile query={{}} onConfigured={addNewTile} />
+            {editing ? <TileCreator onFormSubmit={handleEditComplete} /> : <></>}
         </div>
     );
 };
