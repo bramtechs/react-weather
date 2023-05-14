@@ -27,7 +27,7 @@ export function TileConfigurator(props: { query?: WeatherQuery; onQuerySubmit: (
                 <tbody>
                     <tr>
                         <td>
-                            <input onChange={(e) => setQuery({ cityName: e.target.value })} id="location"></input>
+                            <input value={query.cityName || ""} onChange={(e) => setQuery({ cityName: e.target.value })} id="location"></input>
                         </td>
                     </tr>
                 </tbody>

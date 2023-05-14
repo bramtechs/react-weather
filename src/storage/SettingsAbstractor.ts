@@ -49,7 +49,7 @@ function saveSettings(s: Settings) {
 
     let json = JSON.stringify(s);
     localStorage.setItem('userSettings', json);
-    console.debug('Updated user setttings');
+    console.debug('Updated user setttings to', s);
 }
 
 function isSettings(s: any) {

@@ -15,27 +15,38 @@ export function MainState() {
     function addNewTile(query?: WeatherQuery) {
         if (query) {
             const copy = {};
-            Object.assign(copy, queries);
+            Object.assign(copy, UserSettings().tiles);
             copy[getQueryKey(query)] = query;
             setQueries(copy);
             UserSettings((data) => (data.tiles = copy));
+            console.log(`Added new tile ${query?.cityName}`);
         }
-        setEditing(undefined);
     }
 
     function removeTile(query: WeatherQuery) {
         const copy = {};
-        Object.assign(copy, queries);
+        Object.assign(copy, UserSettings().tiles);
         delete copy[getQueryKey(query)];
-        setQueries(copy);
         UserSettings((data) => (data.tiles = copy));
+        setQueries(copy);
         console.info(`Removed tile ${query.cityName}`);
     }
 
     function handleTileEdit(query: WeatherQuery) {
-        removeTile(query);
         setEditing(query);
         console.info(`Editing tile ${query.cityName}`);
+    }
+
+    function processTileConfig(query?: WeatherQuery) {
+        if (query) {
+            if (editing?.cityName || editing?.coords) {
+                removeTile(editing);
+            }
+            addNewTile(query);
+        } else {
+            console.log('Cancelled edit');
+        }
+        setEditing(undefined);
     }
 
     return (
@@ -49,7 +60,7 @@ export function MainState() {
                 return <LiveTile key={keyName} query={query} buttonBehaviour={behaviour} />;
             })}
             <EmptyTile onAddRequested={() => setEditing({})} />
-            {editing ? <TileConfigurator onQuerySubmit={addNewTile} /> : <></>}
+            {editing ? <TileConfigurator onQuerySubmit={processTileConfig} /> : <></>}
         </div>
     );
 }
