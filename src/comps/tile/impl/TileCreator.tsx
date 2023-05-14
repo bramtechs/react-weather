@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { WeatherQuery } from '../../../api/WeatherTypes';
 import { AddFilled } from '@fluentui/react-icons';
-import React from 'react';
 import { TileConfigurator } from './TileConfigurator';
+import React from 'react';
 
 export function TileCreator(props: { query?: WeatherQuery; onFormSubmit: (query: WeatherQuery) => void; }) {
     const [prompting, setPrompting] = useState<boolean>(props.query !== undefined);
