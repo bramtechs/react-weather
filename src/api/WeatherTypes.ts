@@ -9,6 +9,16 @@ export interface WeatherQueries {
     [key: string]: WeatherQuery;
 }
 
+export function weatherQueryToString(query: WeatherQuery) {
+    if (query.cityName) {
+        return query.cityName;
+    } else if (query.coords) {
+        return `${query.coords.lat},${query.coords.lon}`;
+    } else {
+        return `nowhere`;
+    }
+}
+
 export function isQueryValid(query) {
     return query.cityName != undefined || query.coords != undefined;
 }

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { WeatherQuery, getQueryKey, isQueryValid } from '../../api/WeatherTypes';
+import { WeatherQuery, getQueryKey, isQueryValid, weatherQueryToString } from '../../api/WeatherTypes';
 import { TileBackground, TileContainer } from './impl/TileContainer';
 import { LiveTileInfo } from './impl/LiveTileInfo';
 import { ThreeDots } from 'react-loading-icons';
@@ -29,9 +29,14 @@ export const LiveTile = (props: LiveTileProps) => {
     const [iteration, setIteration] = useState(0);
     const [bgTheme, setBgTheme] = useState<TileBackground>(TileBackground.Unknown);
 
+    function parseWeatherType(data: any) {
+        const cur = data as CurrentResponse;
+        return cur.weather?.[0].main !== undefined ? cur.weather[0].main : 'Unknown';
+    }
+
     useEffect(() => {
         if (results.data) {
-            const bg = typeNameToTileBackground((results.data as CurrentResponse).weather[0].main);
+            const bg = typeNameToTileBackground(parseWeatherType(results.data));
             setBgTheme(bg);
         }
     }, [results]);
@@ -45,6 +50,11 @@ export const LiveTile = (props: LiveTileProps) => {
         setIteration(iteration + 1);
     }
 
+    function did404(data: any) {
+        const res = data as CurrentResponse;
+        return res?.cod == 404;
+    }
+
     function getInnerContent() {
         if (isValidCurrentResponse(results.data)) {
             return <LiveTileInfo info={results.data as CurrentResponse} />;
@@ -56,8 +66,12 @@ export const LiveTile = (props: LiveTileProps) => {
                     {results.error ? <p>JSON.stringify(status.error)</p> : <></>}
                 </div>
             );
-        } else {
+        } else if (results.isLoading) {
             return <ThreeDots />;
+        } else if (did404(results.data)) {
+            return <p>Could not find {weatherQueryToString(props.query)}</p>;
+        } else {
+            return <p>{JSON.stringify(results.data)}</p>;
         }
     }
 
