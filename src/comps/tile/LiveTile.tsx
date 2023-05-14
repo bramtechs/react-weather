@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { WeatherQuery, getQueryKey, isQueryValid } from '../../api/WeatherTypes';
 import { TileBackground, TileContainer } from './impl/TileContainer';
-import { WeatherEntryCreator } from './impl/TileCreator';
+import { TileCreator } from './impl/TileCreator';
 import { LiveTileInfo } from './impl/LiveTileInfo';
 import { ThreeDots } from 'react-loading-icons';
 import { ErrorCircleFilled } from '@fluentui/react-icons';
@@ -82,7 +82,7 @@ export const LiveTile = (props: LiveTileProps) => {
             ) : (
                 <></>
             )}
-            {isQueryValid(props.query) ? getInnerContent() : <WeatherEntryCreator onFormSubmit={props.onConfigured} />}
+            {isQueryValid(props.query) ? getInnerContent() : <TileCreator onFormSubmit={props.onConfigured} />}
         </TileContainer>
     );
 };

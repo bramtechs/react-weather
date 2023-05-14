@@ -4,7 +4,7 @@ import { AddFilled } from '@fluentui/react-icons';
 import { Popup } from '../../Popup';
 import React from 'react';
 
-export const WeatherEntryCreator = (props: { onFormSubmit: (query: WeatherQuery) => void }) => {
+export function TileCreator(props: { onFormSubmit: (query: WeatherQuery) => void }) {
     const [prompting, setPrompting] = useState<boolean>(false);
 
     function handleQueryUpdate(query?: WeatherQuery) {
@@ -22,9 +22,9 @@ export const WeatherEntryCreator = (props: { onFormSubmit: (query: WeatherQuery)
             {prompting ? <WeatherEntryPopup onQuerySubmit={handleQueryUpdate} /> : <></>}
         </>
     );
-};
+}
 
-const WeatherEntryPopup = (props: { onQuerySubmit: (query?: WeatherQuery) => void }) => {
+function WeatherEntryPopup(props: { onQuerySubmit: (query?: WeatherQuery) => void }) {
     const [query, setQuery] = useState<WeatherQuery>();
 
     function handleConfirmation() {
@@ -36,14 +36,11 @@ const WeatherEntryPopup = (props: { onQuerySubmit: (query?: WeatherQuery) => voi
     }
 
     return (
-        <Popup
-            title="Add a new location"
-            content={<WeatherEntryForm onQueryUpdate={setQuery} />}
-            onConfirm={handleConfirmation}
-            onCancel={handleCancellation}
-        />
+        <Popup title="Add a new location" onConfirm={handleConfirmation} onCancel={handleCancellation}>
+            <WeatherEntryForm onQueryUpdate={setQuery} />
+        </Popup>
     );
-};
+}
 
 const WeatherEntryForm = (props: { onQueryUpdate: (query: WeatherQuery) => void }) => {
     const [query, setQuery] = useState<WeatherQuery>();
