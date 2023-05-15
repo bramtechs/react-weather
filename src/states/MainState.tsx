@@ -60,7 +60,7 @@ export function MainState() {
                 return <LiveTile key={keyName} query={query} buttonBehaviour={behaviour} />;
             })}
             <EmptyTile onAddRequested={() => setEditing({})} />
-            {editing ? <TileConfigurator onQuerySubmit={processTileConfig} /> : <></>}
+            {editing ? <TileConfigurator query={editing} onQuerySubmit={processTileConfig} /> : <></>}
         </div>
     );
 }

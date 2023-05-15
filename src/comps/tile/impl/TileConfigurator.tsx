@@ -17,17 +17,14 @@ export function TileConfigurator(props: { query?: WeatherQuery; onQuerySubmit: (
     return (
         <Popup title="Add a new location" onConfirm={handleConfirmation} onCancel={handleCancellation}>
             <table className="m-3">
-                <thead>
-                    <tr>
-                        <th>
-                            <label htmlFor="location">Location</label>
-                        </th>
-                    </tr>
-                </thead>
+                <thead></thead>
                 <tbody>
                     <tr>
                         <td>
-                            <input value={query.cityName || ""} onChange={(e) => setQuery({ cityName: e.target.value })} id="location"></input>
+                            <label htmlFor="location">Location</label>
+                        </td>
+                        <td>
+                            <input value={query.cityName || ''} onChange={(e) => setQuery({ cityName: e.target.value })} id="location"></input>
                         </td>
                     </tr>
                 </tbody>
