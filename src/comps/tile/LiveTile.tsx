@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import { WeatherQuery, getQueryKey, isQueryValid, weatherQueryToString } from '../../api/WeatherTypes';
-import { TileBackground, TileContainer } from './impl/TileContainer';
+import React, { useEffect, useState } from 'react';
+import { WeatherQuery, getQueryKey, weatherQueryToString } from '../../api/WeatherTypes';
+import { TileContainer } from './impl/TileContainer';
 import { LiveTileInfo } from './impl/LiveTileInfo';
 import { ThreeDots } from 'react-loading-icons';
 import { ErrorCircleFilled } from '@fluentui/react-icons';
 import { searchWeather } from '../../api/WeatherApi';
 import { CurrentResponse } from 'openweathermap-ts/dist/types';
-import { typeNameToTileBackground } from '../../api/WeatherUtils';
 import { FetchResult, InfoFetcher } from '../utils/InfoFetcher';
 import { TileButtons, ButtonBehaviour } from './impl/TileButtons';
+import { BackgroundTheme, typeNameToTileBackground } from '../../gfx/BackgroundThemes';
 
 export function isValidCurrentResponse(data: CurrentResponse | any): boolean {
     if (data) {
@@ -27,7 +26,7 @@ export interface LiveTileProps {
 export const LiveTile = (props: LiveTileProps) => {
     const [results, setResults] = useState<FetchResult>({});
     const [iteration, setIteration] = useState(0);
-    const [bgTheme, setBgTheme] = useState<TileBackground>(TileBackground.Unknown);
+    const [bgTheme, setBgTheme] = useState<BackgroundTheme>(BackgroundTheme.Unknown);
 
     function parseWeatherType(data: any) {
         const cur = data as CurrentResponse;

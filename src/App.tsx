@@ -18,7 +18,7 @@ function App() {
                 <SettingsState
                     onFormSubmit={() => {
                         setState('Main');
-                    } }
+                    }}
                 ></SettingsState>
             )}
         </main>

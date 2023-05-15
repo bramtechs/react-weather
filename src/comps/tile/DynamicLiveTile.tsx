@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { LiveTile } from './LiveTile';
 import { WeatherQuery } from '../../api/WeatherTypes';
-import { TileBackground, TileContainer } from './impl/TileContainer';
 import { useGeolocated } from 'react-geolocated';
 import ThreeDots from 'react-loading-icons/dist/esm/components/three-dots';
 import { UserSettings } from '../../storage/SettingsAbstractor';
 import { ButtonBehaviour } from './impl/TileButtons';
 import React from 'react';
+import { BackgroundTheme } from '../../gfx/BackgroundThemes';
+import { TileContainer } from './impl/TileContainer';
 
 // TODO: Abstract geolocation away into GeolocationAbstractor
 export function DynamicLiveTile() {
@@ -58,14 +59,8 @@ export function DynamicLiveTile() {
     }, [coords]);
 
     if (liveQuery) {
-        return (
-            <LiveTile
-                query={liveQuery}
-                onConfigured={() => alert("Dynamic tile can't be modified!")}
-                buttonBehaviour={{ onRefresh: handleRefresh }}
-            />
-        );
+        return <LiveTile query={liveQuery} buttonBehaviour={{ onRefresh: handleRefresh }} />;
     } else {
-        return <TileContainer type={TileBackground.Unknown}>{getStatusContent()}</TileContainer>;
+        return <TileContainer type={BackgroundTheme.Unknown}>{getStatusContent()}</TileContainer>;
     }
 }

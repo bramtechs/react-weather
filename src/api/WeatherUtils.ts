@@ -1,21 +1,4 @@
-import { TileBackground } from "../comps/tile/impl/TileContainer";
 import { TempUnit, UserSettings } from "../storage/SettingsAbstractor";
-
-export function typeNameToTileBackground(type: string): TileBackground {
-    const weatherTypeKeys = Object.keys(TileBackground);
-    const weatherTypeKey = weatherTypeKeys.find((key) => key === type);
-    const literal = TileBackground[weatherTypeKey as keyof typeof TileBackground];
-    if (literal) {
-        return literal;
-    }
-    // edge cases
-    switch (type.toLowerCase()) {
-        case "clear":
-            return TileBackground.Sunny;
-        default:
-            return TileBackground.Unknown;
-    }
-}
 
 export function convertCelciusToUnit(amount: number, unit: TempUnit) {
     switch (unit) {

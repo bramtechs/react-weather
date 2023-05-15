@@ -1,22 +1,8 @@
-import React from 'react';
-import { ReactElement, useEffect, useState } from 'react';
-
-export enum TileBackground {
-    Unknown,
-    Clouds,
-    Sunny,
-    Rain,
-}
-
-const Gradients = {
-    [TileBackground.Sunny]: `  absolute left-0 top-0 w-full h-full -z-10 rounded-2xl bg-slate-600 blur-sm bg-cover bg-[url('/tilesbg/sunshine.jpg')]`,
-    [TileBackground.Clouds]: ` absolute left-0 top-0 w-full h-full -z-10 rounded-2xl bg-slate-600 blur-sm bg-cover bg-[url('/tilesbg/clouds.jpg')]`,
-    [TileBackground.Rain]: `   absolute left-0 top-0 w-full h-full -z-10 rounded-2xl bg-slate-600 blur-sm bg-cover bg-[url('/tilesbg/rain.jpg')]`,
-    [TileBackground.Unknown]: `absolute left-0 top-0 w-full h-full -z-10 rounded-2xl bg-slate-600 blur-sm bg-cover from-gray-700 to-gray-400`,
-};
+import React, { ReactElement, useEffect, useState } from 'react';
+import { BackgroundTheme, BackgroundThemeCSS } from '../../../gfx/BackgroundThemes';
 
 // Background graphic to put weather info in
-export const TileContainer = (props: { children: ReactElement | ReactElement[]; type: TileBackground }) => {
+export const TileContainer = (props: { children: ReactElement | ReactElement[]; type: BackgroundTheme }) => {
     const [started, setStarted] = useState<boolean>(false);
 
     useEffect(() => {
@@ -30,7 +16,7 @@ export const TileContainer = (props: { children: ReactElement | ReactElement[]; 
 
     return (
         <div className={started ? startedCss : stoppedCss}>
-            <div className={Gradients[props.type]}></div>
+            <div className={BackgroundThemeCSS[props.type]}></div>
             {props.children}
         </div>
     );
