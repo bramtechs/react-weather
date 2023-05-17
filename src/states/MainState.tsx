@@ -7,6 +7,8 @@ import { ButtonBehaviour } from '../comps/tile/impl/TileButtons';
 import { TileConfigurator } from '../comps/tile/impl/TileConfigurator';
 import { EmptyTile } from '../comps/tile/EmptyTile';
 import React from 'react';
+import { Wallpaper } from '../comps/Wallpaper';
+import { BackgroundTheme } from '../gfx/BackgroundThemes';
 
 export function MainState() {
     const [queries, setQueries] = useState<WeatherQueries>(UserSettings().tiles);
@@ -50,17 +52,20 @@ export function MainState() {
     }
 
     return (
-        <div className="flex flex-wrap justify-center">
-            <DynamicLiveTile />
-            {Object.entries(queries).map(([keyName, query]) => {
-                const behaviour: ButtonBehaviour = {
-                    onRemove: () => removeTile(query),
-                    onEdit: () => handleTileEdit(query),
-                };
-                return <LiveTile key={keyName} query={query} buttonBehaviour={behaviour} />;
-            })}
-            <EmptyTile onAddRequested={() => setEditing({})} />
-            {editing ? <TileConfigurator query={editing} onQuerySubmit={processTileConfig} /> : <></>}
-        </div>
+        <>
+            <Wallpaper theme={BackgroundTheme.Clouds} />
+            <div className="flex flex-wrap justify-center">
+                <DynamicLiveTile />
+                {Object.entries(queries).map(([keyName, query]) => {
+                    const behaviour: ButtonBehaviour = {
+                        onRemove: () => removeTile(query),
+                        onEdit: () => handleTileEdit(query),
+                    };
+                    return <LiveTile key={keyName} query={query} buttonBehaviour={behaviour} />;
+                })}
+                <EmptyTile onAddRequested={() => setEditing({})} />
+                {editing ? <TileConfigurator query={editing} onQuerySubmit={processTileConfig} /> : <></>}
+            </div>
+        </>
     );
 }

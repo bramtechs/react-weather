@@ -13,20 +13,17 @@ function App() {
     const [state, setState] = useState<AppState>('Main');
 
     return (
-        <>
-            <Wallpaper theme={BackgroundTheme.Clouds} />
-            <main className="pl-16 text-2xl m-3">
-                <MenuBar curState={state} onStateChange={setState} />
-                {state === 'Main' && <MainState />}
-                {state === 'Settings' && (
-                    <SettingsState
-                        onFormSubmit={() => {
-                            setState('Main');
-                        }}
-                    ></SettingsState>
-                )}
-            </main>
-        </>
+        <main className="pl-16 text-2xl m-3">
+            <MenuBar curState={state} onStateChange={setState} />
+            {state === 'Main' && <MainState />}
+            {state === 'Settings' && (
+                <SettingsState
+                    onFormSubmit={() => {
+                        setState('Main');
+                    }}
+                ></SettingsState>
+            )}
+        </main>
     );
 }
 
