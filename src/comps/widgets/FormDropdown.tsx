@@ -1,6 +1,7 @@
-import { useState } from "react";
+import React from "react";
 
-export const FormDropdown = (props: { name: string; value: string; options: string[]; onChange: (choosen: string) => void }) => {
+
+export function FormDropdown(props: { name: string; value: string; options: string[]; onChange: (choosen: string) => void; }) {
     return (
         <label className="block m-3">
             {props.name}
@@ -17,4 +18,4 @@ export const FormDropdown = (props: { name: string; value: string; options: stri
             </select>
         </label>
     );
-};
+}
