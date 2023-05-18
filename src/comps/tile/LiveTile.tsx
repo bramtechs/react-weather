@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { WeatherQuery, getQueryKey, weatherQueryToString } from '../../api/WeatherTypes';
+import { getQueryKey, weatherLocationToString } from '../../api/WeatherTypes';
 import { TileContainer } from './impl/TileContainer';
 import { LiveTileInfo } from './impl/LiveTileInfo';
 import { ThreeDots } from 'react-loading-icons';
 import { ErrorCircleFilled } from '@fluentui/react-icons';
 import { searchWeather } from '../../api/WeatherApi';
-import { CurrentResponse } from 'openweathermap-ts/dist/types';
 import { FetchResult, InfoFetcher } from '../utils/InfoFetcher';
 import { TileButtons, ButtonBehaviour } from './impl/TileButtons';
 import { BackgroundTheme, typeNameToTileBackground } from '../../gfx/BackgroundThemes';
+import { LiveWeather, WeatherLocation } from '../../api/ext';
 
-export function isValidCurrentResponse(data: CurrentResponse | any): boolean {
+export function isValidLiveWeather(data: LiveWeather | any): boolean {
     if (data) {
-        const cur = data as CurrentResponse;
+        const cur = data as LiveWeather;
         return cur && cur.cod === 200;
     }
     return false;
 }
 
 export interface LiveTileProps {
-    query: WeatherQuery;
+    query: WeatherLocation;
     buttonBehaviour?: ButtonBehaviour;
 }
 
@@ -29,7 +29,7 @@ export const LiveTile = (props: LiveTileProps) => {
     const [bgTheme, setBgTheme] = useState<BackgroundTheme>(BackgroundTheme.Unknown);
 
     function parseWeatherType(data: any) {
-        const cur = data as CurrentResponse;
+        const cur = data as LiveWeather;
         return cur.weather?.[0].main !== undefined ? cur.weather[0].main : 'Unknown';
     }
 
@@ -50,13 +50,13 @@ export const LiveTile = (props: LiveTileProps) => {
     }
 
     function did404(data: any) {
-        const res = data as CurrentResponse;
+        const res = data as LiveWeather;
         return res?.cod == 404;
     }
 
     function getInnerContent() {
-        if (isValidCurrentResponse(results.data)) {
-            return <LiveTileInfo info={results.data as CurrentResponse} />;
+        if (isValidLiveWeather(results.data)) {
+            return <LiveTileInfo info={results.data as LiveWeather} />;
         } else if (results.error) {
             return (
                 <div>
@@ -68,7 +68,7 @@ export const LiveTile = (props: LiveTileProps) => {
         } else if (results.isLoading) {
             return <ThreeDots />;
         } else if (did404(results.data)) {
-            return <p>Could not find {weatherQueryToString(props.query)}</p>;
+            return <p>Could not find {weatherLocationToString(props.query)}</p>;
         } else {
             return <p>{JSON.stringify(results.data)}</p>;
         }

@@ -1,8 +1,8 @@
 import React from 'react';
 import { capitalizeFirst, formatTemp } from '../../../api/WeatherUtils';
-import { CurrentResponse } from 'openweathermap-ts/dist/types';
+import { LiveWeather } from '../../../api/ext';
 
-export const LiveTileInfo = (props: { info: CurrentResponse }) => {
+export const LiveTileInfo = (props: { info: LiveWeather }) => {
     const cityName = props.info.name;
     const temp = formatTemp(props.info.main.temp);
     const desc = props.info.weather[0].description;

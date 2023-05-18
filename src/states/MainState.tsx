@@ -1,47 +1,48 @@
 import { useState } from 'react';
-import { WeatherQueries, WeatherQuery, getQueryKey } from '../api/WeatherTypes';
+import { WeatherQueries, getQueryKey } from '../api/WeatherTypes';
 import { LiveTile } from '../comps/tile/LiveTile';
 import { DynamicLiveTile } from '../comps/tile/DynamicLiveTile';
 import { UserSettings } from '../storage/SettingsAbstractor';
 import { ButtonBehaviour } from '../comps/tile/impl/TileButtons';
 import { TileConfigurator } from '../comps/tile/impl/TileConfigurator';
 import { EmptyTile } from '../comps/tile/EmptyTile';
-import React from 'react';
 import { Wallpaper } from '../comps/Wallpaper';
 import { BackgroundTheme } from '../gfx/BackgroundThemes';
+import { WeatherLocation } from '../api/ext';
+import React from 'react';
 
 export function MainState() {
     const [queries, setQueries] = useState<WeatherQueries>(UserSettings().tiles);
-    const [editing, setEditing] = useState<WeatherQuery | undefined>(undefined);
+    const [editing, setEditing] = useState<WeatherLocation | undefined>(undefined);
 
-    function addNewTile(query?: WeatherQuery) {
+    function addNewTile(query?: WeatherLocation) {
         if (query) {
             const copy = {};
             Object.assign(copy, UserSettings().tiles);
             copy[getQueryKey(query)] = query;
             setQueries(copy);
             UserSettings((data) => (data.tiles = copy));
-            console.log(`Added new tile ${query?.cityName}`);
+            console.log(`Added new tile ${query?.city}`);
         }
     }
 
-    function removeTile(query: WeatherQuery) {
+    function removeTile(query: WeatherLocation) {
         const copy = {};
         Object.assign(copy, UserSettings().tiles);
         delete copy[getQueryKey(query)];
         UserSettings((data) => (data.tiles = copy));
         setQueries(copy);
-        console.info(`Removed tile ${query.cityName}`);
+        console.info(`Removed tile ${query.city}`);
     }
 
-    function handleTileEdit(query: WeatherQuery) {
+    function handleTileEdit(query: WeatherLocation) {
         setEditing(query);
-        console.info(`Editing tile ${query.cityName}`);
+        console.info(`Editing tile ${query.city}`);
     }
 
-    function processTileConfig(query?: WeatherQuery) {
+    function processTileConfig(query?: WeatherLocation) {
         if (query) {
-            if (editing?.cityName || editing?.coords) {
+            if (editing?.city || editing?.coords) {
                 removeTile(editing);
             }
             addNewTile(query);

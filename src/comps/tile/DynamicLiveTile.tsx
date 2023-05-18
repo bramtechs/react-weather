@@ -1,17 +1,16 @@
 import { useEffect, useState } from 'react';
 import { LiveTile } from './LiveTile';
-import { WeatherQuery } from '../../api/WeatherTypes';
 import { useGeolocated } from 'react-geolocated';
 import ThreeDots from 'react-loading-icons/dist/esm/components/three-dots';
 import { UserSettings } from '../../storage/SettingsAbstractor';
-import { ButtonBehaviour } from './impl/TileButtons';
-import React from 'react';
 import { BackgroundTheme } from '../../gfx/BackgroundThemes';
 import { TileContainer } from './impl/TileContainer';
+import { WeatherLocation } from '../../api/ext';
+import React from 'react';
 
 // TODO: Abstract geolocation away into GeolocationAbstractor
 export function DynamicLiveTile() {
-    function getInitialQuery(): WeatherQuery | undefined {
+    function getInitialQuery(): WeatherLocation | undefined {
         const loc = UserSettings().lastLocation;
         if (loc) {
             return {
@@ -37,7 +36,7 @@ export function DynamicLiveTile() {
         UserSettings().lastLocation = undefined;
     }
 
-    const [liveQuery, setLiveQuery] = useState<WeatherQuery | undefined>(getInitialQuery);
+    const [liveQuery, setLiveQuery] = useState<WeatherLocation | undefined>(getInitialQuery);
     const { coords, isGeolocationAvailable, isGeolocationEnabled } = useGeolocated({
         positionOptions: { enableHighAccuracy: false },
         userDecisionTimeout: 30000,

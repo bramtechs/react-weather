@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { WeatherQuery } from '../../../api/WeatherTypes';
 import { Popup } from '../../Popup';
+import { WeatherLocation } from '../../../api/ext';
 import React from 'react';
 
-export function TileConfigurator(props: { query?: WeatherQuery; onQuerySubmit: (query?: WeatherQuery) => void }) {
-    const [query, setQuery] = useState<WeatherQuery>(props.query || {});
+export function TileConfigurator(props: { query?: WeatherLocation; onQuerySubmit: (query?: WeatherLocation) => void }) {
+    const [query, setQuery] = useState<WeatherLocation>(props.query || {});
 
     function handleConfirmation() {
         query && props.onQuerySubmit(query);
@@ -24,7 +24,7 @@ export function TileConfigurator(props: { query?: WeatherQuery; onQuerySubmit: (
                             <label htmlFor="location">Location</label>
                         </td>
                         <td>
-                            <input value={query.cityName || ''} onChange={(e) => setQuery({ cityName: e.target.value })} id="location"></input>
+                            <input value={query.city || ''} onChange={(e) => setQuery({ city: e.target.value })} id="location"></input>
                         </td>
                     </tr>
                 </tbody>

@@ -1,17 +1,13 @@
 import { Coordinate } from '../storage/SettingsAbstractor';
+import { WeatherLocation } from './ext';
 
-export interface WeatherQuery {
-    cityName?: string;
-    coords?: Coordinate;
-
-}
 export interface WeatherQueries {
-    [key: string]: WeatherQuery;
+    [key: string]: WeatherLocation;
 }
 
-export function weatherQueryToString(query: WeatherQuery) {
-    if (query.cityName) {
-        return query.cityName;
+export function weatherLocationToString(query: WeatherLocation) {
+    if (query.city) {
+        return query.city;
     } else if (query.coords) {
         return `${query.coords.lat},${query.coords.lon}`;
     } else {
