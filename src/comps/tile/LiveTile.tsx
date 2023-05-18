@@ -41,7 +41,7 @@ export const LiveTile = (props: LiveTileProps) => {
     }, [results]);
 
     function generateQueryKey() {
-        return `live-info${getQueryKey(props.query)}-${iteration}`;
+        return `live-info-${getQueryKey(props.query)}-${iteration}`;
     }
 
     function handleRefresh() {
