@@ -4,8 +4,8 @@ const _OpenWeather: OpenWeatherMap = {
     proxy: {
         customHost: 'localhost:3000',
         fallback: true,
-        fallbackApiKey: 'db6b3fff5256fe57907e84c800f2d027',
     },
+    apiKey: 'db6b3fff5256fe57907e84c800f2d027',
 };
 
 export function searchWeather(query: WeatherLocation): Promise<LiveWeather> {

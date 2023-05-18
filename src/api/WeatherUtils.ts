@@ -1,23 +1,23 @@
-import { TempUnit, UserSettings } from "../storage/SettingsAbstractor";
+import { TempUnit, UserSettings } from '../storage/SettingsAbstractor';
 
-export function convertCelciusToUnit(amount: number, unit: TempUnit) {
+export function convertKelvinToUnit(kelvin: number, unit: TempUnit) {
     switch (unit) {
-        case "Celsius":
-            return amount;
-        case "Fahrenheit":
-            return amount + 33.8;
-        case "Kelvin":
-            return amount + 274.15;
+        case 'Celsius':
+            return kelvin - 274.15;
+        case 'Fahrenheit':
+            return (kelvin - 274.15) * (9 / 5) + 32;
+        case 'Kelvin':
+            return kelvin;
     }
 }
 
-export function formatTemp(celcius: number, unit?: TempUnit) {
+export function formatTemp(kelvin: number, unit?: TempUnit) {
     const unit2Use = unit || UserSettings().unit;
-    return `${convertCelciusToUnit(celcius, unit2Use).toFixed(0)} ${
+    return `${convertKelvinToUnit(kelvin, unit2Use).toFixed(0)} ${
         {
-            Celsius: "°C",
-            Fahrenheit: "°F",
-            Kelvin: "K",
+            Celsius: '°C',
+            Fahrenheit: '°F',
+            Kelvin: 'K',
         }[unit2Use]
     }`;
 }

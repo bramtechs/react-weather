@@ -1,8 +1,8 @@
-import { WeatherMapProxy } from "./types";
+import { OpenWeatherMap, WeatherMapProxy } from "./types";
 
 export const DEFAULT_HOST = "https://api.openweathermap.org";
 
-export async function multiFetch(urls: string[]) {
+export async function multiFetch(urls: string[]): Promise<Response> {
     let lastError = null;
     for (const url of urls) {
         try {
@@ -53,7 +53,7 @@ function formSubdirs(subs: string[]): string {
 
 function formArguments(args: QueryStrings): string {
     const formattedArgs: [string, string][] = Object.entries(args)
-        .filter(([_, value]) => value !== undefined)
+        .filter(([_, value]) => value !== undefined && value.toString().length > 0)
         .map(([key, value]) => {
             return [key, value!.toString()];
         });

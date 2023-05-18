@@ -16,7 +16,6 @@ export type CityId = number;
 export interface WeatherMapProxy {
     customHost: string;
     fallback: boolean; // use regular OpenWeatherMap calls when proxy down
-    fallbackApiKey?: string;
 }
 
 export interface OpenWeatherMap {

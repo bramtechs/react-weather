@@ -62,7 +62,7 @@ export const LiveTile = (props: LiveTileProps) => {
                 <div>
                     <ErrorCircleFilled />
                     <p>{'Could not load weather info!'}</p>
-                    {results.error ? <p>JSON.stringify(status.error)</p> : <></>}
+                    {results.error ? <p>{JSON.stringify(results.error)}</p> : <></>}
                 </div>
             );
         } else if (results.isLoading) {
