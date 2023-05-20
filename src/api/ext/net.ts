@@ -1,6 +1,6 @@
-import { OpenWeatherMap, WeatherMapProxy } from "./types";
+import { OpenWeatherMap, WeatherMapProxy } from './types';
 
-export const DEFAULT_HOST = "https://api.openweathermap.org";
+export const DEFAULT_HOST = 'https://api.openweathermap.org';
 
 export async function multiFetch(urls: string[]): Promise<Response> {
     let lastError = null;
@@ -9,44 +9,46 @@ export async function multiFetch(urls: string[]): Promise<Response> {
             return await fetch(url);
         } catch (e) {
             lastError = e;
-            console.error(`${url} failed to connect, using fallback!`,e);
+            console.error(`${url} failed to connect, using fallback!`, e);
         }
     }
-    throw lastError || new Error("No urls passed to multifetch!");
+    throw lastError || new Error('No urls passed to multifetch!');
 }
 
 export function proxify(url: string, proxy?: WeatherMapProxy): string[] {
     let urls = [url];
     if (proxy) {
         const proxyUrl = url.replace(DEFAULT_HOST, proxy.customHost);
-        urls.unshift(proxyUrl);
+        // remove appid query string from proxy url
+        const proxyUrlNoAppid = proxyUrl.replace(/&?appid=[^&]+/, '');
+        urls.unshift(proxyUrlNoAppid);
     }
     return urls;
 }
 
 function startsWithProtocol(url: string): boolean {
-    return url.startsWith("https://") || url.startsWith("http://");
+    return url.startsWith('https://') || url.startsWith('http://');
 }
 
 function formHost(url?: string): string {
     if (url) {
-        if (!url.endsWith("/")) {
-            url += "/";
+        if (!url.endsWith('/')) {
+            url += '/';
         }
         if (startsWithProtocol(url)) {
             return url;
         }
-        return "https://" + url;
+        return 'https://' + url;
     }
-    return DEFAULT_HOST + "/";
+    return DEFAULT_HOST + '/';
 }
 
 function formSubdirs(subs: string[]): string {
-    let url = "";
+    let url = '';
     for (let i = 0; i < subs.length; i++) {
         url += subs[i];
         if (i < subs.length - 1) {
-            url += "/";
+            url += '/';
         }
     }
     return url;
@@ -58,7 +60,7 @@ function formArguments(args: QueryStrings): string {
         .map(([key, value]) => {
             return [key, value!.toString()];
         });
-    return "?" + new URLSearchParams(formattedArgs).toString();
+    return '?' + new URLSearchParams(formattedArgs).toString();
 }
 
 type QueryStrings = {

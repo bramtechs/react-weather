@@ -1,23 +1,46 @@
 import { Request } from 'express-serve-static-core';
 
-let requests: Map<string, number>;
+const MAX_REQUESTS = 30;
+const REQUEST_TIME = 1000 * 60; // 1 minute
 
-export function gatekeepUserRequest(req: Request<{}, any, any, qs.ParsedQs, Record<string, any>>): boolean {
+interface User {
+    requests: number;
+    lastRequest: number;
+}
+
+const requests: Map<string, User> = new Map();
+
+function getIdentifier(req: Request<{}, any, any, qs.ParsedQs, Record<string, any>>): string {
     const ip = req.socket.remoteAddress;
     if (!ip) {
-        console.log('User has no IP address!');
-        return false;
+        throw new Error('No identifier found!');
     }
+    return ip;
+}
+
+export function gatekeepUserRequest(req: Request<{}, any, any, qs.ParsedQs, Record<string, any>>): void {
+    const ip = getIdentifier(req);
 
     if (requests.has(ip)) {
-        const count = requests.get(ip)!;
-        if (count >= 5) {
-            console.warn(`User ${ip} has been blocked for sending too many requests!`);
-            return false;
+        const user = requests.get(ip)!;
+
+        // remove user if they haven't sent a request in a while
+        if (user.lastRequest + REQUEST_TIME < Date.now()) {
+            requests.delete(ip);
+            return;
         }
-        requests.set(ip, count + 1);
+
+        user.lastRequest = Date.now();
+        user.requests++;
+
+        if (user.requests >= MAX_REQUESTS) {
+            throw new Error('Too many requests!');
+        }
     } else {
-        requests.set(ip, 1);
+        requests.set(ip, { requests: 0, lastRequest: Date.now() });
     }
-    return true;
+}
+
+export function printRequests() {
+    console.log(requests);
 }
