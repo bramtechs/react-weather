@@ -32,7 +32,7 @@ export async function getCoordinates(settings: OpenWeatherMap, location: Weather
         throw new Error(`Empty location string`);
     }
 
-    const locURL = proxify(formUrl(DEFAULT_HOST, ['geo', '1.0', 'direct'], { q: locationCSV(location), appid: settings.apiKey }));
+    const locURL = proxify(formUrl(DEFAULT_HOST, ['geo', '1.0', 'direct'], { q: locationCSV(location), appid: settings.apiKey }), settings.proxy);
     const res = await multiFetch(locURL);
     const json = await res.json();
     if (json.cod) {

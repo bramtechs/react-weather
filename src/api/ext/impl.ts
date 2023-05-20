@@ -4,7 +4,7 @@ import { Coordinate, LiveWeather, OpenWeatherMap, WeatherLocation } from './type
 const dataVersion = ['data', '2.5'];
 
 export async function getLiveWeatherFromCoords(settings: OpenWeatherMap, coords: Coordinate): Promise<LiveWeather> {
-    const url = proxify(formUrl(DEFAULT_HOST, [...dataVersion, 'weather'], { lat: coords.lat, lon: coords.lon, appid: settings.apiKey }));
+    const url = proxify(formUrl(DEFAULT_HOST, [...dataVersion, 'weather'], { lat: coords.lat, lon: coords.lon, appid: settings.apiKey }), settings.proxy);
     const res = await multiFetch(url);
     const json = await res.json();
     if (json.cod !== 200) {

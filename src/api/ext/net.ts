@@ -9,6 +9,7 @@ export async function multiFetch(urls: string[]): Promise<Response> {
             return await fetch(url);
         } catch (e) {
             lastError = e;
+            console.error(`${url} failed to connect, using fallback!`,e);
         }
     }
     throw lastError || new Error("No urls passed to multifetch!");
@@ -18,7 +19,7 @@ export function proxify(url: string, proxy?: WeatherMapProxy): string[] {
     let urls = [url];
     if (proxy) {
         const proxyUrl = url.replace(DEFAULT_HOST, proxy.customHost);
-        urls.push(proxyUrl);
+        urls.unshift(proxyUrl);
     }
     return urls;
 }

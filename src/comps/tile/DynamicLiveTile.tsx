@@ -40,7 +40,7 @@ export function DynamicLiveTile() {
     const { coords, isGeolocationAvailable, isGeolocationEnabled } = useGeolocated({
         positionOptions: { enableHighAccuracy: false },
         userDecisionTimeout: 30000,
-        watchPosition: true,
+        watchPosition: false,
     });
 
     useEffect(() => {
