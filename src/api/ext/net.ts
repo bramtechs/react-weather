@@ -9,7 +9,7 @@ export async function multiFetch(urls: string[]): Promise<Response> {
             return await fetch(url);
         } catch (e) {
             lastError = e;
-            console.error(`${url} failed to connect, using fallback!`, e);
+            console.warn(`${url} failed to connect, using fallback!`, e);
         }
     }
     throw lastError || new Error('No urls passed to multifetch!');
