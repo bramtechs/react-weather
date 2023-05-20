@@ -4,6 +4,7 @@
         "module": "ESNext",
         "moduleResolution": "nodenext",
         "strict": true,
+        "noImplicitAny": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "outDir": "./dist-server",

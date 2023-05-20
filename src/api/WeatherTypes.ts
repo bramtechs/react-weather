@@ -23,13 +23,13 @@ export function coordinateToString(coords: Coordinate) {
     return `${coords.lat},${coords.lon}`;
 }
 
-export function isQueryValid(query) {
-    return query.cityName != undefined || query.coords != undefined;
+export function isQueryValid(query: WeatherLocation) {
+    return query.city != undefined || query.coords != undefined;
 }
 
-export function getQueryKey(query) {
-    if (query.cityName) {
-        return `${query.cityName}`;
+export function getQueryKey(query: WeatherLocation) {
+    if (query.city) {
+        return `${query.city}`;
     } else if (query.coords) {
         return `${query.coords.lat}-${query.coords.lon}`;
     } else {
