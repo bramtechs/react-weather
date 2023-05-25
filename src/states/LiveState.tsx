@@ -11,7 +11,7 @@ import { BackgroundTheme } from '../gfx/BackgroundThemes';
 import { WeatherLocation } from '../api/ext';
 import React from 'react';
 
-export function MainState() {
+export function LiveState() {
     const [queries, setQueries] = useState<WeatherQueries>(UserSettings().tiles);
     const [editing, setEditing] = useState<WeatherLocation | undefined>(undefined);
 
