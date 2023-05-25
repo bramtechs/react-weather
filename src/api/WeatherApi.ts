@@ -9,5 +9,9 @@ const _OpenWeather: OpenWeatherMap = {
 };
 
 export function searchWeather(query: WeatherLocation): Promise<LiveWeather> {
+    // if github in url, don't use proxy (live web example)
+    if (window.location.href.includes('github')) {
+        _OpenWeather.proxy = undefined;
+    }
     return getLiveWeather(_OpenWeather, query);
 }
