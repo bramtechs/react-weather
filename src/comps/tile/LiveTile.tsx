@@ -9,6 +9,7 @@ import { FetchResult, InfoFetcher } from '../utils/InfoFetcher';
 import { TileButtons, ButtonBehaviour } from './impl/TileButtons';
 import { BackgroundTheme, typeNameToTileBackground } from '../../gfx/BackgroundThemes';
 import { LiveWeather, WeatherLocation } from '../../api/ext';
+import { TileWarnings } from './impl/TileWarnings';
 
 export function isValidLiveWeather(data: LiveWeather | any): boolean {
     if (data) {
@@ -85,6 +86,7 @@ export const LiveTile = (props: LiveTileProps) => {
         <TileContainer type={bgTheme}>
             <InfoFetcher queryKey={generateQueryKey()} fetchCall={() => searchWeather(props.query!)} onStatusChanged={setResults} />
             <TileButtons className="scale-0 group-hover:scale-100 transition-all" behaviour={behaviour} />
+            {results.data ? <TileWarnings info={results.data as LiveWeather} /> : <></>}
             {getInnerContent()}
         </TileContainer>
     );
