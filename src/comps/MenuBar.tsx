@@ -4,15 +4,6 @@ import { HomeFilled, SettingsFilled } from '@fluentui/react-icons';
 import { FluentIcon } from '@fluentui/react-icons/lib/utils/createFluentIcon';
 import React from 'react';
 
-type StateIcons = {
-    [key in AppState]: ReactElement<FluentIcon>;
-};
-
-const _icons: StateIcons = {
-    Main: <HomeFilled />,
-    Settings: <SettingsFilled />,
-};
-
 type MenuIconProps = { isOpen?: boolean; tooltip: string; onClick: () => void; icon: ReactElement<FluentIcon> };
 
 const MenuIcon = (props: MenuIconProps) => {
@@ -36,15 +27,13 @@ const MenuIcon = (props: MenuIconProps) => {
 export const MenuBar = (props: { curState: AppState; onStateChange?: (state: AppState) => void }) => {
     return (
         <ul className="fixed top-0 left-0 h-screen w-16 flex flex-col bg-blue-900">
-            {AppStates.map((state) => (
+            {Object.entries(AppStates).map(([key, state]) => (
                 <MenuIcon
-                    key={state}
-                    isOpen={state === props.curState}
-                    tooltip={state}
-                    onClick={() => {
-                        props.onStateChange && props.onStateChange(state);
-                    }}
-                    icon={_icons[state]}
+                    key={key}
+                    isOpen={key === props.curState}
+                    tooltip={state.displayName || key}
+                    onClick={() => props.onStateChange?.(key as AppState)}
+                    icon={state.icon}
                 />
             ))}
         </ul>

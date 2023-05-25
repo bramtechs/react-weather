@@ -5,7 +5,7 @@ import { StyledButton } from '../comps/StyledButton';
 import { FormColorpicker } from '../comps/widgets/FormColorpicker';
 import React from 'react';
 
-export const SettingsState = (props: { onFormSubmit: () => void }) => {
+export const SettingsState = () => {
     const [unit, setUnit] = useState<TempUnit>(UserSettings().unit);
     const [themeColor, setThemeColor] = useState<string>('#fffff');
 
@@ -13,7 +13,6 @@ export const SettingsState = (props: { onFormSubmit: () => void }) => {
         UserSettings((s) => {
             s.unit = unit;
         });
-        props.onFormSubmit();
     }
 
     function wipeTiles() {

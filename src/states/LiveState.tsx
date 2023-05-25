@@ -53,20 +53,17 @@ export function LiveState() {
     }
 
     return (
-        <>
-            <Wallpaper theme={BackgroundTheme.Clouds} />
-            <div className="flex flex-wrap justify-center">
-                <DynamicLiveTile />
-                {Object.entries(queries).map(([keyName, query]) => {
-                    const behaviour: ButtonBehaviour = {
-                        onRemove: () => removeTile(query),
-                        onEdit: () => handleTileEdit(query),
-                    };
-                    return <LiveTile key={keyName} query={query} buttonBehaviour={behaviour} />;
-                })}
-                <EmptyTile onAddRequested={() => setEditing({})} />
-                {editing ? <TileConfigurator query={editing} onQuerySubmit={processTileConfig} /> : <></>}
-            </div>
-        </>
+        <div className="flex flex-wrap justify-center">
+            <DynamicLiveTile />
+            {Object.entries(queries).map(([keyName, query]) => {
+                const behaviour: ButtonBehaviour = {
+                    onRemove: () => removeTile(query),
+                    onEdit: () => handleTileEdit(query),
+                };
+                return <LiveTile key={keyName} query={query} buttonBehaviour={behaviour} />;
+            })}
+            <EmptyTile onAddRequested={() => setEditing({})} />
+            {editing ? <TileConfigurator query={editing} onQuerySubmit={processTileConfig} /> : <></>}
+        </div>
     );
 }
