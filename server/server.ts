@@ -16,8 +16,12 @@ app.get('*', async (req, res) => {
     }
     const url = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
     const cached = await fetchCached(url);
-    res.header('Access-Control-Allow-Origin', '*');
-    res.status(200).send(cached.data);
+    if (cached) {
+        res.header('Access-Control-Allow-Origin', '*');
+        res.status(200).send(cached.data);
+    } else {
+        res.status(404).send({ error: 'Could not fetch data!' });
+    }
 });
 
 app.listen(port, () => {
