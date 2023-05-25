@@ -1,4 +1,4 @@
-import { OpenWeatherMap, WeatherMapProxy } from './types';
+import { WeatherMapProxy } from './types';
 
 export const DEFAULT_HOST = 'https://api.openweathermap.org';
 
