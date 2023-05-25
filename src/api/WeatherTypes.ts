@@ -23,11 +23,11 @@ export function coordinateToString(coords: Coordinate) {
     return `${coords.lat},${coords.lon}`;
 }
 
-export function isQueryValid(query: WeatherLocation) {
+export function isLocationValid(query: WeatherLocation) {
     return query.city != undefined || query.coords != undefined;
 }
 
-export function getQueryKey(query: WeatherLocation) {
+export function getLocationKey(query: WeatherLocation) {
     if (query.city) {
         return `${query.city}`;
     } else if (query.coords) {

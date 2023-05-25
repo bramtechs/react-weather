@@ -1,8 +1,11 @@
 {
     "compilerOptions": {
         "target": "ESNext",
-        "module": "ESNext",
-        "moduleResolution": "nodenext",
+        "useDefineForClassFields": true,
+        "lib": ["ESNext", "DOM"],
+        "allowJs": false,
+        "skipLibCheck": true,
+        "allowSyntheticDefaultImports": true,
         "strict": true,
         "noImplicitAny": true,
         "esModuleInterop": true,
