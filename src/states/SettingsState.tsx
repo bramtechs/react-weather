@@ -23,7 +23,6 @@ export const SettingsState = () => {
     return (
         <div className="text-center">
             <FormDropdown name="Temperature Unit" value={unit} options={TempUnits} onChange={(u) => setUnit(u as TempUnit)} />
-            <FormColorpicker name="Sidebar color" value={themeColor} onChange={setThemeColor} />
             <div className="flex w-full flex-grow justify-evenly">
                 <StyledButton onClick={wipeTiles} theme="Red">
                     Reset tiles

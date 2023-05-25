@@ -1,4 +1,4 @@
-import { AppState, AppStates } from '../App';
+import { AppStates } from '../App';
 import { ReactElement } from 'react';
 import { HomeFilled, SettingsFilled } from '@fluentui/react-icons';
 import { FluentIcon } from '@fluentui/react-icons/lib/utils/createFluentIcon';
@@ -24,7 +24,7 @@ const MenuIcon = (props: MenuIconProps) => {
     );
 };
 
-export const MenuBar = (props: { curState: AppState; onStateChange?: (state: AppState) => void }) => {
+export const MenuBar = (props: { curState: string; onStateChange?: (state: string) => void }) => {
     return (
         <ul className="fixed top-0 left-0 h-screen w-16 flex flex-col bg-blue-900">
             {Object.entries(AppStates).map(([key, state]) => (
@@ -32,7 +32,7 @@ export const MenuBar = (props: { curState: AppState; onStateChange?: (state: App
                     key={key}
                     isOpen={key === props.curState}
                     tooltip={state.displayName || key}
-                    onClick={() => props.onStateChange?.(key as AppState)}
+                    onClick={() => props.onStateChange?.(key)}
                     icon={state.icon}
                 />
             ))}
