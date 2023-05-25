@@ -2,7 +2,7 @@ import { LiveWeather, OpenWeatherMap, WeatherLocation, getLiveWeather } from './
 
 const _OpenWeather: OpenWeatherMap = {
     proxy: {
-        customHost: 'localhost:3000',
+        customHost: 'http://localhost:3000',
         fallback: true,
     },
     apiKey: 'db6b3fff5256fe57907e84c800f2d027',

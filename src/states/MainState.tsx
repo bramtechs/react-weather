@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { WeatherQueries, getQueryKey } from '../api/WeatherTypes';
+import { WeatherQueries, getLocationKey } from '../api/WeatherTypes';
 import { LiveTile } from '../comps/tile/LiveTile';
 import { DynamicLiveTile } from '../comps/tile/DynamicLiveTile';
 import { UserSettings } from '../storage/SettingsAbstractor';
@@ -19,7 +19,7 @@ export function MainState() {
         if (query) {
             const copy = {};
             Object.assign(copy, UserSettings().tiles);
-            copy[getQueryKey(query)] = query;
+            copy[getLocationKey(query)] = query;
             setQueries(copy);
             UserSettings((data) => (data.tiles = copy));
             console.log(`Added new tile ${query?.city}`);
@@ -29,7 +29,7 @@ export function MainState() {
     function removeTile(query: WeatherLocation) {
         const copy = {};
         Object.assign(copy, UserSettings().tiles);
-        delete copy[getQueryKey(query)];
+        delete copy[getLocationKey(query)];
         UserSettings((data) => (data.tiles = copy));
         setQueries(copy);
         console.info(`Removed tile ${query.city}`);

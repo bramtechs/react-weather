@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getQueryKey, weatherLocationToString } from '../../api/WeatherTypes';
+import { getLocationKey, weatherLocationToString } from '../../api/WeatherTypes';
 import { TileContainer } from './impl/TileContainer';
 import { LiveTileInfo } from './impl/LiveTileInfo';
 import { ThreeDots } from 'react-loading-icons';
@@ -41,7 +41,7 @@ export const LiveTile = (props: LiveTileProps) => {
     }, [results]);
 
     function generateQueryKey() {
-        return `live-info-${getQueryKey(props.query)}-${iteration}`;
+        return `live-info-${getLocationKey(props.query)}-${iteration}`;
     }
 
     function handleRefresh() {

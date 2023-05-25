@@ -1,6 +1,6 @@
 import { getCoordinates } from './geo';
 import { Coordinate, LiveWeather, OpenWeatherMap, WeatherLocation } from './types';
-import { getLiveWeatherFromCoords, isValidLocation } from './impl';
+import { getLiveWeatherFromCoords } from './impl';
 
 export async function getLiveWeather(settings: OpenWeatherMap, location: Coordinate | WeatherLocation | string): Promise<LiveWeather> {
     if (typeof location === 'string') {
