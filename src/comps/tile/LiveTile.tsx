@@ -57,20 +57,18 @@ export const LiveTile = (props: LiveTileProps) => {
     function getInnerContent() {
         if (isValidLiveWeather(results.data)) {
             return <LiveTileInfo info={results.data as LiveWeather} />;
-        } else if (results.error) {
-            return (
-                <div>
-                    <ErrorCircleFilled />
-                    <p>{'Could not load weather info!'}</p>
-                    {results.error ? <p>{JSON.stringify(results.error)}</p> : <></>}
-                </div>
-            );
         } else if (results.isLoading) {
             return <ThreeDots />;
         } else if (did404(results.data)) {
             return <p>Could not find {weatherLocationToString(props.query)}</p>;
         } else {
-            return <p>{JSON.stringify(results.data)}</p>;
+            return (
+                <div>
+                    <ErrorCircleFilled />
+                    <p>{'Could not load weather info!'}</p>
+                    <p>{results.error ? JSON.stringify(results.error) : (results.data as string)}</p>
+                </div>
+            );
         }
     }
 

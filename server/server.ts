@@ -8,6 +8,7 @@ const port = 3000;
 app.use(express.json());
 
 app.get('*', async (req, res) => {
+    // TODO: put only the allowed hosts here
     res.header('Access-Control-Allow-Origin', '*');
 
     try {

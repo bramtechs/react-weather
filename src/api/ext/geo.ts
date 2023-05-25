@@ -38,5 +38,8 @@ export async function getCoordinates(settings: OpenWeatherMap, location: Weather
     if (json.cod) {
         throw new Error(`Code ${json.cod} when retrieving coordinates`);
     }
+    if ('error' in json) {
+        throw new Error(json.error);
+    }
     return { lat: json[0].lat, lon: json[0].lon };
 }
