@@ -1,6 +1,6 @@
 import { Request } from 'express-serve-static-core';
 
-const MAX_REQUESTS = 30;
+const MAX_REQUESTS = 300;
 const REQUEST_TIME = 1000 * 60; // 1 minute
 
 interface User {
