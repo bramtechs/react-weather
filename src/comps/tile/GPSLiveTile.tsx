@@ -16,7 +16,7 @@ export function GPSLiveTile() {
     const [allowed, setAllowed] = React.useState<boolean>(false);
     const [query, setQuery] = React.useState<WeatherLocation | undefined>(undefined);
 
-    const [gps, setGPS] = React.useState<GPSContextInterface>({
+    const [gps, _] = React.useState<GPSContextInterface>({
         allowLocation: () => {
             setAllowed(true);
         },
@@ -25,17 +25,15 @@ export function GPSLiveTile() {
         },
     });
 
-    function getContainerContent() {
-        if (allowed) {
-            return query ? <LiveTile query={query} /> : <AllowedGPSLiveTile />;
-        } else {
-            return <LocationPrompter />;
-        }
-    }
-
     return (
         <GPSContext.Provider value={gps}>
-            <TileContainer type={BackgroundTheme.Unknown}>{getContainerContent()}</TileContainer>
+            {query ? (
+                <LiveTile query={query} />
+            ) : (
+                <TileContainer type={BackgroundTheme.Unknown}>
+                    {allowed ? <AllowedGPSLiveTile /> : <LocationPrompter />}
+                </TileContainer>
+            )}
         </GPSContext.Provider>
     );
 }

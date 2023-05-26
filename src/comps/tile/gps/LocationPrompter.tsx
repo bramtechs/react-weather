@@ -19,7 +19,7 @@ export function LocationPrompter() {
             <p className="pb-5">
                 Location access is required for
                 <br />
-                local weather info
+                retrieving local weather info
             </p>
             <StyledButton onClick={handleLocationAcceptance}>Accept</StyledButton>
         </div>
