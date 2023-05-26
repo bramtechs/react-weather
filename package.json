@@ -18,7 +18,6 @@
         "nodemon": "^2.0.22",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "react-geolocated": "^4.0.3",
         "react-loading-icons": "^1.1.0"
     },
     "devDependencies": {
