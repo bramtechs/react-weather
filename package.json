@@ -5,7 +5,7 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "dev": "vite",
+        "dev": "concurrently 'vite' 'nodemon'",
         "build": "tsc -p ./tsconfig.server.json && vite build",
         "preview": "vite preview",
         "serverdev": "nodemon",
@@ -13,18 +13,18 @@
         "host": "tsc -p tsconfig.server.json && node ./dist/server/server.js"
     },
     "dependencies": {
-        "@fluentui/react-icons": "^2.0.201",
-        "@tanstack/react-query": "^4.29.5",
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
         "nodemon": "^2.0.22",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-geolocated": "^4.1.0",
-        "react-loading-icons": "^1.1.0"
+        "react-loading-icons": "^1.1.0",
+        "@fluentui/react-icons": "^2.0.201",
+        "@tanstack/react-query": "^4.29.11"
     },
     "devDependencies": {
-        "@tanstack/react-query-devtools": "^4.29.6",
+        "@tanstack/react-query-devtools": "^4.29.11",
         "@types/express": "^4.17.17",
         "@types/jest": "^29.5.1",
         "@types/node": "^20.1.0",
@@ -33,6 +33,7 @@
         "@vitejs/plugin-react": "^4.0.0",
         "@vitejs/plugin-react-swc": "^3.0.0",
         "autoprefixer": "^10.4.14",
+        "concurrently": "^8.0.1",
         "eslint": "^8.38.0",
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-react-refresh": "^0.3.4",
