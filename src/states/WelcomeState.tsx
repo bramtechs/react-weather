@@ -21,7 +21,7 @@ export function WelcomeState() {
                     <h1 className="ml-auto mr-auto w-2/3 border-black border-b-2 border-solid text-4xl mb-5 pb-2">
                         React Weather
                     </h1>
-                    <h2 className="text-2xl mb-2">A slick way to recieve the latest weather info.</h2>
+                    <h2 className="text-2xl mb-2">A slick way to receive the latest weather info.</h2>
                     <div className="p-3 border-solid border-2 border-black/20">
                         <p>This site is in heavy development so features might be broken or missing entirely.</p>
                         <p>A mobile app is planned in the future that will be released on the Play Store.</p>
