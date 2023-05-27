@@ -28,6 +28,7 @@ async function run() {
     const info = {
         displayName: packageJson.displayName,
         version: packageJson.version,
+        image: "/tilesbg/clearnight.jpg"
     };
     fs.writeFileSync(folder + "/app.json", JSON.stringify(info, null, 2));
     console.log(`Wrote ${folder}/app.json...`);
