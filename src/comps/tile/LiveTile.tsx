@@ -11,14 +11,6 @@ import { BackgroundTheme, typeNameToTileBackground } from '../../gfx/BackgroundT
 import { LiveWeather, WeatherLocation } from '../../api/ext';
 import { TileWarnings } from './impl/TileWarnings';
 
-export function isValidLiveWeather(data: LiveWeather | any): boolean {
-    if (data) {
-        const cur = data as LiveWeather;
-        return cur && cur.cod === 200;
-    }
-    return false;
-}
-
 export interface LiveTileProps {
     query: WeatherLocation;
     buttonBehaviour?: ButtonBehaviour;
@@ -50,17 +42,12 @@ export const LiveTile = (props: LiveTileProps) => {
         setIteration(iteration + 1);
     }
 
-    function did404(data: any) {
-        const res = data as LiveWeather;
-        return res?.cod == 404;
-    }
-
     function getInnerContent() {
-        if (isValidLiveWeather(results.data)) {
+        if ((results?.data as any)?.cod == 200) {
             return <LiveTileInfo info={results.data as LiveWeather} />;
         } else if (results.isLoading) {
             return <ThreeDots />;
-        } else if (did404(results.data)) {
+        } else if ((results?.data as any)?.cod === 404) {
             return <p>Could not find {weatherLocationToString(props.query)}</p>;
         } else {
             return (
@@ -84,7 +71,11 @@ export const LiveTile = (props: LiveTileProps) => {
 
     return (
         <TileContainer type={bgTheme}>
-            <InfoFetcher queryKey={generateQueryKey()} fetchCall={() => searchWeather(props.query!)} onStatusChanged={setResults} />
+            <InfoFetcher
+                queryKey={generateQueryKey()}
+                fetchCall={() => searchWeather(props.query!)}
+                onStatusChanged={setResults}
+            />
             <TileButtons className="scale-0 group-hover:scale-100 transition-all" behaviour={behaviour} />
             {results.data ? <TileWarnings info={results.data as LiveWeather} /> : <></>}
             {getInnerContent()}
