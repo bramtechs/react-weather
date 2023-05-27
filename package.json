@@ -8,7 +8,8 @@
         "build": "tsc -p ./tsconfig.server.json && vite build",
         "preview": "vite preview",
         "serverdev": "nodemon",
-        "host": "tsc -p tsconfig.server.json && node ./dist-server/server.js"
+        "package": "node packager.mjs",
+        "host": "tsc -p tsconfig.server.json && node ./dist/server/server.js"
     },
     "dependencies": {
         "@fluentui/react-icons": "^2.0.201",
@@ -36,6 +37,7 @@
         "eslint-plugin-react-refresh": "^0.3.4",
         "tailwindcss": "^3.3.2",
         "typescript": "^5.0.2",
-        "vite": "^4.3.2"
+        "vite": "^4.3.2",
+        "zip-a-folder": "^1.1.5"
     }
 }

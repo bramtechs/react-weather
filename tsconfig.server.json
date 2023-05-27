@@ -10,7 +10,7 @@
         "noImplicitAny": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
-        "outDir": "./dist-server",
+        "outDir": "./dist/server",
         "rootDir": "./server"
     },
     "include": ["server/*.ts"],
