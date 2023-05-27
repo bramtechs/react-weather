@@ -1,14 +1,12 @@
 import { useState } from 'react';
 import { WeatherQueries, getLocationKey } from '../api/WeatherTypes';
 import { LiveTile } from '../comps/tile/LiveTile';
-import { DynamicLiveTile } from '../comps/tile/DynamicLiveTile';
 import { UserSettings } from '../storage/SettingsAbstractor';
 import { ButtonBehaviour } from '../comps/tile/impl/TileButtons';
 import { TileConfigurator } from '../comps/tile/impl/TileConfigurator';
 import { EmptyTile } from '../comps/tile/EmptyTile';
-import { Wallpaper } from '../comps/Wallpaper';
-import { BackgroundTheme } from '../gfx/BackgroundThemes';
 import { WeatherLocation } from '../api/ext';
+import { GPSLiveTile } from '../comps/tile/GPSLiveTile';
 import React from 'react';
 
 export function LiveState() {
@@ -54,7 +52,7 @@ export function LiveState() {
 
     return (
         <div className="flex flex-wrap justify-center">
-            <DynamicLiveTile />
+            <GPSLiveTile />
             {Object.entries(queries).map(([keyName, query]) => {
                 const behaviour: ButtonBehaviour = {
                     onRemove: () => removeTile(query),
