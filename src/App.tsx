@@ -2,10 +2,17 @@ import React, { ReactElement, useState } from 'react';
 import { SettingsState } from './states/SettingsState';
 import { MenuBar } from './comps/MenuBar';
 import { LiveState } from './states/LiveState';
-import { ChartMultiple24Filled, HomeFilled, Map24Filled, SettingsFilled } from '@fluentui/react-icons';
+import {
+    ChartMultiple24Filled,
+    HandWave24Filled,
+    HomeFilled,
+    Map24Filled,
+    SettingsFilled,
+} from '@fluentui/react-icons';
 import { Wallpaper } from './comps/Wallpaper';
 import { BackgroundTheme } from './gfx/BackgroundThemes';
 import { ForecastState } from './states/ForecastState';
+import { WelcomeState } from './states/WelcomeState';
 
 export interface AppStateProperties {
     displayName?: string;
@@ -14,6 +21,7 @@ export interface AppStateProperties {
 }
 
 export const AppStates: Record<string, AppStateProperties> = {
+    Welcome: { icon: <HandWave24Filled />, body: <WelcomeState /> },
     Home: { icon: <HomeFilled />, body: <LiveState /> },
     Forecast: { icon: <ChartMultiple24Filled />, body: <ForecastState /> },
     Map: { icon: <Map24Filled />, body: <div>display an openstreetmap with all your pinned locations</div> },
@@ -21,7 +29,7 @@ export const AppStates: Record<string, AppStateProperties> = {
 };
 
 function App() {
-    const [state, setState] = useState<string>('Home');
+    const [state, setState] = useState<string>('Welcome');
 
     return (
         <>
