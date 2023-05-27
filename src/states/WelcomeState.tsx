@@ -24,7 +24,7 @@ export function WelcomeState() {
                     <h2 className="text-2xl mb-2">A slick way to recieve the latest weather info.</h2>
                     <div className="p-3 border-solid border-2 border-black/20">
                         <p>This site is in heavy development so features might be broken or missing entirely.</p>
-                        <p>A mobile app version is planned in the future, that will be released on the Play Store.</p>
+                        <p>A mobile app is planned in the future that will be released on the Play Store.</p>
                         <p className="mb-10">
                             Check out the source code on{' '}
                             <a className="text-red-400" href="https://www.github.com/bramtechs/react-weather">
