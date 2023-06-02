@@ -1,6 +1,10 @@
 import React from 'react';
 import { ForecastPanel } from '../comps/forecast/ForecastPanel';
+import { ForecastDropdown } from '../comps/forecast/ForecastDropdown';
 
 export function ForecastState() {
-    return <div>{<ForecastPanel query={{ city: 'Bruges' }} />}</div>;
+    return <div>
+        <ForecastDropdown />
+        <ForecastPanel query={{ city: 'Bruges' }} />
+    </div>;
 }
